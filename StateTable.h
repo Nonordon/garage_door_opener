@@ -10,8 +10,15 @@
 
 class StateTable {
 public:
-    StateTable();
-    virtual ~StateTable();
+    StateTable(int maxStates, int initialState = 0);
+    virtual ~StateTable() {}
+    int getCurrentState() {return currentState}
+    int getMaxStates() {return maxStates}
+
+private:
+    int currentState;
+    int maxStates;
+
 };
 
 #endif /* STATETABLE_H_ */
