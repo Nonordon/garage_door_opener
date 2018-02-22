@@ -7,6 +7,7 @@
 
 #ifndef OUTPUT_H_
 #define OUTPUT_H_
+#include <iostream>
 
 class Output {
 public:
@@ -17,11 +18,11 @@ public:
     void setMotorUp();
     void setMotorDown();
 private:
-    bool motorUp;
-    bool motorDown;
-    bool beamOn;
     void motorStatus();
     void beamStatus();
+	bool motorUp;
+    bool motorDown;
+    bool beamOn;
 };
 
 #endif /* OUTPUT_H_ */

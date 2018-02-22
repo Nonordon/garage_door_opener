@@ -18,50 +18,53 @@ Output::~Output() {
     // TODO Auto-generated destructor stub
 }
 
-void Output::motorStatus()
+void Output::beamStatus()
 {
-    if (Output::beamOn)
+    if (beamOn)
     {
-        cout << "The beam is currently on." << endl;
+        std::cout << "The beam is currently on." << std::endl;
     } else
     {
-        cout << "The beam is currently on." << endl;
+    	std::cout << "The beam is currently off." << std::endl;
     }
 }
 
-void Output::beamStatus()
+void Output::motorStatus()
 {
-    if ((Output::motorUp) && !(Output::motorDown))
+    if ((motorUp) && !(motorDown))
     {
-        cout << "The motor is moving up." << endl;
-    } else if ((Output::motorDown) && !(Output::motorUp))
+    	std::cout << "The motor is moving up." << std::endl;
+    } else if ((motorDown) && !(motorUp))
     {
-        cout << "The motor is moving down." << endl;
+    	std::cout << "The motor is moving down." << std::endl;
+    } else if (!(motorDown) && !(motorUp))
+    {
+        std::cout << "The motor is not moving." << std::endl;
     } else
     {
-        cout << "Motor is currently set to move up and down." << endl;
+    	std::cout << "Motor is currently set to move up and down." << std::endl;
     }
 }
-void turnOnBeam()
+void Output::turnOnBeam()
 {
-	Output::beamOn = true;
-	Output::beamStatus();
+	beamOn = true;
+	beamStatus();
 }
-void turnOffBeam()
+void Output::turnOffBeam()
 {
-	Output::beamOn = false;
-	Output::beamStatus();
+	beamOn = false;
+	beamStatus();
 }
-void setMotorUp()
+void Output::setMotorUp()
 {
-	Output::motorUp = true;
-	Output::motorDown = false;
-	Output::motorStatus();
+	motorUp = true;
+	motorDown = false;
+	motorStatus();
 }
-void setMotorDown()
+void Output::setMotorDown()
 {
-	Output::motorUp = false;
-	Output::motorDown = true;
-	Output::motorStatus();
+	motorUp = false;
+	motorDown = true;
+	motorStatus();
 }
 
