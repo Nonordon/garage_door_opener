@@ -9,7 +9,8 @@
 
 GarageDoorController::GarageDoorController() {
 	// TODO Auto-generated constructor stub
-
+	direction = 0;
+	position = 0;
 
 }
 

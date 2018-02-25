@@ -9,6 +9,8 @@
 #define INPUTSCANNER_H_
 
 #include <pthread.h>
+#include <vector>
+#include "Input.h"
 
 class InputScanner {
 public:
@@ -20,6 +22,17 @@ public:
 	void signalPushButton();
 	void signalFullOpen();
 	void signalFullClosed();
+
+	std::vector<Input> inputs;
+
+	static bool MUTEX;
+
+	static bool OVERCURRENT;
+	static bool IRBEAMTRIP;
+	static bool BUTTON;
+	static bool FULLOPEN;
+	static bool FULLCLOSED;
+
 };
 
 #endif /* INPUTSCANNER_H_ */

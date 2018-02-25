@@ -7,15 +7,15 @@
 
 #ifndef TRANSITION_H_
 #define TRANSITION_H_
-#include "State.h"
+//#include "State.h"
 
 class Transition {
 public:
     Transition();
     virtual ~Transition();
-    State nextState;
-    bool guard() {}
-    bool accept() {}
+    int nextState;
+    bool guard() {return true;}
+    bool accept() {return true;}
     void event() {}
 };
 

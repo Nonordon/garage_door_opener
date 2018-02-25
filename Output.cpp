@@ -9,9 +9,9 @@
 
 Output::Output() {
     // TODO Auto-generated constructor stub
-    Output::motorUp = false;
-    Output::motorDown = false;
-    Output::beamOn = false;
+    motorUp = false;
+    motorDown = false;
+    beamOn = false;
 }
 
 Output::~Output() {

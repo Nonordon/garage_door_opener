@@ -7,8 +7,9 @@
 
 #include "StateTable.h"
 
-StateTable::StateTable(int maxStates, int initialState) {
+StateTable::StateTable(int initialState) {
 	// TODO Auto-generated constructor stub
+	currentState = initialState;
 
 }
 

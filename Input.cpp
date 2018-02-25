@@ -1,17 +1,17 @@
 /*
- * Open.cpp
+ * Input.cpp
  *
- *  Created on: Feb 22, 2018
+ *  Created on: Feb 25, 2018
  *      Author: Nonordon
  */
 
-#include "Open.h"
+#include "Input.h"
 
-Open::Open() {
+Input::Input() {
 	// TODO Auto-generated constructor stub
 
 }
 
-Open::~Open() {
+Input::~Input() {
 	// TODO Auto-generated destructor stub
 }

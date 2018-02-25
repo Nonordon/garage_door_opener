@@ -7,21 +7,23 @@
 
 #ifndef STATETABLE_H_
 #define STATETABLE_H_
-#include "Transition"
-#include "State"
+#include "Transition.h"
+#include "State.h"
 
 class StateTable {
 public:
-    StateTable(int maxStates, int initialState = 0);
+    StateTable(int initialState = 0);
     virtual ~StateTable();
-    int getCurrentState() {return currentState;}
-    int getMaxStates() {return maxStates;}
+    //int getCurrentState() {return currentState;}
+    //int getMaxStates() {return maxStates;}
 
-    std::map<int, std::map<int,Transition>> stateTransitionMap;
+    State stateList[];
+    Transition TransitionList[][5];
 
-private:
     int currentState;
-    int maxStates;
+    //int maxStates;
+
+
 
 };
 
