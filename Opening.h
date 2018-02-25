@@ -9,9 +9,8 @@
 #define OPENING_H_
 
 class Opening {
-public:
-	Opening();
-	virtual ~Opening();
+public
+	void reaction();
 };
 
 #endif /* OPENING_H_ */

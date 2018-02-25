@@ -10,8 +10,9 @@
 
 class Closing {
 public:
-	Closing();
-	virtual ~Closing();
+	void entry();
+	void exit();
+	void reaction();
 };
 
 #endif /* CLOSING_H_ */

@@ -11,8 +11,6 @@
 class Closed: public State {
 public:
 
-	Closed();
-	virtual ~Closed();
 };
 
 #endif /* CLOSED_H_ */

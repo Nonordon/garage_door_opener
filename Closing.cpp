@@ -7,11 +7,17 @@
 
 #include "Closing.h"
 
-Closing::Closing() {
-	// TODO Auto-generated constructor stub
-
+void Closing::entry()
+{
+	Output::turnOnBeam();
 }
 
-Closing::~Closing() {
-	// TODO Auto-generated destructor stub
+void Closing::exit()
+{
+	Output::turnOffBeam();
+}
+
+void Closing::reaction()
+{
+	GarageDoorController::position--;
 }

@@ -7,11 +7,7 @@
 
 #include "Opening.h"
 
-Opening::Opening() {
-	// TODO Auto-generated constructor stub
-
-}
-
-Opening::~Opening() {
-	// TODO Auto-generated destructor stub
+void Opening::reaction()
+{
+	GarageDoorController::position++;
 }

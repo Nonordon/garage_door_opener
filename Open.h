@@ -10,8 +10,7 @@
 
 class Open {
 public:
-	Open();
-	virtual ~Open();
+
 };
 
 #endif /* OPEN_H_ */

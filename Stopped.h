@@ -10,8 +10,7 @@
 
 class Stopped {
 public:
-	Stopped();
-	virtual ~Stopped();
+
 };
 
 #endif /* STOPPED_H_ */
