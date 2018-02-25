@@ -9,7 +9,6 @@
 #define INPUTSCANNER_H_
 
 #include <pthread.h>
-#include "Global.h"
 
 class InputScanner {
 public:

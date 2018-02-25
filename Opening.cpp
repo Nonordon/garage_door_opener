@@ -6,6 +6,7 @@
  */
 
 #include "Opening.h"
+#include "GarageDoorController.h"
 
 void Opening::reaction()
 {

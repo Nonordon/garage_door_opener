@@ -56,71 +56,71 @@ void* InputScanner::InputScannerThread(void* arg) {
 
 void InputScanner::signalMotorOvercurrent() {
 	// Check that no one else is accessing the shared (global) variables
-    if(::MUTEX == false){
+    if(Global::MUTEX == false){
     	// Set MUTEX to True to lock the shared resources temporarily
-        ::MUTEX = true;
+    	Global::MUTEX = true;
         // If no other signal flag is set, set OVERCURRENT signal flag True
-        if((::OVERCURRENT == false) && (::IRBEAMTRIP == false) && (::BUTTON == false) && (::FULLOPEN == false) && (::FULLCLOSED == false)){
-            ::OVERCURRENT = true;
+        if((Global::OVERCURRENT == false) && (Global::IRBEAMTRIP == false) && (Global::BUTTON == false) && (Global::FULLOPEN == false) && (Global::FULLCLOSED == false)){
+        	Global::OVERCURRENT = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        ::MUTEX = false;
+        Global::MUTEX = false;
     }
 }
 
 void InputScanner::signalInfraredBeamTrip() {
 	// Check that no one else is accessing the shared (global) variables
-    if(::MUTEX == false){
+    if(Global::MUTEX == false){
     	// Set MUTEX to True to lock the shared resources temporarily
-        ::MUTEX = true;
+    	Global::MUTEX = true;
         // If no other signal flag is set, set IRBEAMTRIP signal flag True
-        if(::OVERCURRENT == false && ::IRBEAMTRIP == false && ::BUTTON == false && ::FULLOPEN == false && ::FULLCLOSED == false){
-            ::IRBEAMTRIP = true;
+        if(Global::OVERCURRENT == false && Global::IRBEAMTRIP == false && Global::BUTTON == false && Global::FULLOPEN == false && Global::FULLCLOSED == false){
+        	Global::IRBEAMTRIP = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        ::MUTEX = false;
+        Global::MUTEX = false;
     }
 }
 
 void InputScanner::signalPushButton() {
 	// Check that no one else is accessing the shared (global) variables
-    if(::MUTEX == false){
+    if(Global::MUTEX == false){
     	// Set MUTEX to True to lock the shared resources temporarily
-        ::MUTEX = true;
+    	Global::MUTEX = true;
         // If no other signal flag is set, set BUTTON signal flag True
-        if(::OVERCURRENT == false && ::IRBEAMTRIP == false && ::BUTTON == false && ::FULLOPEN == false && ::FULLCLOSED == false){
-            ::BUTTON = true;
+        if(Global::OVERCURRENT == false && Global::IRBEAMTRIP == false && Global::BUTTON == false && Global::FULLOPEN == false && Global::FULLCLOSED == false){
+        	Global::BUTTON = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        ::MUTEX = false;
+        Global::MUTEX = false;
     }
 }
 
 void InputScanner::signalFullOpen() {
 	// Check that no one else is accessing the shared (global) variables
-    if(::MUTEX == false){
+    if(Global::MUTEX == false){
     	// Set MUTEX to True to lock the shared resources temporarily
-        ::MUTEX = true;
+    	Global::MUTEX = true;
         // If no other signal flag is set, set FULLOPEN signal flag True
-        if(::OVERCURRENT == false && ::IRBEAMTRIP == false && ::BUTTON == false && ::FULLOPEN == false && ::FULLCLOSED == false){
-            ::FULLOPEN = true;
+        if(Global::OVERCURRENT == false && Global::IRBEAMTRIP == false && Global::BUTTON == false && Global::FULLOPEN == false && Global::FULLCLOSED == false){
+        	Global::FULLOPEN = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        ::MUTEX = false;
+        Global::MUTEX = false;
     }
 }
 
 void InputScanner::signalFullClosed() {
 	// Check that no one else is accessing the shared (global) variables
-    if(::MUTEX == false){
+    if(Global::MUTEX == false){
     	// Set MUTEX to True to lock the shared resources temporarily
-        ::MUTEX = true;
+    	Global::MUTEX = true;
         // If no other signal flag is set, set FULLCLOSED signal flag True
-        if(::OVERCURRENT == false && ::IRBEAMTRIP == false && ::BUTTON == false && ::FULLOPEN == false && ::FULLCLOSED == false){
-            ::FULLCLOSED = true;
+        if(Global::OVERCURRENT == false && Global::IRBEAMTRIP == false && Global::BUTTON == false && Global::FULLOPEN == false && Global::FULLCLOSED == false){
+        	Global::FULLCLOSED = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        ::MUTEX = false;
+        Global::MUTEX = false;
     }
 }
 

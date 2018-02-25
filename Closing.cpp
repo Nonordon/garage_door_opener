@@ -6,6 +6,8 @@
  */
 
 #include "Closing.h"
+#include "Output.h"
+#include "GarageDoorController.h"
 
 void Closing::entry()
 {
