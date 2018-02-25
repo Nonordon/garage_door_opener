@@ -8,8 +8,11 @@
 #ifndef CLOSED_H_
 #define CLOSED_H_
 
-class Closed: public State {
+class Closed {
 public:
+	Closed();
+    virtual ~Closed();
+
 
 };
 

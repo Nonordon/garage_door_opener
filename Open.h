@@ -10,6 +10,8 @@
 
 class Open {
 public:
+	Open();
+    virtual ~Open();
 
 };
 

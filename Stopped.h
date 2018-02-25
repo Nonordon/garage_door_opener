@@ -10,6 +10,8 @@
 
 class Stopped {
 public:
+	Stopped();
+	virtual ~Stopped();
 
 };
 

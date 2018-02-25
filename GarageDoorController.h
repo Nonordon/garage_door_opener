@@ -13,8 +13,8 @@ public:
 	GarageDoorController();
 	virtual ~GarageDoorController();
 	void thread();
-	bool direction;
-	bool position;
+	bool direction = 0;
+	bool position = 0;
 };
 
 #endif /* GARAGEDOORCONTROLLER_H_ */

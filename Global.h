@@ -11,13 +11,13 @@
 class Global{
 public:
     // MUTEX is True when a thread is currently accessing shared (global) variables, else False.
-    bool MUTEX = false;
+    static bool MUTEX = false;
 
-    bool OVERCURRENT = false;
-    bool IRBEAMTRIP = false;
-    bool BUTTON = false;
-    bool FULLOPEN = false;
-    bool FULLCLOSED = false;
+    static bool OVERCURRENT = false;
+    static bool IRBEAMTRIP = false;
+    static bool BUTTON = false;
+    static bool FULLOPEN = false;
+    static bool FULLCLOSED = false;
 };
 
 #endif /* GLOBAL_H_ */

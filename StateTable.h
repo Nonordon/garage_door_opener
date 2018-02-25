@@ -13,9 +13,9 @@
 class StateTable {
 public:
     StateTable(int maxStates, int initialState = 0);
-    virtual ~StateTable() {}
-    int getCurrentState() {return currentState;};
-    int getMaxStates() {return maxStates;};
+    virtual ~StateTable();
+    int getCurrentState() {return currentState;}
+    int getMaxStates() {return maxStates;}
 
     std::map<int, std::map<int,Transition>> stateTransitionMap;
 
