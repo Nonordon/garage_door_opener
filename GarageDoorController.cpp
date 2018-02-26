@@ -11,10 +11,6 @@ GarageDoorController::GarageDoorController() {
 	// TODO Auto-generated constructor stub
 	direction = 0;
 	position = 0;
-    pthread_attr_t threadAttr;
-    pthread_attr_init(&threadAttr);		// initialize thread attributes structure
-    pthread_attr_setdetachstate(&threadAttr, PTHREAD_CREATE_JOINABLE);
-    pthread_create(&GarageDoorControllerThreadID, &threadAttr, &GarageDoorController::GarageDoorControllerThread, this);
 
 
 }

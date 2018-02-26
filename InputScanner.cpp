@@ -25,10 +25,6 @@ bool InputScanner::BUTTON = false;
 
 InputScanner::InputScanner() {
     // TODO Auto-generated constructor stub
-    pthread_attr_t threadAttr;
-    pthread_attr_init(&threadAttr);		// initialize thread attributes structure
-    pthread_attr_setdetachstate(&threadAttr, PTHREAD_CREATE_JOINABLE);
-    pthread_create(&inputScannerThreadID, &threadAttr, &InputScanner::InputScannerThread, this);
 }
 
 void* InputScanner::InputScannerThread(void* arg) {
