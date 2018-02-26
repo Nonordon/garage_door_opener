@@ -17,3 +17,12 @@ ClosingOvercurrentOpening::~ClosingOvercurrentOpening() {
 }
 
 // guard, accept, event
+
+bool accept(){
+    if (InputScanner::OVERCURRENT == true){
+        InputScanner::OVERCURRENT = false;
+        return true;
+    }
+    else
+        return false;
+}

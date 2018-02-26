@@ -17,3 +17,12 @@ ClosingInfraredbeamOpening::~ClosingInfraredbeamOpening() {
 }
 
 // guard, accept, event
+
+bool accept(){
+    if (InputScanner::IRBEAMTRIP == true){
+        InputScanner::IRBEAMTRIP = false;
+        return true;
+    }
+    else
+        return false;
+}

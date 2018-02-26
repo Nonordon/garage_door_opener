@@ -16,6 +16,7 @@ StoppedButtonClosing::~StoppedButtonClosing() {
     // TODO Auto-generated destructor stub
 }
 
+// guard, accept, event
 
 bool guard()
 {
@@ -24,4 +25,13 @@ bool guard()
 		return true;
 	else
 		return false;
+}
+
+bool accept(){
+    if (InputScanner::BUTTON == true){
+        InputScanner::BUTTON = false;
+        return true;
+    }
+    else
+        return false;
 }
