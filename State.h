@@ -12,9 +12,9 @@ class State {
 public:
     State();
     virtual ~State();
-    void entry() {};
-    void exit() {};
-    void reaction() {};
+    virtual void entry() {};
+    virtual void exit() {};
+    virtual void reaction() {};
 
 private:
 

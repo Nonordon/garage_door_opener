@@ -6,6 +6,8 @@
  */
 
 #include "OpeningOvercurrentStopped.h"
+#include "InputScanner.h"
+#include "GarageDoorController.h"
 
 OpeningOvercurrentStopped::OpeningOvercurrentStopped() {
 	// TODO Auto-generated constructor stub
@@ -23,13 +25,13 @@ bool OpeningOvercurrentStopped::accept(){
 	bool accepted = false;
     if(InputScanner::MUTEX == false){
         // Set MUTEX to True to lock the shared resources temporarily
-        MUTEX = true;
+    	InputScanner::MUTEX = true;
         if (InputScanner::OVERCURRENT == true){
             InputScanner::OVERCURRENT = false;
             accepted = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        MUTEX = false;
+        InputScanner::MUTEX = false;
     }
     return accepted;
 }

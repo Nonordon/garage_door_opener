@@ -13,6 +13,7 @@ class ClosingOvercurrentOpening: public Transition {
 public:
 	ClosingOvercurrentOpening();
 	virtual ~ClosingOvercurrentOpening();
+	bool accept();
 };
 
 #endif /* CLOSINGOVERCURRENTOPENING_H_ */

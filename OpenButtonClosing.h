@@ -13,6 +13,7 @@ class OpenButtonClosing: public Transition {
 public:
 	OpenButtonClosing();
 	virtual ~OpenButtonClosing();
+	bool accept();
 };
 
 #endif /* OPENBUTTONCLOSING_H_ */

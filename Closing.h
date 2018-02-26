@@ -13,6 +13,9 @@ class Closing: public State {
 public:
 	Closing();
 	virtual ~Closing();
+	void entry();
+	void exit();
+	void reaction();
 };
 
 #endif /* CLOSING_H_ */

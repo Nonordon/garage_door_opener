@@ -13,6 +13,7 @@ class ClosingInfraredbeamOpening: public Transition {
 public:
 	ClosingInfraredbeamOpening();
 	virtual ~ClosingInfraredbeamOpening();
+	bool accept();
 };
 
 #endif /* CLOSINGINFRAREDBEAMOPENING_H_ */

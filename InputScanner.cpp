@@ -61,13 +61,6 @@ void* InputScanner::InputScannerThread(void* arg) {
 			InputScanner::OVERCURRENT = IS.inputs[3]->getEvent(&userInput);
 			InputScanner::BUTTON = IS.inputs[4]->getEvent(&userInput);
 
-
-			std::cout << "FC: " << InputScanner::FULLCLOSED <<std::endl;
-			std::cout << "FO: " << InputScanner::FULLOPEN <<std::endl;
-			std::cout << "IR: " << InputScanner::IRBEAMTRIP <<std::endl;
-			std::cout << "OC: " << InputScanner::OVERCURRENT <<std::endl;
-			std::cout << "BN: " << InputScanner::BUTTON <<std::endl;
-
 			// Set MUTEX to False to release our lock on the shared resources
 			InputScanner::MUTEX = false;
         }

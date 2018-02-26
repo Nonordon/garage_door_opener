@@ -13,6 +13,8 @@ class StoppedButtonClosing: public Transition {
 public:
 	StoppedButtonClosing();
 	virtual ~StoppedButtonClosing();
+	bool guard();
+	bool accept();
 };
 
 #endif /* STOPPEDBUTTONCLOSING_H_ */

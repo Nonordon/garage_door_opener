@@ -13,6 +13,7 @@ class OpeningFullopenOpen: public Transition {
 public:
 	OpeningFullopenOpen();
 	virtual ~OpeningFullopenOpen();
+	bool guard();
 };
 
 #endif /* OPENINGFULLOPENOPEN_H_ */

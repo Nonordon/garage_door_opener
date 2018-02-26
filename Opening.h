@@ -13,6 +13,8 @@ class Opening: public State {
 public:
 	Opening();
 	virtual ~Opening();
+	void entry();
+	void reaction();
 };
 
 #endif /* OPENING_H_ */

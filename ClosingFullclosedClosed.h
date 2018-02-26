@@ -13,6 +13,7 @@ class ClosingFullclosedClosed: public Transition {
 public:
 	ClosingFullclosedClosed();
 	virtual ~ClosingFullclosedClosed();
+	bool guard();
 };
 
 #endif /* CLOSINGFULLCLOSEDCLOSED_H_ */

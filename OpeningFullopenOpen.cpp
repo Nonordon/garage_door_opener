@@ -6,6 +6,7 @@
  */
 
 #include "OpeningFullopenOpen.h"
+#include "GarageDoorController.h"
 
 OpeningFullopenOpen::OpeningFullopenOpen() {
 	// TODO Auto-generated constructor stub

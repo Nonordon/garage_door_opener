@@ -5,8 +5,11 @@
  *      Author: filme
  */
 
+//#include <chrono>
+#include <unistd.h>
 #include "Closing.h"
-#include <chrono>
+#include "Output.h"
+#include "GarageDoorController.h"
 
 Closing::Closing() {
 	// TODO Auto-generated constructor stub
@@ -21,13 +24,15 @@ void Closing::entry()
 {
     // Turn ON Beam
 	Output::turnOnBeam();
-	Timer t_position;
+	Output::setMotorDown();
+	/*Timer t_position;
 	t_position.start(std::chrono::milliseconds(1000), []{
 		reaction();
 		if (GarageDoorController::position == 0){
 			t_position.stop();
 		}
-	});
+	});*/
+	Closing::reaction();
 }
 
 void Closing::exit()
@@ -40,8 +45,8 @@ void Closing::reaction()
 {
     // Decrement position once per second (until position == 0)
 	GarageDoorController::position--;
-	/*while (GarageDoorController::position > 0){
-		usleep(1000);
+	while (GarageDoorController::position > 0){
+		sleep(1000);
 		GarageDoorController::position--;
-	}*/
+	}
 }

@@ -6,6 +6,7 @@
  */
 
 #include "ClosingFullclosedClosed.h"
+#include "GarageDoorController.h"
 
 ClosingFullclosedClosed::ClosingFullclosedClosed() {
 	// TODO Auto-generated constructor stub

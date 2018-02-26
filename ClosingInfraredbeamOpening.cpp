@@ -6,6 +6,7 @@
  */
 
 #include "ClosingInfraredbeamOpening.h"
+#include "InputScanner.h"
 
 ClosingInfraredbeamOpening::ClosingInfraredbeamOpening() {
 	// TODO Auto-generated constructor stub
@@ -23,13 +24,13 @@ bool ClosingInfraredbeamOpening::accept(){
 	bool accepted = false;
     if(InputScanner::MUTEX == false){
         // Set MUTEX to True to lock the shared resources temporarily
-        MUTEX = true;
+    	InputScanner::MUTEX = true;
         if (InputScanner::IRBEAMTRIP == true){
             InputScanner::IRBEAMTRIP = false;
             accepted = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        MUTEX = false;
+        InputScanner::MUTEX = false;
     }
     return accepted;
 }

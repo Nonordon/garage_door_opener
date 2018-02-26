@@ -6,6 +6,7 @@
  */
 
 #include "ClosedButtonOpening.h"
+#include "InputScanner.h"
 
 ClosedButtonOpening::ClosedButtonOpening() {
 	// TODO Auto-generated constructor stub
@@ -23,13 +24,13 @@ bool ClosedButtonOpening::accept(){
 	bool accepted = false;
     if(InputScanner::MUTEX == false){
         // Set MUTEX to True to lock the shared resources temporarily
-        MUTEX = true;
+    	InputScanner::MUTEX = true;
         if (InputScanner::BUTTON == true){
             InputScanner::BUTTON = false;
             accepted = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        MUTEX = false;
+        InputScanner::MUTEX = false;
     }
     return accepted;
 }

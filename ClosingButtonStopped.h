@@ -13,6 +13,8 @@ class ClosingButtonStopped: public Transition {
 public:
 	ClosingButtonStopped();
 	virtual ~ClosingButtonStopped();
+	bool accept();
+	void event();
 };
 
 #endif /* CLOSINGBUTTONSTOPPED_H_ */

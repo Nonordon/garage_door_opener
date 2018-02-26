@@ -13,6 +13,8 @@ class OpeningOvercurrentStopped: public Transition {
 public:
 	OpeningOvercurrentStopped();
 	virtual ~OpeningOvercurrentStopped();
+	bool accept();
+	void event();
 };
 
 #endif /* OPENINGOVERCURRENTSTOPPED_H_ */

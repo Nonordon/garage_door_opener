@@ -5,8 +5,12 @@
  *      Author: filme
  */
 
+//#include <chrono>
+//#include <Timer>
+#include <unistd.h>
 #include "Opening.h"
-#include <chrono>
+#include "Output.h"
+#include "GarageDoorController.h"
 
 Opening::Opening() {
 	// TODO Auto-generated constructor stub
@@ -19,21 +23,23 @@ Opening::~Opening() {
 
 void Opening::entry()
 {
-	Timer t_position;
+	Output::setMotorUp();
+	/*Timer t_position;
 	t_position.start(std::chrono::milliseconds(1000), []{
 		reaction();
 		if (GarageDoorController::position == 10){
 			t_position.stop();
 		}
-	});
+	});*/
+	Opening::reaction();
 }
 
 void Opening::reaction()
 {
     // Increment position once per second (until position == 10)
 	GarageDoorController::position++;
-	/*(while (GarageDoorController::position < 10){
-		usleep(1000);
+	while (GarageDoorController::position < 10){
+		sleep(1);
 		GarageDoorController::position++;
-	}*/
+	}
 }
