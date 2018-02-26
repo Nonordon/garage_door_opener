@@ -26,9 +26,9 @@
 #include "Transitions/StoppedButtonClosing.h"
 #include "Transitions/StoppedButtonOpening.h"
 
-StateTable::StateTable(int initialState) {
+StateTable::StateTable() {
     // TODO Auto-generated constructor stub
-    currentState = initialState;
+    currentState = 0;
 
     stateList.push_back(Closed::State());   // 0
     stateList.push_back(Closing::State());  // 1

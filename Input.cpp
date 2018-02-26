@@ -15,3 +15,8 @@ Input::Input() {
 Input::~Input() {
 	// TODO Auto-generated destructor stub
 }
+
+bool Input::getEvent(unsigned char* event)
+{
+	return false;
+}

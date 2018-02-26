@@ -13,7 +13,7 @@
 
 class StateTable {
 public:
-    StateTable(int initialState = 0);
+    StateTable();
     virtual ~StateTable();
     //int getCurrentState() {return currentState;}
     //int getMaxStates() {return maxStates;}

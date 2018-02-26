@@ -6,6 +6,7 @@
  */
 
 #include "GarageDoorController.h"
+#include <iostream>
 
 GarageDoorController::GarageDoorController() {
 	// TODO Auto-generated constructor stub
@@ -24,6 +25,7 @@ void* GarageDoorController::GarageDoorControllerThread(void* arg) {
     do{
     	for (unsigned int trans = 0; trans < GDC.transitionList[GDC.currentState].size(); trans++)
     	{
+    		//std::cout << GDC.currentState << std::endl;
     		if (GDC.transitionList[GDC.currentState][trans].guard() && GDC.transitionList[GDC.currentState][trans].accept())
     		{
     			GDC.transitionList[GDC.currentState][trans].event();
