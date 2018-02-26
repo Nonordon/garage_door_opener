@@ -17,3 +17,12 @@ OpenButtonClosing::~OpenButtonClosing() {
 }
 
 // guard, accept, event
+
+bool accept(){
+    if (InputScanner::BUTTON == true){
+        InputScanner::BUTTON = false;
+        return true;
+    }
+    else
+        return false;
+}

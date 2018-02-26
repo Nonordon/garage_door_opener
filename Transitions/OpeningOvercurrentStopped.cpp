@@ -18,6 +18,15 @@ OpeningOvercurrentStopped::~OpeningOvercurrentStopped() {
 
 // guard, accept, event
 
+bool accept(){
+    if (InputScanner::OVERCURRENT == true){
+        InputScanner::OVERCURRENT = false;
+        return true;
+    }
+    else
+        return false;
+}
+
 void event()
 {
     // set direction to 'previously opening' (0)

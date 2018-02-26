@@ -18,6 +18,15 @@ ClosingButtonStopped::~ClosingButtonStopped() {
 
 // guard, accept, event
 
+bool accept(){
+    if (InputScanner::BUTTON == true){
+        InputScanner::BUTTON = false;
+        return true;
+    }
+    else
+        return false;
+}
+
 void event()
 {
     // set direction to 'previously closing' (direction = 1)

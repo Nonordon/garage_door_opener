@@ -26,3 +26,13 @@ bool guard()
     else
         return false;
 }
+
+/*
+bool accept(){
+    if (InputScanner::FULLOPEN == true){
+        InputScanner::FULLOPEN = false;
+        return true;
+    }
+    else
+        return false;
+}*/
