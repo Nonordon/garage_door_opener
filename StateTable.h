@@ -19,10 +19,10 @@ public:
     //int getMaxStates() {return maxStates;}
 
     //State stateList[];
-    std::vector<State> stateList;
+    std::vector<State*> stateList;
 
     //Transition TransitionList[][5];
-    std::vector< std::vector<Transition> > transitionList;
+    std::vector< std::vector<Transition*> > transitionList;
 
     int currentState;
     //int maxStates;
