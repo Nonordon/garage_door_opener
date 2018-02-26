@@ -8,8 +8,13 @@
 #ifndef GARAGEDOORCONTROLLER_H_
 #define GARAGEDOORCONTROLLER_H_
 
-class GarageDoorController {
+#include <pthread.h>
+#include "StateTable.h"
+
+class GarageDoorController: public StateTable {
 public:
+	pthread_t GarageDoorControllerThreadID;
+	static void* GarageDoorControllerThread(void* arg);
 	GarageDoorController();
 	virtual ~GarageDoorController();
 	void thread();
