@@ -6,6 +6,7 @@
  */
 
 #include "Closing.h"
+#include <chrono>
 
 Closing::Closing() {
 	// TODO Auto-generated constructor stub
@@ -20,6 +21,13 @@ void entry()
 {
     // Turn ON Beam
 	Output::turnOnBeam();
+	Timer t_position;
+	t_position.start(std::chrono::milliseconds(1000), []{
+		reaction();
+		if (GarageDoorController::position == 0){
+			t_position.stop();
+		}
+	});
 }
 
 void exit()
@@ -31,8 +39,9 @@ void exit()
 void reaction()
 {
     // Decrement position once per second (until position == 0)
-	while (GarageDoorController::position > 0){
+	GarageDoorController::position--;
+	/*while (GarageDoorController::position > 0){
 		usleep(1000);
 		GarageDoorController::position--;
-	}
+	}*/
 }
