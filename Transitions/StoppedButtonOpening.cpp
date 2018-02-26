@@ -9,6 +9,7 @@
 
 StoppedButtonOpening::StoppedButtonOpening() {
 	// TODO Auto-generated constructor stub
+	nextState = 3; //Opening
 
 }
 
@@ -28,10 +29,16 @@ bool guard()
 }
 
 bool accept(){
-    if (InputScanner::BUTTON == true){
-        InputScanner::BUTTON = false;
-        return true;
+	bool accepted = false;
+    if(InputScanner::MUTEX == false){
+        // Set MUTEX to True to lock the shared resources temporarily
+        MUTEX = true;
+        if (InputScanner::BUTTON == true){
+            InputScanner::BUTTON = false;
+            accepted = true;
+        }
+        // Set MUTEX to False to release our lock on the shared resources
+        MUTEX = false;
     }
-    else
-        return false;
+    return accepted;
 }

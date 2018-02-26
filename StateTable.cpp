@@ -30,11 +30,11 @@ StateTable::StateTable(int initialState) {
     // TODO Auto-generated constructor stub
     currentState = initialState;
 
-    stateList.push_back(Closed::State());
-    stateList.push_back(Closing::State());
-    stateList.push_back(Open::State());
-    stateList.push_back(Opening::State());
-    stateList.push_back(Stopped::State());
+    stateList.push_back(Closed::State());   // 0
+    stateList.push_back(Closing::State());  // 1
+    stateList.push_back(Open::State());     // 2
+    stateList.push_back(Opening::State());  // 3
+    stateList.push_back(Stopped::State());  // 4
 
     // Transitions from CLOSED state
     std::vector<Transition> closed_transitions;

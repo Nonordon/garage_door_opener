@@ -9,6 +9,7 @@
 
 ClosingInfraredbeamOpening::ClosingInfraredbeamOpening() {
 	// TODO Auto-generated constructor stub
+	nextState = 3; //Opening
 
 }
 
@@ -19,10 +20,16 @@ ClosingInfraredbeamOpening::~ClosingInfraredbeamOpening() {
 // guard, accept, event
 
 bool accept(){
-    if (InputScanner::IRBEAMTRIP == true){
-        InputScanner::IRBEAMTRIP = false;
-        return true;
+	bool accepted = false;
+    if(InputScanner::MUTEX == false){
+        // Set MUTEX to True to lock the shared resources temporarily
+        MUTEX = true;
+        if (InputScanner::IRBEAMTRIP == true){
+            InputScanner::IRBEAMTRIP = false;
+            accepted = true;
+        }
+        // Set MUTEX to False to release our lock on the shared resources
+        MUTEX = false;
     }
-    else
-        return false;
+    return accepted;
 }

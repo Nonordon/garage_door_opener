@@ -9,6 +9,7 @@
 
 OpeningOvercurrentStopped::OpeningOvercurrentStopped() {
 	// TODO Auto-generated constructor stub
+	nextState = 4; //Stopped
 
 }
 
@@ -19,12 +20,18 @@ OpeningOvercurrentStopped::~OpeningOvercurrentStopped() {
 // guard, accept, event
 
 bool accept(){
-    if (InputScanner::OVERCURRENT == true){
-        InputScanner::OVERCURRENT = false;
-        return true;
+	bool accepted = false;
+    if(InputScanner::MUTEX == false){
+        // Set MUTEX to True to lock the shared resources temporarily
+        MUTEX = true;
+        if (InputScanner::OVERCURRENT == true){
+            InputScanner::OVERCURRENT = false;
+            accepted = true;
+        }
+        // Set MUTEX to False to release our lock on the shared resources
+        MUTEX = false;
     }
-    else
-        return false;
+    return accepted;
 }
 
 void event()
