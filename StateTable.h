@@ -9,6 +9,7 @@
 #define STATETABLE_H_
 #include "Transition.h"
 #include "State.h"
+#include <vector>
 
 class StateTable {
 public:
@@ -17,8 +18,11 @@ public:
     //int getCurrentState() {return currentState;}
     //int getMaxStates() {return maxStates;}
 
-    State stateList[];
-    Transition TransitionList[][5];
+    //State stateList[];
+    std::vector<State> stateList;
+
+    //Transition TransitionList[][5];
+    std::vector< std::vector<Transition> > transitionList;
 
     int currentState;
     //int maxStates;
