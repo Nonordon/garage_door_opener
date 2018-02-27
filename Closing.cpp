@@ -44,9 +44,9 @@ void Closing::exit()
 void Closing::reaction()
 {
     // Decrement position once per second (until position == 0)
-	GarageDoorController::position--;
+	GarageDoorController::position = (GarageDoorController::position - 1);
 	while (GarageDoorController::position > 0){
 		sleep(1000);
-		GarageDoorController::position--;
+		GarageDoorController::position = (GarageDoorController::position - 1);
 	}
 }

@@ -37,9 +37,9 @@ void Opening::entry()
 void Opening::reaction()
 {
     // Increment position once per second (until position == 10)
-	GarageDoorController::position++;
+	GarageDoorController::position = (GarageDoorController::position + 1);
 	while (GarageDoorController::position < 10){
 		sleep(1);
-		GarageDoorController::position++;
+		GarageDoorController::position = (GarageDoorController::position + 1);
 	}
 }
