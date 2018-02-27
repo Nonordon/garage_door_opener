@@ -14,7 +14,7 @@
 
 class InputScanner {
 public:
-	InputScanner();
+	InputScanner(std::queue<char> inQueue);
 	pthread_t inputScannerThreadID;
 	static void* InputScannerThread(void* arg);
 	void signalMotorOvercurrent();

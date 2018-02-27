@@ -11,12 +11,13 @@
 
 class Transition {
 public:
-    Transition();
+    Transition(std::queue<char>* inQueue);
     virtual ~Transition();
     int nextState;
     virtual bool guard() {return true;}
-    virtual bool accept() {return true;}
+    virtual bool accept(char* ev) {return true;}
     virtual void event() {}
+    std::queue<char>* ioqueue;
 };
 
 #endif /* TRANSITION_H_ */

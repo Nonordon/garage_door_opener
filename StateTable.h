@@ -10,6 +10,7 @@
 #include "Transition.h"
 #include "State.h"
 #include <vector>
+#include <queue>
 
 class StateTable {
 public:
@@ -26,6 +27,8 @@ public:
 
     int currentState;
     //int maxStates;
+
+    std::queue<char>* ioqueue;
 
 
 

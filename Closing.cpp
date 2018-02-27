@@ -12,8 +12,6 @@
 #include "GarageDoorController.h"
 #include <pthread.h>
 
-bool Closing::exited = false;
-
 Closing::Closing() {
 	// TODO Auto-generated constructor stub
 
@@ -26,19 +24,19 @@ Closing::~Closing() {
 void Closing::entry()
 {
     // Turn ON Beam
-	Output::turnOnBeam();
-	Output::setMotorDown();
-	Closing::exited = false;
+	output.turnOnBeam();
+	output.setMotorDown();
+	exited = false;
 	p_thread timer;
-	pthread_create(&timer, NULL, &Closing::reaction(), NULL);
+	pthread_create(&timer, NULL, &reaction(), NULL);
 	//Closing::reaction();
 }
 
 void Closing::exit()
 {
     // Turn OFF Beam
-	Closing::exited = true;
-	Output::turnOffBeam();
+	exited = true;
+	output.turnOffBeam();
 }
 
 void Closing::reaction()
@@ -47,9 +45,9 @@ void Closing::reaction()
 	//GarageDoorController::position = (GarageDoorController::position - 1);
 	while (GarageDoorController::position > 0){
 		sleep(1);
-		if (Closing::exited)
+		if (exited)
 		{
-			Closing::exited = false;
+			exited = false;
 			pthread_exit(NULL);
 		}
 		GarageDoorController::position = (GarageDoorController::position - 1);

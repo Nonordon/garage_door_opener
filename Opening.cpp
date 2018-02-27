@@ -13,8 +13,6 @@
 #include "GarageDoorController.h"
 #include <pthread.h>
 
-bool Opening::exited = false;
-
 Opening::Opening() {
 	// TODO Auto-generated constructor stub
 
@@ -26,15 +24,15 @@ Opening::~Opening() {
 
 void Opening::entry()
 {
-	Output::setMotorUp();
-	Opening::exited = false;
+	output.setMotorUp();
+	exited = false;
 	p_thread timer;
-	pthread_create(&timer, NULL, &Opening::reaction(), NULL);
+	pthread_create(&timer, NULL, &reaction(), NULL);
 	//Opening::reaction();
 }
 void Opening::exit()
 {
-	Opening::exited = true;
+	exited = true;
 }
 
 void Opening::reaction()
@@ -43,9 +41,9 @@ void Opening::reaction()
 	GarageDoorController::position = (GarageDoorController::position + 1);
 	while (GarageDoorController::position < 10){
 		sleep(1);
-		if (Opening::exited)
+		if (exited)
 		{
-			Opening::exited = false;
+			exited = false;
 			pthread_exit(NULL);
 		}
 		GarageDoorController::position = (GarageDoorController::position + 1);

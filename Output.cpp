@@ -7,12 +7,12 @@
 
 #include "Output.h"
 
-bool Output::motorUp = false;
-bool Output::motorDown = false;
-bool Output::beamOn = false;
 
 Output::Output() {
     // TODO Auto-generated constructor stub
+	motorUp = false;
+	motorDown = false;
+	beamOn = false;
 }
 
 Output::~Output() {
@@ -21,7 +21,7 @@ Output::~Output() {
 
 void Output::beamStatus()
 {
-    if (Output::beamOn)
+    if (beamOn)
     {
         std::cout << "The beam is currently on." << std::endl;
     } else
@@ -32,13 +32,13 @@ void Output::beamStatus()
 
 void Output::motorStatus()
 {
-    if ((Output::motorUp) && !(Output::motorDown))
+    if ((motorUp) && !(motorDown))
     {
     	std::cout << "The motor is moving up." << std::endl;
-    } else if ((Output::motorDown) && !(Output::motorUp))
+    } else if ((motorDown) && !(motorUp))
     {
     	std::cout << "The motor is moving down." << std::endl;
-    } else if (!(Output::motorDown) && !(Output::motorUp))
+    } else if (!(motorDown) && !(motorUp))
     {
         std::cout << "The motor is not moving." << std::endl;
     } else
@@ -48,24 +48,24 @@ void Output::motorStatus()
 }
 void Output::turnOnBeam()
 {
-	Output::beamOn = true;
-	Output::beamStatus();
+	beamOn = true;
+	beamStatus();
 }
 void Output::turnOffBeam()
 {
-	Output::beamOn = false;
-	Output::beamStatus();
+	beamOn = false;
+	beamStatus();
 }
 void Output::setMotorUp()
 {
-	Output::motorUp = true;
-	Output::motorDown = false;
-	Output::motorStatus();
+	motorUp = true;
+	motorDown = false;
+	motorStatus();
 }
 void Output::setMotorDown()
 {
-	Output::motorUp = false;
-	Output::motorDown = true;
-	Output::motorStatus();
+	motorUp = false;
+	motorDown = true;
+	motorStatus();
 }
 

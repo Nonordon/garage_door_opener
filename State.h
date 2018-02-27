@@ -7,14 +7,17 @@
 
 #ifndef STATE_H_
 #define STATE_H_
+#include "Output.h"
 
 class State {
 public:
-    State();
+    State(Output inOutput);
     virtual ~State();
     virtual void entry() {};
     virtual void exit() {};
     virtual void reaction() {};
+
+    Output output;
 
 private:
 

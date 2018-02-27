@@ -15,7 +15,7 @@ public:
 	virtual ~Opening();
 	void entry();
 	void reaction();
-	static bool exited;
+	bool exited = false;
 };
 
 #endif /* OPENING_H_ */

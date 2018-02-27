@@ -15,6 +15,7 @@
 #include "InfraredBeamTrip.h"
 #include "MotorOvercurrent.h"
 #include "PushButton.h"
+#include "Idle.h"
 
 bool InputScanner::MUTEX = false;
 
@@ -24,23 +25,31 @@ bool InputScanner::BUTTON = false;
 bool InputScanner::FULLOPEN = false;
 bool InputScanner::FULLCLOSED = false;
 
-InputScanner::InputScanner() {
+InputScanner::InputScanner(std::queue<char> *inQueue) {
     // TODO Auto-generated constructor stub
-}
+    currentState = 0;
+	ioqueue = inQueue;
 
-void* InputScanner::InputScannerThread(void* arg) {
-    unsigned char userInput = 'x';
-    InputScanner IS = InputScanner();
+    Idle* idle = new Idle();
+    stateList.push_back(idle);   // 0
+
+    std::vector<Transition*> transitions;
     FullClose* fc = new FullClose();
     FullOpen* fo = new FullOpen();
     InfraredBeamTrip* ir = new InfraredBeamTrip();
     MotorOvercurrent* mo = new MotorOvercurrent();
     PushButton* pb = new PushButton();
-    IS.inputs.push_back(fc);
-    IS.inputs.push_back(fo);
-    IS.inputs.push_back(ir);
-    IS.inputs.push_back(mo);
-    IS.inputs.push_back(pb);
+    transitions.push_back(fc);
+    transitions.push_back(fo);
+    transitions.push_back(ir);
+    transitions.push_back(mo);
+    transitions.push_back(pb);
+    transitionList.push_back(transitions);
+}
+
+void* InputScanner::InputScannerThread(void* arg) {
+    unsigned char userInput = 'x';
+    InputScanner IS = InputScanner((std::queue<char>*) arg);
 
     do{
     	// print input directions on screen
@@ -49,6 +58,16 @@ void* InputScanner::InputScannerThread(void* arg) {
 
         // get user's input
         std::cin >> userInput;
+        for (unsigned int trans = 0; trans < IS.transitionList[IS.currentState].size(); trans++)
+    	{
+    		//std::cout << GDC.currentState << std::endl;
+    		if (IS.transitionList[IS.currentState][trans]->guard() && IS.transitionList[IS.currentState][trans]->accept())
+    		{
+    			IS.transitionList[IS.currentState][trans]->event();
+    			IS.currentState = IS.transitionList[IS.currentState][trans]->nextState;
+    			IS.stateList[IS.currentState]->entry();
+    		}
+    	}
         if(InputScanner::MUTEX == false)
         {
            	// Set MUTEX to True to lock the shared resources temporarily
