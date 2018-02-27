@@ -12,7 +12,7 @@ class Input {
 public:
 	Input();
 	virtual ~Input();
-	bool getEvent(unsigned char* event) {return false;}
+	virtual bool getEvent(unsigned char* event);// {return false;}
 };
 
 #endif /* INPUT_H_ */

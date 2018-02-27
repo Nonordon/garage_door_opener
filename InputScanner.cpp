@@ -10,35 +10,37 @@
 #include <iostream>
 #include <ctype.h>
 #include "Input.h"
-#include "Inputs/FullClose.h"
-#include "Inputs/FullOpen.h"
-#include "Inputs/InfraredBeamTrip.h"
-#include "Inputs/MotorOvercurrent.h"
-#include "Inputs/PushButton.h"
+#include "FullClose.h"
+#include "FullOpen.h"
+#include "InfraredBeamTrip.h"
+#include "MotorOvercurrent.h"
+#include "PushButton.h"
 
 bool InputScanner::MUTEX = false;
-bool InputScanner::FULLCLOSED = false;
-bool InputScanner::FULLOPEN = false;
-bool InputScanner::IRBEAMTRIP = false;
+
 bool InputScanner::OVERCURRENT = false;
+bool InputScanner::IRBEAMTRIP = false;
 bool InputScanner::BUTTON = false;
+bool InputScanner::FULLOPEN = false;
+bool InputScanner::FULLCLOSED = false;
 
 InputScanner::InputScanner() {
     // TODO Auto-generated constructor stub
-    pthread_attr_t threadAttr;
-    pthread_attr_init(&threadAttr);		// initialize thread attributes structure
-    pthread_attr_setdetachstate(&threadAttr, PTHREAD_CREATE_JOINABLE);
-    pthread_create(&inputScannerThreadID, &threadAttr, &InputScanner::InputScannerThread, this);
 }
 
 void* InputScanner::InputScannerThread(void* arg) {
-    char userInput = 'x';
+    unsigned char userInput = 'x';
     InputScanner IS = InputScanner();
-    IS.inputs.push_back(FullClose::Input());
-    IS.inputs.push_back(FullOpen::Input());
-    IS.inputs.push_back(InfraredBeamTrip::Input());
-    IS.inputs.push_back(MotorOvercurrent::Input());
-    IS.inputs.push_back(PushButton::Input());
+    FullClose* fc = new FullClose();
+    FullOpen* fo = new FullOpen();
+    InfraredBeamTrip* ir = new InfraredBeamTrip();
+    MotorOvercurrent* mo = new MotorOvercurrent();
+    PushButton* pb = new PushButton();
+    IS.inputs.push_back(fc);
+    IS.inputs.push_back(fo);
+    IS.inputs.push_back(ir);
+    IS.inputs.push_back(mo);
+    IS.inputs.push_back(pb);
 
     do{
     	// print input directions on screen
@@ -47,19 +49,20 @@ void* InputScanner::InputScannerThread(void* arg) {
 
         // get user's input
         std::cin >> userInput;
-        if(MUTEX == false)
+        if(InputScanner::MUTEX == false)
         {
            	// Set MUTEX to True to lock the shared resources temporarily
-			MUTEX = true;
+        	InputScanner::MUTEX = true;
+			//std::cout << "IN: <" << userInput << ">" << std::endl;
 
-			InputScanner::FULLCLOSED = IS.inputs[0].getEvent((unsigned char*) userInput);
-			InputScanner::FULLOPEN = IS.inputs[1].getEvent((unsigned char*) userInput);
-			InputScanner::IRBEAMTRIP = IS.inputs[2].getEvent((unsigned char*) userInput);
-			InputScanner::OVERCURRENT = IS.inputs[3].getEvent((unsigned char*) userInput);
-			InputScanner::BUTTON = IS.inputs[4].getEvent((unsigned char*) userInput);
+			InputScanner::FULLCLOSED = IS.inputs[0]->getEvent(&userInput);
+			InputScanner::FULLOPEN = IS.inputs[1]->getEvent(&userInput);
+			InputScanner::IRBEAMTRIP = IS.inputs[2]->getEvent(&userInput);
+			InputScanner::OVERCURRENT = IS.inputs[3]->getEvent(&userInput);
+			InputScanner::BUTTON = IS.inputs[4]->getEvent(&userInput);
 
 			// Set MUTEX to False to release our lock on the shared resources
-			MUTEX = false;
+			InputScanner::MUTEX = false;
         }
         /*
         switch(tolower(userInput)){
@@ -89,71 +92,71 @@ void* InputScanner::InputScannerThread(void* arg) {
 
 void InputScanner::signalMotorOvercurrent() {
 	// Check that no one else is accessing the shared (global) variables
-    if(MUTEX == false){
+    if(InputScanner::MUTEX == false){
     	// Set MUTEX to True to lock the shared resources temporarily
-    	MUTEX = true;
+    	InputScanner::MUTEX = true;
         // If no other signal flag is set, set OVERCURRENT signal flag True
-        if((OVERCURRENT == false) && (IRBEAMTRIP == false) && (BUTTON == false) && (FULLOPEN == false) && (FULLCLOSED == false)){
-        	OVERCURRENT = true;
+        if((InputScanner::OVERCURRENT == false) && (InputScanner::IRBEAMTRIP == false) && (InputScanner::BUTTON == false) && (InputScanner::FULLOPEN == false) && (InputScanner::FULLCLOSED == false)){
+        	InputScanner::OVERCURRENT = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        MUTEX = false;
+        InputScanner::MUTEX = false;
     }
 }
 
 void InputScanner::signalInfraredBeamTrip() {
 	// Check that no one else is accessing the shared (global) variables
-    if(MUTEX == false){
+    if(InputScanner::MUTEX == false){
     	// Set MUTEX to True to lock the shared resources temporarily
-    	MUTEX = true;
+    	InputScanner::MUTEX = true;
         // If no other signal flag is set, set IRBEAMTRIP signal flag True
-        if(OVERCURRENT == false && IRBEAMTRIP == false && BUTTON == false && FULLOPEN == false && FULLCLOSED == false){
-        	IRBEAMTRIP = true;
+        if(InputScanner::OVERCURRENT == false && InputScanner::IRBEAMTRIP == false && InputScanner::BUTTON == false && InputScanner::FULLOPEN == false && InputScanner::FULLCLOSED == false){
+        	InputScanner::IRBEAMTRIP = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        MUTEX = false;
+        InputScanner::MUTEX = false;
     }
 }
 
 void InputScanner::signalPushButton() {
 	// Check that no one else is accessing the shared (global) variables
-    if(MUTEX == false){
+    if(InputScanner::MUTEX == false){
     	// Set MUTEX to True to lock the shared resources temporarily
-    	MUTEX = true;
+    	InputScanner::MUTEX = true;
         // If no other signal flag is set, set BUTTON signal flag True
-        if(OVERCURRENT == false && IRBEAMTRIP == false && BUTTON == false && FULLOPEN == false && FULLCLOSED == false){
-        	BUTTON = true;
+        if(InputScanner::OVERCURRENT == false && InputScanner::IRBEAMTRIP == false && InputScanner::BUTTON == false && InputScanner::FULLOPEN == false && InputScanner::FULLCLOSED == false){
+        	InputScanner::BUTTON = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        MUTEX = false;
+        InputScanner::MUTEX = false;
     }
 }
 
 void InputScanner::signalFullOpen() {
 	// Check that no one else is accessing the shared (global) variables
-    if(MUTEX == false){
+    if(InputScanner::MUTEX == false){
     	// Set MUTEX to True to lock the shared resources temporarily
-    	MUTEX = true;
+    	InputScanner::MUTEX = true;
         // If no other signal flag is set, set FULLOPEN signal flag True
-        if(OVERCURRENT == false && IRBEAMTRIP == false && BUTTON == false && FULLOPEN == false && FULLCLOSED == false){
-        	FULLOPEN = true;
+        if(InputScanner::OVERCURRENT == false && InputScanner::IRBEAMTRIP == false && InputScanner::BUTTON == false && InputScanner::FULLOPEN == false && InputScanner::FULLCLOSED == false){
+        	InputScanner::FULLOPEN = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        MUTEX = false;
+        InputScanner::MUTEX = false;
     }
 }
 
 void InputScanner::signalFullClosed() {
 	// Check that no one else is accessing the shared (global) variables
-    if(MUTEX == false){
+    if(InputScanner::MUTEX == false){
     	// Set MUTEX to True to lock the shared resources temporarily
-    	MUTEX = true;
+    	InputScanner::MUTEX = true;
         // If no other signal flag is set, set FULLCLOSED signal flag True
-        if(OVERCURRENT == false && IRBEAMTRIP == false && BUTTON == false && FULLOPEN == false && FULLCLOSED == false){
-        	FULLCLOSED = true;
+        if(InputScanner::OVERCURRENT == false && InputScanner::IRBEAMTRIP == false && InputScanner::BUTTON == false && InputScanner::FULLOPEN == false && InputScanner::FULLCLOSED == false){
+        	InputScanner::FULLCLOSED = true;
         }
         // Set MUTEX to False to release our lock on the shared resources
-        MUTEX = false;
+        InputScanner::MUTEX = false;
     }
 }
 

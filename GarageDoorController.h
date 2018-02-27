@@ -17,9 +17,8 @@ public:
 	static void* GarageDoorControllerThread(void* arg);
 	GarageDoorController();
 	virtual ~GarageDoorController();
-	void thread();
-	int direction;
-	int position;
+	static int direction;
+	static int position;
 };
 
 #endif /* GARAGEDOORCONTROLLER_H_ */

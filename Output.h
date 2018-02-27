@@ -13,16 +13,22 @@ class Output {
 public:
     Output();
     virtual ~Output();
-    void turnOnBeam();
-    void turnOffBeam();
-    void setMotorUp();
-    void setMotorDown();
-//private:
-    void motorStatus();
-    void beamStatus();
-	bool motorUp;
-    bool motorDown;
-    bool beamOn;
+    static void turnOnBeam();
+    static void turnOffBeam();
+    static void setMotorUp();
+    static void setMotorDown();
+    static void setMotorOff();
+
+    static void fullOpen();
+    static void fullClose();
+    //private:
+
+    static void motorStatus();
+    static void beamStatus();
+    static bool motorUp;
+    static bool motorDown;
+    static bool beamOn;
+
 };
 
 #endif /* OUTPUT_H_ */

@@ -23,7 +23,7 @@ public:
 	void signalFullOpen();
 	void signalFullClosed();
 
-	std::vector<Input> inputs;
+	std::vector<Input*> inputs;
 
 	static bool MUTEX;
 

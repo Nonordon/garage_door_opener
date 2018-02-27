@@ -7,64 +7,80 @@
 
 #include "StateTable.h"
 #include "State.h"
-#include "States/Closed.h"
-#include "States/Closing.h"
-#include "States/Open.h"
-#include "States/Opening.h"
-#include "States/Stopped.h"
+#include "Closed.h"
+#include "Closing.h"
+#include "Open.h"
+#include "Opening.h"
+#include "Stopped.h"
 
 #include "Transition.h"
-#include "Transitions/ClosedButtonOpening.h"
-#include "Transitions/ClosingButtonStopped.h"
-#include "Transitions/ClosingFullclosedClosed.h"
-#include "Transitions/ClosingInfraredbeamOpening.h"
-#include "Transitions/ClosingOvercurrentOpening.h"
-#include "Transitions/OpenButtonClosing.h"
-#include "Transitions/OpeningButtonStopped.h"
-#include "Transitions/OpeningFullopenOpen.h"
-#include "Transitions/OpeningOvercurrentStopped.h"
-#include "Transitions/StoppedButtonClosing.h"
-#include "Transitions/StoppedButtonOpening.h"
+#include "ClosedButtonOpening.h"
+#include "ClosingButtonStopped.h"
+#include "ClosingFullclosedClosed.h"
+#include "ClosingInfraredbeamOpening.h"
+#include "ClosingOvercurrentOpening.h"
+#include "OpenButtonClosing.h"
+#include "OpeningButtonStopped.h"
+#include "OpeningFullopenOpen.h"
+#include "OpeningOvercurrentStopped.h"
+#include "StoppedButtonClosing.h"
+#include "StoppedButtonOpening.h"
 
-StateTable::StateTable(int initialState) {
+StateTable::StateTable() {
     // TODO Auto-generated constructor stub
-    currentState = initialState;
+    currentState = 0;
 
-    stateList.push_back(Closed::State());   // 0
-    stateList.push_back(Closing::State());  // 1
-    stateList.push_back(Open::State());     // 2
-    stateList.push_back(Opening::State());  // 3
-    stateList.push_back(Stopped::State());  // 4
+    Closed* closed = new Closed();
+    Closing* closing = new Closing();
+    Open* open = new Open();
+    Opening* opening = new Opening();
+    Stopped* stopped = new Stopped();
+    stateList.push_back(closed);   // 0
+    stateList.push_back(closing);  // 1
+    stateList.push_back(open);     // 2
+    stateList.push_back(opening);  // 3
+    stateList.push_back(stopped);  // 4
 
     // Transitions from CLOSED state
-    std::vector<Transition> closed_transitions;
-    closed_transitions.push_back(ClosedButtonOpening::Transition());
+    std::vector<Transition*> closed_transitions;
+    ClosedButtonOpening* closedButtonOpening = new ClosedButtonOpening();
+    closed_transitions.push_back(closedButtonOpening);
     transitionList.push_back(closed_transitions);
 
     // Transitions from CLOSING state
-    std::vector<Transition> closing_transitions;
-    closing_transitions.push_back(ClosingButtonStopped::Transition());
-    closing_transitions.push_back(ClosingFullclosedClosed::Transition());
-    closing_transitions.push_back(ClosingInfraredbeamOpening::Transition());
-    closing_transitions.push_back(ClosingOvercurrentOpening::Transition());
+    std::vector<Transition*> closing_transitions;
+    ClosingButtonStopped* closingButtonStopped = new ClosingButtonStopped();
+    ClosingFullclosedClosed* closingFullclosedClosed = new ClosingFullclosedClosed();
+    ClosingInfraredbeamOpening* closingInfraredbeamOpening = new ClosingInfraredbeamOpening();
+    ClosingOvercurrentOpening* closingOvercurrentOpening = new ClosingOvercurrentOpening();
+    closing_transitions.push_back(closingButtonStopped);
+    closing_transitions.push_back(closingFullclosedClosed);
+    closing_transitions.push_back(closingInfraredbeamOpening);
+    closing_transitions.push_back(closingOvercurrentOpening);
     transitionList.push_back(closing_transitions);
 
     // Transitions from OPEN state
-    std::vector<Transition> open_transitions;
-    open_transitions.push_back(OpenButtonClosing::Transition());
+    std::vector<Transition*> open_transitions;
+    OpenButtonClosing* openButtonClosing = new OpenButtonClosing();
+    open_transitions.push_back(openButtonClosing);
     transitionList.push_back(open_transitions);
 
     // Transitions from OPENING state
-    std::vector<Transition> opening_transitions;
-    opening_transitions.push_back(OpeningButtonStopped::Transition());
-    opening_transitions.push_back(OpeningFullopenOpen::Transition());
-    opening_transitions.push_back(OpeningOvercurrentStopped::Transition());
+    std::vector<Transition*> opening_transitions;
+    OpeningButtonStopped* openingButtonStopped = new OpeningButtonStopped();
+    OpeningFullopenOpen* openingFullopenOpen = new OpeningFullopenOpen();
+    OpeningOvercurrentStopped* openingOvercurrentStopped = new OpeningOvercurrentStopped();
+    opening_transitions.push_back(openingButtonStopped);
+    opening_transitions.push_back(openingFullopenOpen);
+    opening_transitions.push_back(openingOvercurrentStopped);
     transitionList.push_back(opening_transitions);
 
     // Transitions from STOPPED state
-    std::vector<Transition> stopped_transitions;
-    stopped_transitions.push_back(StoppedButtonClosing::Transition());
-    stopped_transitions.push_back(StoppedButtonOpening::Transition());
+    std::vector<Transition*> stopped_transitions;
+    StoppedButtonClosing* stoppedButtonClosing = new StoppedButtonClosing();
+    StoppedButtonOpening* stoppedButtonOpening = new StoppedButtonOpening();
+    stopped_transitions.push_back(stoppedButtonClosing);
+    stopped_transitions.push_back(stoppedButtonOpening);
     transitionList.push_back(stopped_transitions);
 
 }

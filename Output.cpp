@@ -7,11 +7,12 @@
 
 #include "Output.h"
 
+bool Output::motorUp = false;
+bool Output::motorDown = false;
+bool Output::beamOn = false;
+
 Output::Output() {
     // TODO Auto-generated constructor stub
-    motorUp = false;
-    motorDown = false;
-    beamOn = false;
 }
 
 Output::~Output() {
@@ -20,7 +21,7 @@ Output::~Output() {
 
 void Output::beamStatus()
 {
-    if (beamOn)
+    if (Output::beamOn)
     {
         std::cout << "The beam is currently on." << std::endl;
     } else
@@ -31,15 +32,15 @@ void Output::beamStatus()
 
 void Output::motorStatus()
 {
-    if ((motorUp) && !(motorDown))
+    if ((Output::motorUp) && !(Output::motorDown))
     {
     	std::cout << "The motor is moving up." << std::endl;
-    } else if ((motorDown) && !(motorUp))
+    } else if ((Output::motorDown) && !(Output::motorUp))
     {
     	std::cout << "The motor is moving down." << std::endl;
-    } else if (!(motorDown) && !(motorUp))
+    } else if (!(Output::motorDown) && !(Output::motorUp))
     {
-        std::cout << "The motor is not moving." << std::endl;
+        std::cout << "The motor is off." << std::endl;
     } else
     {
     	std::cout << "Motor is currently set to move up and down." << std::endl;
@@ -47,24 +48,38 @@ void Output::motorStatus()
 }
 void Output::turnOnBeam()
 {
-	beamOn = true;
-	beamStatus();
+	Output::beamOn = true;
+	Output::beamStatus();
 }
 void Output::turnOffBeam()
 {
-	beamOn = false;
-	beamStatus();
+	Output::beamOn = false;
+	Output::beamStatus();
 }
 void Output::setMotorUp()
 {
-	motorUp = true;
-	motorDown = false;
-	motorStatus();
+	Output::motorUp = true;
+	Output::motorDown = false;
+	Output::motorStatus();
 }
 void Output::setMotorDown()
 {
-	motorUp = false;
-	motorDown = true;
-	motorStatus();
+	Output::motorUp = false;
+	Output::motorDown = true;
+	Output::motorStatus();
+}
+void Output::setMotorOff()
+{
+	Output::motorUp = false;
+	Output::motorDown = false;
+	Output::motorStatus();
+}
+void Output::fullOpen()
+{
+	std::cout << "The door has reached a full open position." << std::endl;
+}
+void Output::fullClose()
+{
+	std::cout << "The door has reached a full close position." << std::endl;
 }
 

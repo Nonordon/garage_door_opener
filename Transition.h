@@ -14,9 +14,9 @@ public:
     Transition();
     virtual ~Transition();
     int nextState;
-    bool guard() {return true;}
-    bool accept() {return true;}
-    void event() {}
+    virtual bool guard() {return true;}
+    virtual bool accept() {return true;}
+    virtual void event() {}
 };
 
 #endif /* TRANSITION_H_ */
