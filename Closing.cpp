@@ -11,6 +11,7 @@
 #include "Output.h"
 #include "GarageDoorController.h"
 #include <pthread.h>
+#include "InputScanner.h"
 
 bool Closing::exited = false;
 
@@ -29,9 +30,9 @@ void Closing::entry()
 	Output::turnOnBeam();
 	Output::setMotorDown();
 	Closing::exited = false;
-	p_thread timer;
-	pthread_create(&timer, NULL, &Closing::reaction(), NULL);
-	//Closing::reaction();
+	//p_thread timer;
+	//pthread_create(&timer, NULL, &Closing::reaction(), NULL);
+	Closing::reaction();
 }
 
 void Closing::exit()
@@ -47,12 +48,17 @@ void Closing::reaction()
 	//GarageDoorController::position = (GarageDoorController::position - 1);
 	while (GarageDoorController::position > 0){
 		sleep(1);
-		if (Closing::exited)
+		if (InputScanner::IRBEAMTRIP || InputScanner::OVERCURRENT || InputScanner::BUTTON)
 		{
-			Closing::exited = false;
-			pthread_exit(NULL);
+			break;
 		}
+		//if (Closing::exited)
+		//{
+			//Closing::exited = false;
+			//pthread_exit(NULL);
+		//}
 		GarageDoorController::position = (GarageDoorController::position - 1);
 	}
-	pthread_exit(NULL);
+	Output::setMotorOff();
+	//pthread_exit(NULL);
 }

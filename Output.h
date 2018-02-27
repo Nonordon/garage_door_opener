@@ -17,12 +17,18 @@ public:
     static void turnOffBeam();
     static void setMotorUp();
     static void setMotorDown();
-//private:
+    static void setMotorOff();
+
+    static void fullOpen();
+    static void fullClose();
+    //private:
+
     static void motorStatus();
     static void beamStatus();
     static bool motorUp;
     static bool motorDown;
     static bool beamOn;
+
 };
 
 #endif /* OUTPUT_H_ */

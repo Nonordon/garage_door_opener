@@ -6,6 +6,7 @@
  */
 
 #include "Closed.h"
+#include "Output.h"
 
 Closed::Closed() {
 	// TODO Auto-generated constructor stub
@@ -17,3 +18,7 @@ Closed::~Closed() {
 }
 
 // entry, exit, reaction
+void Closed::entry()
+{
+	Output::fullClose();
+}

@@ -40,7 +40,7 @@ void Output::motorStatus()
     	std::cout << "The motor is moving down." << std::endl;
     } else if (!(Output::motorDown) && !(Output::motorUp))
     {
-        std::cout << "The motor is not moving." << std::endl;
+        std::cout << "The motor is off." << std::endl;
     } else
     {
     	std::cout << "Motor is currently set to move up and down." << std::endl;
@@ -67,5 +67,19 @@ void Output::setMotorDown()
 	Output::motorUp = false;
 	Output::motorDown = true;
 	Output::motorStatus();
+}
+void Output::setMotorOff()
+{
+	Output::motorUp = false;
+	Output::motorDown = false;
+	Output::motorStatus();
+}
+void Output::fullOpen()
+{
+	std::cout << "The door has reached a full open position." << std::endl;
+}
+void Output::fullClose()
+{
+	std::cout << "The door has reached a full close position." << std::endl;
 }
 

@@ -13,6 +13,7 @@ class Closed: public State {
 public:
 	Closed();
 	virtual ~Closed();
+	void entry();
 };
 
 #endif /* CLOSED_H_ */

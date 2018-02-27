@@ -29,11 +29,12 @@ void* GarageDoorController::GarageDoorControllerThread(void* arg) {
     		//std::cout << GDC.currentState << std::endl;
     		if (GDC.transitionList[GDC.currentState][trans]->guard() && GDC.transitionList[GDC.currentState][trans]->accept())
     		{
-    			std::cout << "Pre" << GDC.currentState << std::endl;
+    			//std::cout << "Pre" << GDC.currentState << std::endl;
+    			GDC.stateList[GDC.currentState]->exit();
     			GDC.transitionList[GDC.currentState][trans]->event();
     			GDC.currentState = GDC.transitionList[GDC.currentState][trans]->nextState;
     			GDC.stateList[GDC.currentState]->entry();
-    			std::cout << "Post" << GDC.currentState << std::endl;
+    			//std::cout << "Post" << GDC.currentState << std::endl;
     		}
     	}
 

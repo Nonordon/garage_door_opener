@@ -12,6 +12,7 @@
 #include "Output.h"
 #include "GarageDoorController.h"
 #include <pthread.h>
+#include "InputScanner.h"
 
 bool Opening::exited = false;
 
@@ -28,9 +29,9 @@ void Opening::entry()
 {
 	Output::setMotorUp();
 	Opening::exited = false;
-	p_thread timer;
-	pthread_create(&timer, NULL, &Opening::reaction(), NULL);
-	//Opening::reaction();
+	//p_thread timer;
+	//pthread_create(&timer, NULL, &Opening::reaction(), NULL);
+	Opening::reaction();
 }
 void Opening::exit()
 {
@@ -40,15 +41,20 @@ void Opening::exit()
 void Opening::reaction()
 {
     // Increment position once per second (until position == 10)
-	GarageDoorController::position = (GarageDoorController::position + 1);
+	//GarageDoorController::position = (GarageDoorController::position + 1);
 	while (GarageDoorController::position < 10){
 		sleep(1);
-		if (Opening::exited)
+		if (InputScanner::OVERCURRENT || InputScanner::BUTTON)
 		{
-			Opening::exited = false;
-			pthread_exit(NULL);
+			break;
 		}
+		//if (Opening::exited)
+		//{
+			//Opening::exited = false;
+			//pthread_exit(NULL);
+		//}
 		GarageDoorController::position = (GarageDoorController::position + 1);
 	}
-	pthread_exit(NULL);
+	Output::setMotorOff();
+	//pthread_exit(NULL);
 }

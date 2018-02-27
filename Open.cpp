@@ -6,6 +6,7 @@
  */
 
 #include "Open.h"
+#include "Output.h"
 
 Open::Open() {
 	// TODO Auto-generated constructor stub
@@ -17,3 +18,7 @@ Open::~Open() {
 }
 
 // entry, exit, reaction
+void Open::entry()
+{
+	Output::fullOpen();
+}
