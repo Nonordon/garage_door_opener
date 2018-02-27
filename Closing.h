@@ -16,6 +16,7 @@ public:
 	void entry();
 	void exit();
 	void reaction();
+	static bool exited;
 };
 
 #endif /* CLOSING_H_ */
