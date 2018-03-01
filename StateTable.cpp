@@ -9,6 +9,8 @@
 #include "State.h"
 #include "Transition.h"
 
+bool StateTable::QUEUEEMPTY = true;
+
 StateTable::StateTable() {
     // TODO Auto-generated constructor stub
     currentState = 0;

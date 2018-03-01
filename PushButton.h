@@ -8,6 +8,7 @@
 #ifndef PUSHBUTTON_H_
 #define PUSHBUTTON_H_
 #include "Transition.h"
+#include "StateTable.h"
 
 class PushButton: public Transition {
 public:

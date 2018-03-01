@@ -28,4 +28,5 @@ bool FullClose::accept(char* ev)
 void FullClose::event()
 {
 	ioqueue.push('c');
+	StateTable::QUEUEEMPTY = false;
 }

@@ -8,6 +8,7 @@
 #ifndef INFRAREDBEAMTRIP_H_
 #define INFRAREDBEAMTRIP_H_
 #include "Transition.h"
+#include "StateTable.h"
 
 class InfraredBeamTrip: public Transition {
 public:

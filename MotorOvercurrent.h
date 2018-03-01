@@ -8,6 +8,7 @@
 #ifndef MOTOROVERCURRENT_H_
 #define MOTOROVERCURRENT_H_
 #include "Transition.h"
+#include "StateTable.h"
 
 class MotorOvercurrent: public Transition {
 public:

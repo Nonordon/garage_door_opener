@@ -30,6 +30,8 @@ public:
 
     std::queue<char>* ioqueue;
 
+    static bool QUEUEEMPTY;
+
 
 
 };

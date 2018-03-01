@@ -28,5 +28,6 @@ bool InfraredBeamTrip::accept(char* ev)
 void InfraredBeamTrip::event()
 {
 	ioqueue.push('i');
+	StateTable::QUEUEEMPTY = false;
 }
 

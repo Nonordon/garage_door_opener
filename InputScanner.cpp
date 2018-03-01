@@ -6,7 +6,6 @@
  */
 
 #include "InputScanner.h"
-#include "Global.h"
 #include <iostream>
 #include <ctype.h>
 #include "FullClose.h"
@@ -19,7 +18,7 @@
 InputScanner::InputScanner(std::queue<char> *inQueue) {
     // TODO Auto-generated constructor stub
     currentState = 0;
-	ioqueue = *inQueue;
+	ioqueue = inQueue;
 
     Idle* idle = new Idle();
     stateList.push_back(idle);   // 0
@@ -49,11 +48,13 @@ void* InputScanner::InputScannerThread(void* arg) {
 
         // get user's input
         std::cin >> userInput;
+        std::cout << "UserInput: " << userInput << std::endl;
         for (unsigned int trans = 0; trans < IS.transitionList[IS.currentState].size(); trans++)
     	{
     		//std::cout << GDC.currentState << std::endl;
-    		if (IS.transitionList[IS.currentState][trans]->guard() && IS.transitionList[IS.currentState][trans]->accept(&userInput))
+    		if (IS.transitionList[IS.currentState][trans]->guard(&IS) && IS.transitionList[IS.currentState][trans]->accept(&userInput))
     		{
+    			std::cout << "Transition Taken on inputscanner" << std::endl;
     			IS.stateList[IS.currentState]->exit();
     			IS.transitionList[IS.currentState][trans]->event();
     			IS.currentState = IS.transitionList[IS.currentState][trans]->nextState;
