@@ -8,7 +8,7 @@
 #include "ClosingOvercurrentOpening.h"
 #include "InputScanner.h"
 
-ClosingOvercurrentOpening::ClosingOvercurrentOpening() {
+ClosingOvercurrentOpening::ClosingOvercurrentOpening(std::queue<char>* inQueue) : Transition(inQueue) {
 	// TODO Auto-generated constructor stub
 	nextState = 3; //Opening
 
@@ -20,17 +20,13 @@ ClosingOvercurrentOpening::~ClosingOvercurrentOpening() {
 
 // guard, accept, event
 
-bool ClosingOvercurrentOpening::accept(){
-	bool accepted = false;
-    if(InputScanner::MUTEX == false){
-        // Set MUTEX to True to lock the shared resources temporarily
-    	InputScanner::MUTEX = true;
-        if (InputScanner::OVERCURRENT == true){
-        	InputScanner::InputScanner::OVERCURRENT = false;
-            accepted = true;
-        }
-        // Set MUTEX to False to release our lock on the shared resources
-        InputScanner::MUTEX = false;
-    }
-    return accepted;
+bool ClosingOvercurrentOpening::accept(char* ev)
+{
+	if (*ev == 'm')
+	{
+		return true;
+	} else
+	{
+		return false;
+	}
 }

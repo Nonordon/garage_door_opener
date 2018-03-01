@@ -10,28 +10,18 @@
 
 #include <pthread.h>
 #include <vector>
-#include "Input.h"
+#include "StateTable.h"
 
-class InputScanner {
+class InputScanner: public StateTable {
 public:
-	InputScanner(std::queue<char> inQueue);
+	InputScanner(std::queue<char> *inQueue);
 	pthread_t inputScannerThreadID;
 	static void* InputScannerThread(void* arg);
-	void signalMotorOvercurrent();
-	void signalInfraredBeamTrip();
-	void signalPushButton();
-	void signalFullOpen();
-	void signalFullClosed();
-
-	std::vector<Input*> inputs;
-
-	static bool MUTEX;
-
-	static bool OVERCURRENT;
-	static bool IRBEAMTRIP;
-	static bool BUTTON;
-	static bool FULLOPEN;
-	static bool FULLCLOSED;
+	//void signalMotorOvercurrent();
+	//void signalInfraredBeamTrip();
+	//void signalPushButton();
+	//void signalFullOpen();
+	//void signalFullClosed();
 
 };
 

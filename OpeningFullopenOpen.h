@@ -8,12 +8,13 @@
 #ifndef OPENINGFULLOPENOPEN_H_
 #define OPENINGFULLOPENOPEN_H_
 #include "Transition.h"
+#include "GarageDoorController.h"
 
 class OpeningFullopenOpen: public Transition {
 public:
-	OpeningFullopenOpen();
+	OpeningFullopenOpen(std::queue<char>* inQueue);
 	virtual ~OpeningFullopenOpen();
-	bool guard();
+	bool guard(GarageDoorController* GDC);
 };
 
 #endif /* OPENINGFULLOPENOPEN_H_ */

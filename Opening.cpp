@@ -10,12 +10,10 @@
 #include <unistd.h>
 #include "Opening.h"
 #include "Output.h"
-#include "GarageDoorController.h"
-#include <pthread.h>
 
-Opening::Opening() {
+Opening::Opening(Output* inOutput) {
 	// TODO Auto-generated constructor stub
-
+	output = *inOutput;
 }
 
 Opening::~Opening() {
@@ -25,28 +23,26 @@ Opening::~Opening() {
 void Opening::entry()
 {
 	output.setMotorUp();
-	exited = false;
-	p_thread timer;
-	pthread_create(&timer, NULL, &reaction(), NULL);
 	//Opening::reaction();
 }
 void Opening::exit()
 {
-	exited = true;
+	pthread_cancel(timer);
 }
 
-void Opening::reaction()
+void* openingReactionThread(void* GDC)
 {
-    // Increment position once per second (until position == 10)
-	GarageDoorController::position = (GarageDoorController::position + 1);
-	while (GarageDoorController::position < 10){
+	GarageDoorController* localGDC = (GarageDoorController*)GDC;
+	while (localGDC->position < 10){
 		sleep(1);
-		if (exited)
-		{
-			exited = false;
-			pthread_exit(NULL);
-		}
-		GarageDoorController::position = (GarageDoorController::position + 1);
+		localGDC->position = (localGDC->position + 1);
 	}
 	pthread_exit(NULL);
+}
+
+void Opening::reaction(void* GDC)
+{
+    // Increment position once per second (until position == 10)
+	//GDC->position = (GarageDoorController::position + 1);
+	pthread_create(&timer, NULL, openingReactionThread, GDC);
 }

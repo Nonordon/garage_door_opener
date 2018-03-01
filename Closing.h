@@ -8,15 +8,17 @@
 #ifndef CLOSING_H_
 #define CLOSING_H_
 #include "State.h"
+#include "GarageDoorController.h"
+#include <pthread.h>
 
 class Closing: public State {
 public:
-	Closing();
+	Closing(Output* inOutput);
 	virtual ~Closing();
 	void entry();
 	void exit();
-	void reaction();
-	bool exited = false;
+	void reaction(void* GDC);
+	pthread_t timer;
 };
 
 #endif /* CLOSING_H_ */

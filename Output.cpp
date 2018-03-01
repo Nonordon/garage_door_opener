@@ -68,4 +68,17 @@ void Output::setMotorDown()
 	motorDown = true;
 	motorStatus();
 }
-
+void Output::setMotorOff()
+{
+	motorUp = false;
+	motorDown = false;
+	motorStatus();
+}
+void Output::fullOpen()
+{
+	std::cout << "The door is completely open." << std::endl;
+}
+void Output::fullClose()
+{
+	std::cout << "The door is completely closed." << std::endl;
+}

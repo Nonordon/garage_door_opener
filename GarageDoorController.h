@@ -14,8 +14,8 @@
 class GarageDoorController: public StateTable {
 public:
 	pthread_t GarageDoorControllerThreadID;
-	static void* GarageDoorControllerThread(void* arg);
-	GarageDoorController(std::queue<char> inQueue);
+	static void *GarageDoorControllerThread(void* arg);
+	GarageDoorController(std::queue<char>* inQueue);
 	virtual ~GarageDoorController();
 	int direction;
 	int position;

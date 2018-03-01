@@ -6,10 +6,8 @@
  */
 
 #include "ClosingButtonStopped.h"
-#include "InputScanner.h"
-#include "GarageDoorController.h"
 
-ClosingButtonStopped::ClosingButtonStopped() {
+ClosingButtonStopped::ClosingButtonStopped(std::queue<char>* inQueue): Transition(inQueue) {
 	// TODO Auto-generated constructor stub
 	nextState = 4; //Stopped
 
@@ -21,23 +19,19 @@ ClosingButtonStopped::~ClosingButtonStopped() {
 
 // guard, accept, event
 
-bool ClosingButtonStopped::accept(){
-	bool accepted = false;
-    if(InputScanner::MUTEX == false){
-        // Set MUTEX to True to lock the shared resources temporarily
-    	InputScanner::MUTEX = true;
-        if (InputScanner::BUTTON == true){
-            InputScanner::BUTTON = false;
-            accepted = true;
-        }
-        // Set MUTEX to False to release our lock on the shared resources
-        InputScanner::MUTEX = false;
-    }
-    return accepted;
+bool ClosingButtonStopped::accept(char* ev)
+{
+	if (*ev == 'r')
+	{
+		return true;
+	} else
+	{
+		return false;
+	}
 }
 
-void ClosingButtonStopped::event()
+void ClosingButtonStopped::event(GarageDoorController* GDC)
 {
     // set direction to 'previously closing' (direction = 1)
-    GarageDoorController::direction = 1;
+    GDC->direction = 1;
 }

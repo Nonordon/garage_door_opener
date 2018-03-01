@@ -9,7 +9,8 @@
 
 Transition::Transition(std::queue<char>* inQueue) {
     // TODO Auto-generated constructor stub
-	ioqueue = inQueue;
+	ioqueue = *inQueue;
+	nextState = 0;
 }
 
 Transition::~Transition() {

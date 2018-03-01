@@ -8,13 +8,14 @@
 #ifndef CLOSINGBUTTONSTOPPED_H_
 #define CLOSINGBUTTONSTOPPED_H_
 #include "Transition.h"
+#include "GarageDoorController.h"
 
 class ClosingButtonStopped: public Transition {
 public:
-	ClosingButtonStopped();
+	ClosingButtonStopped(std::queue<char>* inQueue);
 	virtual ~ClosingButtonStopped();
-	bool accept();
-	void event();
+	bool accept(char* ev);
+	void event(GarageDoorController* GDC);
 };
 
 #endif /* CLOSINGBUTTONSTOPPED_H_ */

@@ -7,9 +7,9 @@
 
 #include "Closed.h"
 
-Closed::Closed() {
+Closed::Closed(Output* inOutput) {
 	// TODO Auto-generated constructor stub
-
+	output = *inOutput;
 }
 
 Closed::~Closed() {
@@ -17,3 +17,8 @@ Closed::~Closed() {
 }
 
 // entry, exit, reaction
+
+void Closed::entry()
+{
+	output.fullClose();
+}

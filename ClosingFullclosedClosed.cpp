@@ -6,9 +6,8 @@
  */
 
 #include "ClosingFullclosedClosed.h"
-#include "GarageDoorController.h"
 
-ClosingFullclosedClosed::ClosingFullclosedClosed() {
+ClosingFullclosedClosed::ClosingFullclosedClosed(std::queue<char>* inQueue) : Transition(inQueue) {
 	// TODO Auto-generated constructor stub
 	nextState = 0; //Closed
 
@@ -20,27 +19,11 @@ ClosingFullclosedClosed::~ClosingFullclosedClosed() {
 
 // guard, accept, event
 
-bool ClosingFullclosedClosed::guard()
+bool ClosingFullclosedClosed::guard(GarageDoorController* GDC)
 {
     // If position set to 0 (closed) return true
-    if (GarageDoorController::position == 0)
+    if (GDC->position == 0)
         return true;
     else
         return false;
 }
-
-/*
-bool accept(){
-	bool accepted = false;
-    if(InputScanner::MUTEX == false){
-        // Set MUTEX to True to lock the shared resources temporarily
-        MUTEX = true;
-        if (InputScanner::FULLCLOSED == true){
-            InputScanner::FULLCLOSED = false;
-            accepted = true;
-        }
-        // Set MUTEX to False to release our lock on the shared resources
-        MUTEX = false;
-    }
-    return accepted;
-}*/

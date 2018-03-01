@@ -7,13 +7,15 @@
 
 #ifndef PUSHBUTTON_H_
 #define PUSHBUTTON_H_
-#include "Input.h"
+#include "Transition.h"
 
-class PushButton: public Input {
+class PushButton: public Transition {
 public:
-	PushButton();
+	PushButton(std::queue<char>* inQueue);
 	virtual ~PushButton();
-	bool getEvent(unsigned char* event);
+	bool accept(char* ev);
+	void event();
 };
+
 
 #endif /* PUSHBUTTON_H_ */

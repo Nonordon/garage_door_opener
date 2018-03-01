@@ -8,13 +8,14 @@
 #ifndef OPENINGBUTTONSTOPPED_H_
 #define OPENINGBUTTONSTOPPED_H_
 #include "Transition.h"
+#include "GarageDoorController.h"
 
 class OpeningButtonStopped: public Transition {
 public:
-	OpeningButtonStopped();
+	OpeningButtonStopped(std::queue<char>* inQueue);
 	virtual ~OpeningButtonStopped();
-	bool accept();
-	void event();
+	bool accept(char* ev);
+	void event(GarageDoorController* GDC);
 };
 
 #endif /* OPENINGBUTTONSTOPPED_H_ */

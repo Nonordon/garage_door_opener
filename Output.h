@@ -17,6 +17,11 @@ public:
     void turnOffBeam();
     void setMotorUp();
     void setMotorDown();
+    void setMotorOff();
+
+    void fullOpen();
+    void fullClose();
+
 //private:
     void motorStatus();
     void beamStatus();

@@ -7,18 +7,17 @@
 
 #include "InfraredBeamTrip.h"
 
-InfraredBeamTrip::InfraredBeamTrip() {
+InfraredBeamTrip::InfraredBeamTrip(std::queue<char>* inQueue) : Transition(inQueue) {
 	// TODO Auto-generated constructor stub
-
 }
 
 InfraredBeamTrip::~InfraredBeamTrip() {
 	// TODO Auto-generated destructor stub
 }
 
-bool InfraredBeamTrip::getEvent(unsigned char* event)
+bool InfraredBeamTrip::accept(char* ev)
 {
-	if (*event == 'i')
+	if (*ev == 'i')
 	{
 		return true;
 	} else
@@ -26,3 +25,8 @@ bool InfraredBeamTrip::getEvent(unsigned char* event)
 		return false;
 	}
 }
+void InfraredBeamTrip::event()
+{
+	ioqueue.push('i');
+}
+

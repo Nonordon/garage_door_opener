@@ -7,13 +7,14 @@
 
 #ifndef INFRAREDBEAMTRIP_H_
 #define INFRAREDBEAMTRIP_H_
-#include "Input.h"
+#include "Transition.h"
 
-class InfraredBeamTrip: public Input {
+class InfraredBeamTrip: public Transition {
 public:
-	InfraredBeamTrip();
+	InfraredBeamTrip(std::queue<char>* inQueue);
 	virtual ~InfraredBeamTrip();
-	bool getEvent(unsigned char* event);
+	bool accept(char* ev);
+	void event();
 };
 
 #endif /* INFRAREDBEAMTRIP_H_ */

@@ -11,9 +11,9 @@
 
 class ClosingOvercurrentOpening: public Transition {
 public:
-	ClosingOvercurrentOpening();
+	ClosingOvercurrentOpening(std::queue<char>* inQueue);
 	virtual ~ClosingOvercurrentOpening();
-	bool accept();
+	bool accept(char* ev);
 };
 
 #endif /* CLOSINGOVERCURRENTOPENING_H_ */

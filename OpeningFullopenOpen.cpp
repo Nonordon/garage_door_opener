@@ -6,9 +6,8 @@
  */
 
 #include "OpeningFullopenOpen.h"
-#include "GarageDoorController.h"
 
-OpeningFullopenOpen::OpeningFullopenOpen() {
+OpeningFullopenOpen::OpeningFullopenOpen(std::queue<char>* inQueue) : Transition(inQueue) {
 	// TODO Auto-generated constructor stub
 	nextState = 2; //Open
 
@@ -20,27 +19,11 @@ OpeningFullopenOpen::~OpeningFullopenOpen() {
 
 // guard, accept, event
 
-bool OpeningFullopenOpen::guard()
+bool OpeningFullopenOpen::guard(GarageDoorController* GDC)
 {
     // If position set to 10 (open) return true
-    if (GarageDoorController::position == 10)
+    if (GDC->position == 10)
         return true;
     else
         return false;
 }
-
-/*
-bool accept(){
-	bool accepted = false;
-    if(InputScanner::MUTEX == false){
-        // Set MUTEX to True to lock the shared resources temporarily
-        MUTEX = true;
-        if (InputScanner::FULLOPEN == true){
-            InputScanner::FULLOPEN = false;
-            accepted = true;
-        }
-        // Set MUTEX to False to release our lock on the shared resources
-        MUTEX = false;
-    }
-    return accepted;
-}*/
