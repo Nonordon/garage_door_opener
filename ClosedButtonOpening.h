@@ -11,9 +11,11 @@
 
 class ClosedButtonOpening: public Transition {
 public:
-	ClosedButtonOpening();
+	ClosedButtonOpening(std::queue<char>* inQueue);
 	virtual ~ClosedButtonOpening();
-	bool accept();
+	bool accept(char* ev);
+	std::queue<char>* ioqueue;
+
 };
 
 #endif /* CLOSEDBUTTONOPENING_H_ */

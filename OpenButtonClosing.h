@@ -11,9 +11,9 @@
 
 class OpenButtonClosing: public Transition {
 public:
-	OpenButtonClosing();
+	OpenButtonClosing(std::queue<char>* inQueue);
 	virtual ~OpenButtonClosing();
-	bool accept();
+	bool accept(char* ev);
 };
 
 #endif /* OPENBUTTONCLOSING_H_ */

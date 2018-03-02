@@ -7,7 +7,7 @@
 
 #include "FullOpen.h"
 
-FullOpen::FullOpen() {
+FullOpen::FullOpen(std::queue<char>* inQueue) : Transition(inQueue){
 	// TODO Auto-generated constructor stub
 
 }
@@ -16,13 +16,18 @@ FullOpen::~FullOpen() {
 	// TODO Auto-generated destructor stub
 }
 
-bool FullOpen::getEvent(unsigned char* event)
+bool FullOpen::accept(char* ev)
 {
-	if (*event == 'o')
+	if (*ev == 'o')
 	{
 		return true;
 	} else
 	{
 		return false;
 	}
+}
+
+void FullOpen::event()
+{
+	ioqueue->push('o');
 }

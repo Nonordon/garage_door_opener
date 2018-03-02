@@ -8,15 +8,17 @@
 #ifndef TRANSITION_H_
 #define TRANSITION_H_
 //#include "State.h"
+#include <queue>
 
 class Transition {
 public:
-    Transition();
+    Transition(std::queue<char>* inQueue);
     virtual ~Transition();
     int nextState;
-    virtual bool guard() {return true;}
-    virtual bool accept() {return true;}
+    virtual bool guard(void*) {return true;}
+    virtual bool accept(char* ev) {return true;}
     virtual void event() {}
+    std::queue<char>* ioqueue;
 };
 
 #endif /* TRANSITION_H_ */

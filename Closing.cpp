@@ -5,19 +5,15 @@
  *      Author: filme
  */
 
-//#include <chrono>
 #include <unistd.h>
 #include "Closing.h"
 #include "Output.h"
-#include "GarageDoorController.h"
-#include <pthread.h>
-#include "InputScanner.h"
+#include <iostream>
 
 bool Closing::exited = false;
 
-Closing::Closing() {
+Closing::Closing(Output* inOutput) : State(inOutput){
 	// TODO Auto-generated constructor stub
-
 }
 
 Closing::~Closing() {
@@ -27,38 +23,40 @@ Closing::~Closing() {
 void Closing::entry()
 {
     // Turn ON Beam
-	Output::turnOnBeam();
-	Output::setMotorDown();
+	output->turnOnBeam();
+	output->setMotorDown();
+	//Closing::reaction();
 	Closing::exited = false;
-	//p_thread timer;
-	//pthread_create(&timer, NULL, &Closing::reaction(), NULL);
-	Closing::reaction();
 }
 
 void Closing::exit()
 {
     // Turn OFF Beam
 	Closing::exited = true;
-	Output::turnOffBeam();
+	output->turnOffBeam();
 }
 
-void Closing::reaction()
+void *closingReactionThread(void* GDC)
 {
     // Decrement position once per second (until position == 0)
 	//GarageDoorController::position = (GarageDoorController::position - 1);
-	while (GarageDoorController::position > 0){
+	//GarageDoorController* localGDC = (GarageDoorController*) GDC;
+	while (((GarageDoorController*) GDC)->position > 0){
 		sleep(1);
-		if (InputScanner::IRBEAMTRIP || InputScanner::OVERCURRENT || InputScanner::BUTTON)
+		if (Closing::exited)
 		{
-			break;
+			pthread_exit(NULL);
 		}
-		//if (Closing::exited)
-		//{
-			//Closing::exited = false;
-			//pthread_exit(NULL);
-		//}
-		GarageDoorController::position = (GarageDoorController::position - 1);
+		((GarageDoorController*) GDC)->position = (((GarageDoorController*) GDC)->position - 1);
+		//std::cout << "Closing: " << ((GarageDoorController*) GDC)->position << std::endl;
 	}
-	Output::setMotorOff();
-	//pthread_exit(NULL);
+	pthread_exit(NULL);
+}
+
+
+void Closing::reaction(void* GDC)
+{
+    // Decrement position once per second (until position == 0)
+	//GarageDoorController::position = (GarageDoorController::position - 1);
+	pthread_create(&timer, NULL, closingReactionThread, GDC);
 }

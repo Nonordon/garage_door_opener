@@ -11,9 +11,9 @@
 
 class ClosingInfraredbeamOpening: public Transition {
 public:
-	ClosingInfraredbeamOpening();
+	ClosingInfraredbeamOpening(std::queue<char>* inQueue);
 	virtual ~ClosingInfraredbeamOpening();
-	bool accept();
+	bool accept(char* ev);
 };
 
 #endif /* CLOSINGINFRAREDBEAMOPENING_H_ */

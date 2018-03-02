@@ -7,7 +7,7 @@
 
 #include "MotorOvercurrent.h"
 
-MotorOvercurrent::MotorOvercurrent() {
+MotorOvercurrent::MotorOvercurrent(std::queue<char>* inQueue) : Transition(inQueue){
 	// TODO Auto-generated constructor stub
 
 }
@@ -16,9 +16,9 @@ MotorOvercurrent::~MotorOvercurrent() {
 	// TODO Auto-generated destructor stub
 }
 
-bool MotorOvercurrent::getEvent(unsigned char* event)
+bool MotorOvercurrent::accept(char* ev)
 {
-	if (*event == 'm')
+	if (*ev == 'm')
 	{
 		return true;
 	} else
@@ -26,4 +26,8 @@ bool MotorOvercurrent::getEvent(unsigned char* event)
 		return false;
 	}
 
+}
+void MotorOvercurrent::event()
+{
+	ioqueue->push('m');
 }

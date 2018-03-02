@@ -8,7 +8,7 @@
 #include "FullClose.h"
 #include <iostream>
 
-FullClose::FullClose() {
+FullClose::FullClose(std::queue<char>* inQueue) : Transition(inQueue) {
 	// TODO Auto-generated constructor stub
 
 }
@@ -17,13 +17,15 @@ FullClose::~FullClose() {
 	// TODO Auto-generated destructor stub
 }
 
-bool FullClose::getEvent(unsigned char* event)
+bool FullClose::accept(char* ev)
 {
-	if (*event == 'c')
+	if (*ev == 'c')
 	{
 		return true;
-	} else
-	{
-		return false;
 	}
+	return false;
+}
+void FullClose::event()
+{
+	ioqueue->push('c');
 }

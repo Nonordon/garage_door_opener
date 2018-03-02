@@ -7,7 +7,7 @@
 
 #include "PushButton.h"
 
-PushButton::PushButton() {
+PushButton::PushButton(std::queue<char>* inQueue) : Transition(inQueue){
 	// TODO Auto-generated constructor stub
 
 }
@@ -16,9 +16,9 @@ PushButton::~PushButton() {
 	// TODO Auto-generated destructor stub
 }
 
-bool PushButton::getEvent(unsigned char* event)
+bool PushButton::accept(char* ev)
 {
-	if (*event == 'r')
+	if (*ev == 'r')
 	{
 		return true;
 	} else
@@ -26,3 +26,8 @@ bool PushButton::getEvent(unsigned char* event)
 		return false;
 	}
 }
+void PushButton::event()
+{
+	ioqueue->push('r');
+}
+

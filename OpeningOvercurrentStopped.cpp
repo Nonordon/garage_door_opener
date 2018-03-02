@@ -7,9 +7,8 @@
 
 #include "OpeningOvercurrentStopped.h"
 #include "InputScanner.h"
-#include "GarageDoorController.h"
 
-OpeningOvercurrentStopped::OpeningOvercurrentStopped() {
+OpeningOvercurrentStopped::OpeningOvercurrentStopped(std::queue<char>* inQueue) : Transition(inQueue) {
 	// TODO Auto-generated constructor stub
 	nextState = 4; //Stopped
 
@@ -21,23 +20,19 @@ OpeningOvercurrentStopped::~OpeningOvercurrentStopped() {
 
 // guard, accept, event
 
-bool OpeningOvercurrentStopped::accept(){
-	bool accepted = false;
-    if(InputScanner::MUTEX == false){
-        // Set MUTEX to True to lock the shared resources temporarily
-    	InputScanner::MUTEX = true;
-        if (InputScanner::OVERCURRENT == true){
-            InputScanner::OVERCURRENT = false;
-            accepted = true;
-        }
-        // Set MUTEX to False to release our lock on the shared resources
-        InputScanner::MUTEX = false;
-    }
-    return accepted;
+bool OpeningOvercurrentStopped::accept(char* ev)
+{
+	if (*ev == 'm')
+	{
+		return true;
+	} else
+	{
+		return false;
+	}
 }
 
-void OpeningOvercurrentStopped::event()
+void OpeningOvercurrentStopped::event(GarageDoorController* GDC)
 {
     // set direction to 'previously opening' (0)
-    GarageDoorController::direction = 0;
+    GDC->direction = 0;
 }

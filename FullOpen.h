@@ -7,13 +7,15 @@
 
 #ifndef FULLOPEN_H_
 #define FULLOPEN_H_
-#include "Input.h"
+#include "Transition.h"
+#include "StateTable.h"
 
-class FullOpen: public Input {
+class FullOpen: public Transition {
 public:
-	FullOpen();
+	FullOpen(std::queue<char>* inQueue);
 	virtual ~FullOpen();
-	bool getEvent(unsigned char* event);
+	bool accept(char* ev);
+	void event();
 };
 
 #endif /* FULLOPEN_H_ */

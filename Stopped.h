@@ -11,8 +11,9 @@
 
 class Stopped: public State {
 public:
-	Stopped();
+	Stopped(Output* inOutput);
 	virtual ~Stopped();
+	void entry();
 };
 
 #endif /* STOPPED_H_ */

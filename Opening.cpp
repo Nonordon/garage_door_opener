@@ -5,20 +5,14 @@
  *      Author: filme
  */
 
-//#include <chrono>
-//#include <Timer>
 #include <unistd.h>
 #include "Opening.h"
 #include "Output.h"
-#include "GarageDoorController.h"
-#include <pthread.h>
-#include "InputScanner.h"
 
 bool Opening::exited = false;
 
-Opening::Opening() {
+Opening::Opening(Output* inOutput) : State(inOutput){
 	// TODO Auto-generated constructor stub
-
 }
 
 Opening::~Opening() {
@@ -27,34 +21,33 @@ Opening::~Opening() {
 
 void Opening::entry()
 {
-	Output::setMotorUp();
+	output->setMotorUp();
 	Opening::exited = false;
-	//p_thread timer;
-	//pthread_create(&timer, NULL, &Opening::reaction(), NULL);
-	Opening::reaction();
+	//Opening::reaction();
 }
 void Opening::exit()
 {
 	Opening::exited = true;
 }
 
-void Opening::reaction()
+void* openingReactionThread(void* GDC)
+{
+	//GarageDoorController* localGDC = (GarageDoorController*)GDC;
+	while (((GarageDoorController*) GDC)->position < 10){
+		sleep(1);
+		if (Opening::exited)
+		{
+			pthread_exit(NULL);
+		}
+		((GarageDoorController*) GDC)->position = (((GarageDoorController*) GDC)->position + 1);
+		//std::cout << "Opening: " << ((GarageDoorController*) GDC)->position << std::endl;
+	}
+	pthread_exit(NULL);
+}
+
+void Opening::reaction(void* GDC)
 {
     // Increment position once per second (until position == 10)
-	//GarageDoorController::position = (GarageDoorController::position + 1);
-	while (GarageDoorController::position < 10){
-		sleep(1);
-		if (InputScanner::OVERCURRENT || InputScanner::BUTTON)
-		{
-			break;
-		}
-		//if (Opening::exited)
-		//{
-			//Opening::exited = false;
-			//pthread_exit(NULL);
-		//}
-		GarageDoorController::position = (GarageDoorController::position + 1);
-	}
-	Output::setMotorOff();
-	//pthread_exit(NULL);
+	//GDC->position = (GarageDoorController::position + 1);
+	pthread_create(&timer, NULL, openingReactionThread, GDC);
 }

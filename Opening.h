@@ -8,13 +8,17 @@
 #ifndef OPENING_H_
 #define OPENING_H_
 #include "State.h"
+#include "GarageDoorController.h"
+#include <pthread.h>
 
 class Opening: public State {
 public:
-	Opening();
+	Opening(Output* inOutput);
 	virtual ~Opening();
 	void entry();
-	void reaction();
+	void reaction(void* GDC);
+	void exit();
+	pthread_t timer;
 	static bool exited;
 	void exit();
 };
