@@ -20,10 +20,10 @@ StoppedButtonOpening::~StoppedButtonOpening() {
 
 // guard, accept, event
 
-bool StoppedButtonOpening::guard(GarageDoorController* GDC)
+bool StoppedButtonOpening::guard(void* GDC)
 {
 	// If direction set to 1 (previously Closing) return true
-	if (GDC->direction == 1)
+	if (((GarageDoorController*)GDC)->direction == 1)
 		return true;
 	else
 		return false;

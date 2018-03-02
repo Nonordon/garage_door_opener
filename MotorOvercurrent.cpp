@@ -29,6 +29,5 @@ bool MotorOvercurrent::accept(char* ev)
 }
 void MotorOvercurrent::event()
 {
-	ioqueue.push('m');
-	StateTable::QUEUEEMPTY = false;
+	ioqueue->push('m');
 }

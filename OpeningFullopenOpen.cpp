@@ -19,10 +19,10 @@ OpeningFullopenOpen::~OpeningFullopenOpen() {
 
 // guard, accept, event
 
-bool OpeningFullopenOpen::guard(GarageDoorController* GDC)
+bool OpeningFullopenOpen::guard(void* GDC)
 {
     // If position set to 10 (open) return true
-    if (GDC->position == 10)
+    if (((GarageDoorController*)GDC)->position == 10)
         return true;
     else
         return false;

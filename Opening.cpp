@@ -11,9 +11,10 @@
 #include "Opening.h"
 #include "Output.h"
 
-Opening::Opening(Output* inOutput) {
+bool Opening::exited = false;
+
+Opening::Opening(Output* inOutput) : State(inOutput){
 	// TODO Auto-generated constructor stub
-	output = *inOutput;
 }
 
 Opening::~Opening() {
@@ -22,20 +23,26 @@ Opening::~Opening() {
 
 void Opening::entry()
 {
-	output.setMotorUp();
+	output->setMotorUp();
+	Opening::exited = false;
 	//Opening::reaction();
 }
 void Opening::exit()
 {
-	pthread_cancel(timer);
+	Opening::exited = true;
 }
 
 void* openingReactionThread(void* GDC)
 {
-	GarageDoorController* localGDC = (GarageDoorController*)GDC;
-	while (localGDC->position < 10){
+	//GarageDoorController* localGDC = (GarageDoorController*)GDC;
+	while (((GarageDoorController*) GDC)->position < 10){
 		sleep(1);
-		localGDC->position = (localGDC->position + 1);
+		if (Opening::exited)
+		{
+			pthread_exit(NULL);
+		}
+		((GarageDoorController*) GDC)->position = (((GarageDoorController*) GDC)->position + 1);
+		//std::cout << "Opening: " << ((GarageDoorController*) GDC)->position << std::endl;
 	}
 	pthread_exit(NULL);
 }

@@ -18,7 +18,7 @@ public:
     virtual bool guard(void*) {return true;}
     virtual bool accept(char* ev) {return true;}
     virtual void event() {}
-    std::queue<char> ioqueue;
+    std::queue<char>* ioqueue;
 };
 
 #endif /* TRANSITION_H_ */

@@ -15,7 +15,7 @@ public:
 	OpeningButtonStopped(std::queue<char>* inQueue);
 	virtual ~OpeningButtonStopped();
 	bool accept(char* ev);
-	void event(GarageDoorController* GDC);
+	void event(void* GDC);
 };
 
 #endif /* OPENINGBUTTONSTOPPED_H_ */

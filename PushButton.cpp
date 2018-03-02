@@ -28,7 +28,6 @@ bool PushButton::accept(char* ev)
 }
 void PushButton::event()
 {
-	ioqueue.push('r');
-	StateTable::QUEUEEMPTY = false;
+	ioqueue->push('r');
 }
 

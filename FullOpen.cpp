@@ -29,6 +29,5 @@ bool FullOpen::accept(char* ev)
 
 void FullOpen::event()
 {
-	ioqueue.push('o');
-	StateTable::QUEUEEMPTY = false;
+	ioqueue->push('o');
 }

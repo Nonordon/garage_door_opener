@@ -7,8 +7,9 @@
 
 #include "State.h"
 
-State::State() {
+State::State(Output* inOutput) {
     // TODO Auto-generated constructor stub
+	output = inOutput;
 
 }
 

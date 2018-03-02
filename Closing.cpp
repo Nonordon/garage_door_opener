@@ -9,10 +9,12 @@
 #include <unistd.h>
 #include "Closing.h"
 #include "Output.h"
+#include <iostream>
 
-Closing::Closing(Output* inOutput) {
+bool Closing::exited = false;
+
+Closing::Closing(Output* inOutput) : State(inOutput){
 	// TODO Auto-generated constructor stub
-	output = *inOutput;
 }
 
 Closing::~Closing() {
@@ -22,26 +24,32 @@ Closing::~Closing() {
 void Closing::entry()
 {
     // Turn ON Beam
-	output.turnOnBeam();
-	output.setMotorDown();
+	output->turnOnBeam();
+	output->setMotorDown();
 	//Closing::reaction();
+	Closing::exited = false;
 }
 
 void Closing::exit()
 {
     // Turn OFF Beam
-	output.turnOffBeam();
-	pthread_cancel(timer);
+	Closing::exited = true;
+	output->turnOffBeam();
 }
 
 void *closingReactionThread(void* GDC)
 {
     // Decrement position once per second (until position == 0)
 	//GarageDoorController::position = (GarageDoorController::position - 1);
-	GarageDoorController* localGDC = (GarageDoorController*) GDC;
-	while (localGDC->position > 0){
+	//GarageDoorController* localGDC = (GarageDoorController*) GDC;
+	while (((GarageDoorController*) GDC)->position > 0){
 		sleep(1);
-		localGDC->position = (localGDC->position - 1);
+		if (Closing::exited)
+		{
+			pthread_exit(NULL);
+		}
+		((GarageDoorController*) GDC)->position = (((GarageDoorController*) GDC)->position - 1);
+		//std::cout << "Closing: " << ((GarageDoorController*) GDC)->position << std::endl;
 	}
 	pthread_exit(NULL);
 }

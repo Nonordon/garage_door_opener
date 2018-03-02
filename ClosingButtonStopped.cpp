@@ -30,8 +30,8 @@ bool ClosingButtonStopped::accept(char* ev)
 	}
 }
 
-void ClosingButtonStopped::event(GarageDoorController* GDC)
+void ClosingButtonStopped::event(void* GDC)
 {
     // set direction to 'previously closing' (direction = 1)
-    GDC->direction = 1;
+	((GarageDoorController*)GDC)->direction = 1;
 }

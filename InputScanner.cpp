@@ -14,13 +14,15 @@
 #include "MotorOvercurrent.h"
 #include "PushButton.h"
 #include "Idle.h"
+#include "Output.h"
 
 InputScanner::InputScanner(std::queue<char> *inQueue) {
     // TODO Auto-generated constructor stub
     currentState = 0;
 	ioqueue = inQueue;
 
-    Idle* idle = new Idle();
+	Output* output = new Output();
+    Idle* idle = new Idle(output);
     stateList.push_back(idle);   // 0
 
     std::vector<Transition*> transitions;
@@ -48,15 +50,23 @@ void* InputScanner::InputScannerThread(void* arg) {
 
         // get user's input
         std::cin >> userInput;
-        std::cout << "UserInput: " << userInput << std::endl;
+        //std::cout << "UserInput: " << userInput << std::endl;
         for (unsigned int trans = 0; trans < IS.transitionList[IS.currentState].size(); trans++)
     	{
     		//std::cout << GDC.currentState << std::endl;
-    		if (IS.transitionList[IS.currentState][trans]->guard(&IS) && IS.transitionList[IS.currentState][trans]->accept(&userInput))
+    		if (IS.transitionList[IS.currentState][trans]->guard((void*)NULL) && IS.transitionList[IS.currentState][trans]->accept(&userInput))
     		{
-    			std::cout << "Transition Taken on inputscanner" << std::endl;
+    			//std::cout << "Transition Taken on inputscanner" << std::endl;
     			IS.stateList[IS.currentState]->exit();
+    			while (StateTable::QUEUEMUTEX)
+    			{
+    				//Hangs till it can access the queue.
+    			}
+    			StateTable::QUEUEMUTEX = true;
+    			IS.stateList[IS.currentState]->entry();
     			IS.transitionList[IS.currentState][trans]->event();
+    			//std::cout << "Queue front: " << IS.ioqueue->front() << std::endl;
+    			StateTable::QUEUEMUTEX = false;
     			IS.currentState = IS.transitionList[IS.currentState][trans]->nextState;
     			IS.stateList[IS.currentState]->entry();
     		}

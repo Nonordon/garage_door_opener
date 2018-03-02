@@ -19,10 +19,10 @@ ClosingFullclosedClosed::~ClosingFullclosedClosed() {
 
 // guard, accept, event
 
-bool ClosingFullclosedClosed::guard(GarageDoorController* GDC)
+bool ClosingFullclosedClosed::guard(void* GDC)
 {
     // If position set to 0 (closed) return true
-    if (GDC->position == 0)
+    if (((GarageDoorController*)GDC)->position == 0)
         return true;
     else
         return false;

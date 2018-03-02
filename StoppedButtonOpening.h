@@ -14,7 +14,7 @@ class StoppedButtonOpening: public Transition {
 public:
 	StoppedButtonOpening(std::queue<char>* inQueue);
 	virtual ~StoppedButtonOpening();
-	bool guard(GarageDoorController* GDC);
+	bool guard(void* GDC);
 	bool accept(char* ev);
 };
 

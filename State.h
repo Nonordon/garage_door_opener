@@ -11,13 +11,13 @@
 
 class State {
 public:
-    State();
+    State(Output* inOutput);
     virtual ~State();
     virtual void entry() {};
     virtual void exit() {};
     virtual void reaction(void*) {};
 
-    Output output;
+    Output* output;
 
 
 private:

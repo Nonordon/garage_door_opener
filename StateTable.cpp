@@ -9,7 +9,7 @@
 #include "State.h"
 #include "Transition.h"
 
-bool StateTable::QUEUEEMPTY = true;
+bool StateTable::QUEUEMUTEX = false;
 
 StateTable::StateTable() {
     // TODO Auto-generated constructor stub

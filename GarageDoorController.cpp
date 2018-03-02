@@ -37,7 +37,7 @@ GarageDoorController::GarageDoorController(std::queue<char>* inQueue) {
     Closing* closing = new Closing(output);
     Open* open = new Open(output);
     Opening* opening = new Opening(output);
-    Stopped* stopped = new Stopped();
+    Stopped* stopped = new Stopped(output);
     stateList.push_back(closed);   // 0
     stateList.push_back(closing);  // 1
     stateList.push_back(open);     // 2
@@ -98,25 +98,26 @@ void* GarageDoorController::GarageDoorControllerThread(void* arg) {
 
 	do{
 		event = 'x';
-		if (!StateTable::QUEUEEMPTY)
+		if (!StateTable::QUEUEMUTEX)
 		{
-			event = GDC.ioqueue->front();
-			GDC.ioqueue->pop();
-			std::cout << "New event: " << event <<std::endl;
-			if (GDC.ioqueue->empty())
+			StateTable::QUEUEMUTEX = true;
+			if (!GDC.ioqueue->empty())
 			{
-				StateTable::QUEUEEMPTY = true;
+				event = GDC.ioqueue->front();
+				GDC.ioqueue->pop();
 			}
+			StateTable::QUEUEMUTEX = false;
 		}
     	for (unsigned int trans = 0; trans < GDC.transitionList[GDC.currentState].size(); trans++)
     	{
-    		//std::cout << GDC.currentState << std::endl;
-    		if (GDC.transitionList[GDC.currentState][trans]->guard(&GDC) && GDC.transitionList[GDC.currentState][trans]->accept(&event))
+    		if (GDC.transitionList[GDC.currentState][trans]->accept(&event) && GDC.transitionList[GDC.currentState][trans]->guard(&GDC))
     		{
-    			std::cout << "Transition Taken on GDC" << std::endl;
+        		//std::cout << "Pre: " << GDC.currentState << std::endl;
+    			GDC.stateList[GDC.currentState]->exit();
     			GDC.transitionList[GDC.currentState][trans]->event();
     			GDC.currentState = GDC.transitionList[GDC.currentState][trans]->nextState;
     			GDC.stateList[GDC.currentState]->entry();
+        		//std::cout << "Post: " << GDC.currentState << std::endl;
     			GDC.stateList[GDC.currentState]->reaction(&GDC);
     		}
     	}

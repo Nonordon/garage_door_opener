@@ -31,8 +31,8 @@ bool OpeningButtonStopped::accept(char* ev)
 	}
 }
 
-void OpeningButtonStopped::event(GarageDoorController* GDC)
+void OpeningButtonStopped::event(void* GDC)
 {
     // set direction to 'previously opening' (0)
-	GDC->direction = 0;
+	((GarageDoorController*)GDC)->direction = 0;
 }

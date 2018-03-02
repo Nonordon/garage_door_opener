@@ -14,7 +14,7 @@ class OpeningFullopenOpen: public Transition {
 public:
 	OpeningFullopenOpen(std::queue<char>* inQueue);
 	virtual ~OpeningFullopenOpen();
-	bool guard(GarageDoorController* GDC);
+	bool guard(void* GDC);
 };
 
 #endif /* OPENINGFULLOPENOPEN_H_ */

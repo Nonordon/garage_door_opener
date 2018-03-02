@@ -19,6 +19,7 @@ public:
 	void reaction(void* GDC);
 	void exit();
 	pthread_t timer;
+	static bool exited;
 };
 
 #endif /* OPENING_H_ */
