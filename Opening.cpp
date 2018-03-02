@@ -5,8 +5,6 @@
  *      Author: filme
  */
 
-//#include <chrono>
-//#include <Timer>
 #include <unistd.h>
 #include "Opening.h"
 #include "Output.h"

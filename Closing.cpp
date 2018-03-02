@@ -5,7 +5,6 @@
  *      Author: filme
  */
 
-//#include <chrono>
 #include <unistd.h>
 #include "Closing.h"
 #include "Output.h"

@@ -20,6 +20,7 @@ public:
 	void exit();
 	pthread_t timer;
 	static bool exited;
+	void exit();
 };
 
 #endif /* OPENING_H_ */
