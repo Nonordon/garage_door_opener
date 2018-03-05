@@ -15,6 +15,8 @@
 #include "PushButton.h"
 #include "Idle.h"
 #include "Reset.h"
+#include <string>
+#include <unistd.h>
 
 #define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
 
@@ -81,6 +83,12 @@ void* InputScanner::InputScannerThread(void* arg) {
 		}while (true); // Loop forever
     } else
     {
+    	sleep(2);
+    	//QNX I/O
+		if (ThreadCtl(_NTO_TCTL_IO, NULL) == -1)
+		{
+			throw ("Failed to get I/O access permission");
+		}
     	int AVal;
     	std::string userInputString;
     	char userInput;
@@ -90,6 +98,7 @@ void* InputScanner::InputScannerThread(void* arg) {
     		for (unsigned int i; i < userInputString.length(); i++)
     		{
     			userInput = userInputString[i];
+    			std::cout << userInput << std::endl;
     			for (unsigned int trans = 0; trans < IS.transitionList[IS.currentState].size(); trans++)
     			{
     				//std::cout << GDC.currentState << std::endl;
@@ -123,19 +132,24 @@ std::string InputScanner::byteToString(int byte)
 	if (CHECK_BIT(byte,0) == 1)
 	{
 		returnString += 'o';
-	} else if (CHECK_BIT(byte,1) == 1)
+	}
+	if (CHECK_BIT(byte,1) == 1)
 	{
 		returnString += 'c';
-	} else if (CHECK_BIT(byte,2) == 1)
+	}
+	if (CHECK_BIT(byte,2) == 1)
 	{
 		returnString += 'i';
-	} else if (CHECK_BIT(byte,3) == 1)
+	}
+	if (CHECK_BIT(byte,3) == 1)
 	{
 		returnString += 'm';
-	} else if (CHECK_BIT(byte,4) == 1)
+	}
+	if (CHECK_BIT(byte,4) == 1)
 	{
 		returnString += 'r';
-	} else if (CHECK_BIT(byte,7) == 1)
+	}
+	if (CHECK_BIT(byte,7) == 1)
 	{
 		returnString += 's';
 	}

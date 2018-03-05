@@ -42,8 +42,6 @@ Output::Output() {
 		{
 			throw ("Failed to map control register");
 		}
-		out8(ctrReg,INITCTRL); //10010001
-
 		Output::portA = mmap_device_io(1,DIOA);
 		if (ctrReg == MAP_DEVICE_FAILED)
 		{
@@ -59,13 +57,8 @@ Output::Output() {
 		{
 			throw ("Failed to map I/O C register");
 		}
-		AVal = INITA;
-		BVal = INITB;
-		CVal = INITC;
-		out8(Output::portC, CVal);
-		usleep(RESETTIME);
-		CVal |= (1u << 4); //Setting pin 5 high
-		out8(Output::portC, CVal);
+		out8(ctrReg,INITCTRL); //10010001
+		reset();
 	}
 }
 
@@ -75,8 +68,8 @@ Output::~Output() {
 
 void Output::beamStatus()
 {
-	if (Output::simulation)
-	{
+	//if (Output::simulation)
+	//{
 		if (beamOn)
 		{
 			std::cout << "The beam is currently on." << std::endl;
@@ -84,8 +77,8 @@ void Output::beamStatus()
 		{
 			std::cout << "The beam is currently off." << std::endl;
 		}
-	} else
-	{
+	//} else
+	//{
 		if (beamOn)
 		{
 			BVal |= (1u << 4); //Setting pin 5 high
@@ -94,13 +87,13 @@ void Output::beamStatus()
 			BVal &= ~(1u << 4); //Setting pin 5 low
 		}
 		out8(Output::portB, BVal);
-	}
+	//}
 }
 
 void Output::motorStatus()
 {
-	if (Output::simulation)
-	{
+	//if (Output::simulation)
+	//{
 		if ((motorUp) && !(motorDown))
 		{
 			std::cout << "The motor is moving up." << std::endl;
@@ -114,8 +107,8 @@ void Output::motorStatus()
 		{
 			std::cout << "Motor is currently set to move up and down." << std::endl;
 		}
-	} else
-	{
+	//} else
+	//{
 		if ((motorUp) && !(motorDown))
 		{
 			BVal |= (1u << 2); //Setting pin 3 high
@@ -134,36 +127,37 @@ void Output::motorStatus()
 			BVal |= (1u << 3); //Setting pin 4 high
 		}
 		out8(Output::portB, BVal);
-	}
+	//}
 }
 void Output::fullOpen()
 {
-	if (Output::simulation)
-	{
+	//if (Output::simulation)
+	//{
 		std::cout << "The door is completely open." << std::endl;
-	} else
-	{
+	//} else
+	//{
 		BVal |= (1u << 0); //Setting pin 1 high
 		out8(Output::portA, BVal);
-	}
+	//}
 }
 void Output::fullClose()
 {
-	if (Output::simulation)
-	{
+	//if (Output::simulation)
+	//{
 		std::cout << "The door is completely closed." << std::endl;
-	} else
-	{
+	//} else
+	//{
 		BVal |= (1u << 1); //Setting pin 2 high
 		out8(Output::portB, BVal);
-	}
+	//}
 }
 void Output::reset()
 {
+	AVal = INITA;
 	BVal = INITB;
 	CVal = INITC;
 	out8(Output::portC, CVal);
-	usleep(RESETTIME);
+	sleep(RESETTIME);
 	CVal |= (1u << 4); //Setting pin 5 high
 	out8(Output::portC, CVal);
 

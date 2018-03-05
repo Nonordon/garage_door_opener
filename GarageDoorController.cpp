@@ -33,6 +33,7 @@ GarageDoorController::GarageDoorController(std::queue<char>* inQueue) {
     position = 0;
     ioqueue = inQueue;
     output = new Output();
+    output->reset();
 
     Closed* closed = new Closed((void*)output);
     Closing* closing = new Closing((void*)output);
@@ -103,7 +104,7 @@ void* GarageDoorController::GarageDoorControllerThread(void* arg) {
 
 	GarageDoorController GDC = GarageDoorController((std::queue<char>*) arg);
 	char event;
-
+	GDC.stateList[GDC.currentState]->entry();
 	do{
 		event = 'x';
 		if (!StateTable::QUEUEMUTEX)
