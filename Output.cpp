@@ -153,14 +153,19 @@ void Output::fullClose()
 }
 void Output::reset()
 {
-	AVal = INITA;
-	BVal = INITB;
-	CVal = INITC;
-	out8(Output::portC, CVal);
-	sleep(RESETTIME);
-	CVal |= (1u << 4); //Setting pin 5 high
-	out8(Output::portC, CVal);
-
+	//if (Output::simulation)
+	//{
+		std::cout << "Resetting System" << std::endl; // This won't do anything in a simulation without passing GDC to entry on closed, and changing pos/dir from there
+	//} else
+	//{
+		AVal = INITA;
+		BVal = INITB;
+		CVal = INITC;
+		out8(Output::portC, CVal);
+		sleep(RESETTIME);
+		CVal |= (1u << 4); //Setting pin 5 high
+		out8(Output::portC, CVal);
+	//}
 }
 void Output::turnOnBeam()
 {

@@ -95,13 +95,13 @@ void* InputScanner::InputScannerThread(void* arg) {
     	do {
     		AVal = Output::readA();
     		userInputString = IS.byteToString(AVal);
-    		for (unsigned int i; i < userInputString.length(); i++)
+    		for (unsigned int i = 0; i < userInputString.length(); i++)
     		{
     			userInput = userInputString[i];
-    			std::cout << userInput << std::endl;
+    			//std::cout << userInput << std::endl;
     			for (unsigned int trans = 0; trans < IS.transitionList[IS.currentState].size(); trans++)
     			{
-    				//std::cout << GDC.currentState << std::endl;
+    				//std::cout << IS.currentState << std::endl;
     				if (IS.transitionList[IS.currentState][trans]->guard((void*)NULL) && IS.transitionList[IS.currentState][trans]->accept(&userInput))
     				{
     					//std::cout << "Transition Taken on inputscanner" << std::endl;
@@ -152,6 +152,10 @@ std::string InputScanner::byteToString(int byte)
 	if (CHECK_BIT(byte,7) == 1)
 	{
 		returnString += 's';
+	} else
+	{
+		returnString += 'r';
 	}
+	//std::cout << "<" << returnString << ">" << std::endl;
 	return returnString;
 }
