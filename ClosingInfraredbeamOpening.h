@@ -14,7 +14,6 @@ public:
 	ClosingInfraredbeamOpening(std::queue<char>* inQueue);
 	virtual ~ClosingInfraredbeamOpening();
 	bool accept(char* ev);
-	void event();
 };
 
 #endif /* CLOSINGINFRAREDBEAMOPENING_H_ */

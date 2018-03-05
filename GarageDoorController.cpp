@@ -24,6 +24,7 @@
 #include "OpeningOvercurrentStopped.h"
 #include "StoppedButtonClosing.h"
 #include "StoppedButtonOpening.h"
+#include "AnyResetClosed.h"
 
 GarageDoorController::GarageDoorController(std::queue<char>* inQueue) {
 	// TODO Auto-generated constructor stub
@@ -31,13 +32,13 @@ GarageDoorController::GarageDoorController(std::queue<char>* inQueue) {
     direction = 0;
     position = 0;
     ioqueue = inQueue;
-    Output* output = new Output();
+    output = new Output();
 
-    Closed* closed = new Closed(output);
-    Closing* closing = new Closing(output);
-    Open* open = new Open(output);
-    Opening* opening = new Opening(output);
-    Stopped* stopped = new Stopped(output);
+    Closed* closed = new Closed((void*)output);
+    Closing* closing = new Closing((void*)output);
+    Open* open = new Open((void*)output);
+    Opening* opening = new Opening((void*)output);
+    Stopped* stopped = new Stopped((void*)output);
     stateList.push_back(closed);   // 0
     stateList.push_back(closing);  // 1
     stateList.push_back(open);     // 2
@@ -47,7 +48,9 @@ GarageDoorController::GarageDoorController(std::queue<char>* inQueue) {
     // Transitions from CLOSED state
     std::vector<Transition*> closed_transitions;
     ClosedButtonOpening* closedButtonOpening = new ClosedButtonOpening(inQueue);
+    AnyResetClosed* anyResetClosed = new AnyResetClosed(inQueue);
     closed_transitions.push_back(closedButtonOpening);
+    closed_transitions.push_back(anyResetClosed);
     transitionList.push_back(closed_transitions);
 
     // Transitions from CLOSING state
@@ -60,12 +63,14 @@ GarageDoorController::GarageDoorController(std::queue<char>* inQueue) {
     closing_transitions.push_back(closingFullclosedClosed);
     closing_transitions.push_back(closingInfraredbeamOpening);
     closing_transitions.push_back(closingOvercurrentOpening);
+    closing_transitions.push_back(anyResetClosed);
     transitionList.push_back(closing_transitions);
 
     // Transitions from OPEN state
     std::vector<Transition*> open_transitions;
     OpenButtonClosing* openButtonClosing = new OpenButtonClosing(inQueue);
     open_transitions.push_back(openButtonClosing);
+    open_transitions.push_back(anyResetClosed);
     transitionList.push_back(open_transitions);
 
     // Transitions from OPENING state
@@ -76,6 +81,7 @@ GarageDoorController::GarageDoorController(std::queue<char>* inQueue) {
     opening_transitions.push_back(openingButtonStopped);
     opening_transitions.push_back(openingFullopenOpen);
     opening_transitions.push_back(openingOvercurrentStopped);
+    opening_transitions.push_back(anyResetClosed);
     transitionList.push_back(opening_transitions);
 
     // Transitions from STOPPED state
@@ -84,6 +90,7 @@ GarageDoorController::GarageDoorController(std::queue<char>* inQueue) {
     StoppedButtonOpening* stoppedButtonOpening = new StoppedButtonOpening(inQueue);
     stopped_transitions.push_back(stoppedButtonClosing);
     stopped_transitions.push_back(stoppedButtonOpening);
+    stopped_transitions.push_back(anyResetClosed);
     transitionList.push_back(stopped_transitions);
 
 }

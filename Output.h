@@ -23,6 +23,7 @@ public:
     void setMotorUp();
     void setMotorDown();
     void setMotorOff();
+    void reset();
 
     void fullOpen();
     void fullClose();
@@ -36,11 +37,14 @@ public:
 
     static bool simulation;
 
-	uintptr_t portA;
-	uintptr_t portB;
-	uintptr_t portC;
+	static uintptr_t portA;
+	static uintptr_t portB;
+	static uintptr_t portC;
 	uintptr_t ctrReg;
 
+	static int readA();
+	static int readB();
+	static int readC();
 	int AVal;
 	int BVal;
 	int CVal;

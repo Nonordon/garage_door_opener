@@ -7,7 +7,7 @@
 
 #include "Closed.h"
 
-Closed::Closed(Output* inOutput) : State(inOutput){
+Closed::Closed(void* inOutput) : State(inOutput){
 	// TODO Auto-generated constructor stub
 }
 
@@ -19,5 +19,7 @@ Closed::~Closed() {
 
 void Closed::entry()
 {
+	output->setMotorOff();
+	output->turnOffBeam();
 	output->fullClose();
 }

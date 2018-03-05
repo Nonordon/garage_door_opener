@@ -7,7 +7,7 @@
 
 #include "Stopped.h"
 
-Stopped::Stopped(Output* inOutput) : State(inOutput){
+Stopped::Stopped(void* inOutput) : State(inOutput){
 	// TODO Auto-generated constructor stub
 
 }

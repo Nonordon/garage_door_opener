@@ -11,7 +11,7 @@
 
 bool Opening::exited = false;
 
-Opening::Opening(Output* inOutput) : State(inOutput){
+Opening::Opening(void* inOutput) : State(inOutput){
 	// TODO Auto-generated constructor stub
 }
 

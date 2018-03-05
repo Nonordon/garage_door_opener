@@ -11,7 +11,7 @@
 
 class Stopped: public State {
 public:
-	Stopped(Output* inOutput);
+	Stopped(void* inOutput);
 	virtual ~Stopped();
 	void entry();
 };

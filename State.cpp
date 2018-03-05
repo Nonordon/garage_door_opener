@@ -7,10 +7,12 @@
 
 #include "State.h"
 
-State::State(Output* inOutput) {
+State::State(void* inOutput) {
     // TODO Auto-generated constructor stub
-	output = inOutput;
-
+	if (!inOutput)
+	{
+		output = (Output*)inOutput;
+	}
 }
 
 State::~State() {

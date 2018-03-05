@@ -6,12 +6,22 @@
  */
 
 #include "Output.h"
+#include <unistd.h>
 
 //http://www.se.rit.edu/~rtembed/LabInfo/DiamondSystems/Athena%20-%20Manual%201.40.pdf 		pg 47
 #define DIOA 0x288		//IN
 #define DIOB 0x289		//OUT
 #define DIOC 0x28A		//7-4 OUT	3-0 IN
 #define DIOCTRL 0x28B
+#define INITA 0x0
+#define INITB 0x0
+#define INITC 0x0
+#define INITCTRL 0x91
+#define RESETTIME 1
+
+uintptr_t Output::portA = DIOA;
+uintptr_t Output::portB = DIOB;
+uintptr_t Output::portC = DIOC;
 
 bool Output::simulation = false;
 
@@ -32,31 +42,30 @@ Output::Output() {
 		{
 			throw ("Failed to map control register");
 		}
-		out8(ctrReg,0x91); //10010001
+		out8(ctrReg,INITCTRL); //10010001
 
-		portA = mmap_device_io(1,DIOA);
+		Output::portA = mmap_device_io(1,DIOA);
 		if (ctrReg == MAP_DEVICE_FAILED)
 		{
 			throw ("Failed to map I/O A register");
 		}
-		portB = mmap_device_io(1,DIOB);
+		Output::portB = mmap_device_io(1,DIOB);
 		if (ctrReg == MAP_DEVICE_FAILED)
 		{
 			throw ("Failed to map I/O B register");
 		}
-		portC = mmap_device_io(1,DIOC);
+		Output::portC = mmap_device_io(1,DIOC);
 		if (ctrReg == MAP_DEVICE_FAILED)
 		{
 			throw ("Failed to map I/O C register");
 		}
-		portA = 0x0;
-		portB = 0x0;
-		portC = 0x0;
-		CVal &= ~(1u << 4); //Setting pin 5 low
-		out8(portC, CVal);
-		//sleep(1);
+		AVal = INITA;
+		BVal = INITB;
+		CVal = INITC;
+		out8(Output::portC, CVal);
+		usleep(RESETTIME);
 		CVal |= (1u << 4); //Setting pin 5 high
-		out8(portC, CVal);
+		out8(Output::portC, CVal);
 	}
 }
 
@@ -84,7 +93,7 @@ void Output::beamStatus()
 		{
 			BVal &= ~(1u << 4); //Setting pin 5 low
 		}
-		out8(portB, BVal);
+		out8(Output::portB, BVal);
 	}
 }
 
@@ -124,7 +133,7 @@ void Output::motorStatus()
 			BVal |= (1u << 2); //Setting pin 3 high
 			BVal |= (1u << 3); //Setting pin 4 high
 		}
-		out8(portB, BVal);
+		out8(Output::portB, BVal);
 	}
 }
 void Output::fullOpen()
@@ -135,7 +144,7 @@ void Output::fullOpen()
 	} else
 	{
 		BVal |= (1u << 0); //Setting pin 1 high
-		out8(portA, BVal);
+		out8(Output::portA, BVal);
 	}
 }
 void Output::fullClose()
@@ -146,8 +155,18 @@ void Output::fullClose()
 	} else
 	{
 		BVal |= (1u << 1); //Setting pin 2 high
-		out8(portB, BVal);
+		out8(Output::portB, BVal);
 	}
+}
+void Output::reset()
+{
+	BVal = INITB;
+	CVal = INITC;
+	out8(Output::portC, CVal);
+	usleep(RESETTIME);
+	CVal |= (1u << 4); //Setting pin 5 high
+	out8(Output::portC, CVal);
+
 }
 void Output::turnOnBeam()
 {
@@ -176,4 +195,16 @@ void Output::setMotorOff()
 	motorUp = false;
 	motorDown = false;
 	motorStatus();
+}
+int Output::readA()
+{
+	return in8(Output::portA);
+}
+int Output::readB()
+{
+	return in8(Output::portB);
+}
+int Output::readC()
+{
+	return in8(Output::portC);
 }

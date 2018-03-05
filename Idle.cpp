@@ -7,7 +7,7 @@
 
 #include "Idle.h"
 
-Idle::Idle(Output* inOutput) : State(inOutput) {
+Idle::Idle(void* inOutput): State(inOutput) {
 	// TODO Auto-generated constructor stub
 
 }
