@@ -28,8 +28,8 @@
 GarageDoorController::GarageDoorController(std::queue<char>* inQueue) {
 	// TODO Auto-generated constructor stub
     currentState = 0;
-    this->direction = 0;
-    this->position = 0;
+    direction = 0;
+    position = 0;
     ioqueue = inQueue;
     Output* output = new Output();
 
@@ -93,6 +93,7 @@ GarageDoorController::~GarageDoorController() {
 }
 
 void* GarageDoorController::GarageDoorControllerThread(void* arg) {
+
 	GarageDoorController GDC = GarageDoorController((std::queue<char>*) arg);
 	char event;
 

@@ -8,6 +8,11 @@
 #ifndef OUTPUT_H_
 #define OUTPUT_H_
 #include <iostream>
+//QNX I/O
+#include <sys/neutrino.h>
+#include <stdint.h>
+#include <sys/mman.h>
+#include <hw/inout.h>
 
 class Output {
 public:
@@ -28,6 +33,17 @@ public:
     bool motorUp;
     bool motorDown;
     bool beamOn;
+
+    static bool simulation;
+
+	uintptr_t portA;
+	uintptr_t portB;
+	uintptr_t portC;
+	uintptr_t ctrReg;
+
+	int AVal;
+	int BVal;
+	int CVal;
 };
 
 #endif /* OUTPUT_H_ */
