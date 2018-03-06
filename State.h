@@ -11,7 +11,7 @@
 
 class State {
 public:
-    State(void* inOutput);
+    State(Output* inOutput);
     virtual ~State();
     virtual void entry() {};
     virtual void exit() {};

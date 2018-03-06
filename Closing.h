@@ -13,7 +13,7 @@
 
 class Closing: public State {
 public:
-	Closing(void* inOutput);
+	Closing(Output* inOutput);
 	virtual ~Closing();
 	void entry();
 	void exit();

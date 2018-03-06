@@ -25,7 +25,7 @@ InputScanner::InputScanner(std::queue<char> *inQueue) {
     currentState = 0;
 	ioqueue = inQueue;
 
-    Idle* idle = new Idle((void*)NULL);
+    Idle* idle = new Idle((Output*)NULL);
     stateList.push_back(idle);   // 0
 
     std::vector<Transition*> transitions;

@@ -68,8 +68,8 @@ Output::~Output() {
 
 void Output::beamStatus()
 {
-	//if (Output::simulation)
-	//{
+	if (Output::simulation)
+	{
 		if (beamOn)
 		{
 			std::cout << "The beam is currently on." << std::endl;
@@ -77,8 +77,8 @@ void Output::beamStatus()
 		{
 			std::cout << "The beam is currently off." << std::endl;
 		}
-	//} else
-	//{
+	} else
+	{
 		if (beamOn)
 		{
 			BVal |= (1u << 4); //Setting pin 5 high
@@ -87,13 +87,13 @@ void Output::beamStatus()
 			BVal &= ~(1u << 4); //Setting pin 5 low
 		}
 		out8(Output::portB, BVal);
-	//}
+	}
 }
 
 void Output::motorStatus()
 {
-	//if (Output::simulation)
-	//{
+	if (Output::simulation)
+	{
 		if ((motorUp) && !(motorDown))
 		{
 			std::cout << "The motor is moving up." << std::endl;
@@ -107,8 +107,8 @@ void Output::motorStatus()
 		{
 			std::cout << "Motor is currently set to move up and down." << std::endl;
 		}
-	//} else
-	//{
+	} else
+	{
 		if ((motorUp) && !(motorDown))
 		{
 			BVal |= (1u << 2); //Setting pin 3 high
@@ -127,37 +127,37 @@ void Output::motorStatus()
 			BVal |= (1u << 3); //Setting pin 4 high
 		}
 		out8(Output::portB, BVal);
-	//}
+	}
 }
 void Output::fullOpen()
 {
-	//if (Output::simulation)
-	//{
+	if (Output::simulation)
+	{
 		std::cout << "The door is completely open." << std::endl;
-	//} else
-	//{
+	} else
+	{
 		BVal |= (1u << 0); //Setting pin 1 high
 		out8(Output::portA, BVal);
-	//}
+	}
 }
 void Output::fullClose()
 {
-	//if (Output::simulation)
-	//{
+	if (Output::simulation)
+	{
 		std::cout << "The door is completely closed." << std::endl;
-	//} else
-	//{
+	} else
+	{
 		BVal |= (1u << 1); //Setting pin 2 high
 		out8(Output::portB, BVal);
-	//}
+	}
 }
 void Output::reset()
 {
-	//if (Output::simulation)
-	//{
+	if (Output::simulation)
+	{
 		std::cout << "Resetting System" << std::endl; // This won't do anything in a simulation without passing GDC to entry on closed, and changing pos/dir from there
-	//} else
-	//{
+	} else
+	{
 		AVal = INITA;
 		BVal = INITB;
 		CVal = INITC;
@@ -165,7 +165,7 @@ void Output::reset()
 		sleep(RESETTIME);
 		CVal |= (1u << 4); //Setting pin 5 high
 		out8(Output::portC, CVal);
-	//}
+	}
 }
 void Output::turnOnBeam()
 {

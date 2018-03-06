@@ -32,14 +32,14 @@ GarageDoorController::GarageDoorController(std::queue<char>* inQueue) {
     direction = 0;
     position = 0;
     ioqueue = inQueue;
-    output = new Output();
+	Output* output = new Output();
     //output->reset();
 
-    Closed* closed = new Closed((void*)output);
-    Closing* closing = new Closing((void*)output);
-    Open* open = new Open((void*)output);
-    Opening* opening = new Opening((void*)output);
-    Stopped* stopped = new Stopped((void*)output);
+    Closed* closed = new Closed(output);
+    Closing* closing = new Closing(output);
+    Open* open = new Open(output);
+    Opening* opening = new Opening(output);
+    Stopped* stopped = new Stopped(output);
     stateList.push_back(closed);   // 0
     stateList.push_back(closing);  // 1
     stateList.push_back(open);     // 2
@@ -127,7 +127,7 @@ void* GarageDoorController::GarageDoorControllerThread(void* arg) {
     			GDC.transitionList[GDC.currentState][trans]->event();
         		std::cout << "Trans evented " << std::endl;
     			GDC.currentState = GDC.transitionList[GDC.currentState][trans]->nextState;
-        		std::cout << "Got next state" << std::endl;
+        		std::cout << "Got next state: " << GDC.currentState << std::endl;
     			GDC.stateList[GDC.currentState]->entry();
         		std::cout << "Post: " << GDC.currentState << std::endl;
     			GDC.stateList[GDC.currentState]->reaction(&GDC);

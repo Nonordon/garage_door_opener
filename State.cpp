@@ -6,12 +6,13 @@
  */
 
 #include "State.h"
+#include <iostream>
 
-State::State(void* inOutput) {
+State::State(Output* inOutput) {
     // TODO Auto-generated constructor stub
 	if (!inOutput)
 	{
-		output = (Output*)inOutput;
+		output = inOutput;
 	}
 }
 

@@ -25,8 +25,8 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	try
-	{
+	//try
+	//{
 		pthread_t IS;
 		pthread_attr_t threadAttr;
 		pthread_attr_init(&threadAttr);		// initialize thread attributes structure
@@ -41,11 +41,11 @@ int main(int argc, char *argv[]) {
 		while(true)
 		{
 		}
-	}
-	catch (char* c)
-	{
-		std::cout << c;
-	}
+	//}
+	//catch (char* c)
+	//{
+		//std::cout << c;
+	//}
 
     return EXIT_SUCCESS;
 }

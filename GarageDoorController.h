@@ -20,7 +20,7 @@ public:
 	virtual ~GarageDoorController();
 	int direction;
 	int position;
-	Output* output;
+	//Output* output;
 };
 
 #endif /* GARAGEDOORCONTROLLER_H_ */
