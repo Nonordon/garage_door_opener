@@ -19,11 +19,34 @@ ClosingFullclosedClosed::~ClosingFullclosedClosed() {
 
 // guard, accept, event
 
+bool ClosingFullclosedClosed::accept(char* ev)
+{
+	if (!Output::simulation)
+	{
+		if (*ev == 'c')
+		{
+			return true;
+		} else
+		{
+			return false;
+		}
+	} else
+	{
+		return true;
+	}
+}
+
 bool ClosingFullclosedClosed::guard(void* GDC)
 {
     // If position set to 0 (closed) return true
-    if (((GarageDoorController*)GDC)->position == 0)
-        return true;
-    else
-        return false;
+	if (Output::simulation)
+	{
+		if (((GarageDoorController*)GDC)->position == 0)
+			return true;
+		else
+			return false;
+	} else
+	{
+		return true;
+	}
 }

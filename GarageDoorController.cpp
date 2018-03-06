@@ -32,7 +32,6 @@ GarageDoorController::GarageDoorController(std::queue<char>* inQueue) {
     direction = 0;
     position = 0;
     ioqueue = inQueue;
-    Output::init();
 	//Output* output = new Output();
     //output->reset();
 
@@ -122,12 +121,13 @@ void* GarageDoorController::GarageDoorControllerThread(void* arg) {
     	{
     		if (GDC.transitionList[GDC.currentState][trans]->accept(&event) && GDC.transitionList[GDC.currentState][trans]->guard(&GDC))
     		{
-        		std::cout << "Pre: " << GDC.currentState << std::endl;
+    			//std::cout << "Trigger event <" << event << ">" << std::endl;
+        		//std::cout << "Pre: " << GDC.currentState << std::endl;
     			GDC.stateList[GDC.currentState]->exit();
     			GDC.transitionList[GDC.currentState][trans]->event();
     			GDC.currentState = GDC.transitionList[GDC.currentState][trans]->nextState;
     			GDC.stateList[GDC.currentState]->entry();
-        		std::cout << "Post: " << GDC.currentState << std::endl;
+        		//std::cout << "Post: " << GDC.currentState << std::endl;
     			GDC.stateList[GDC.currentState]->reaction(&GDC);
     		}
     	}

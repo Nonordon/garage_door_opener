@@ -27,6 +27,7 @@ int main(int argc, char *argv[]) {
 
 	//try
 	//{
+    	Output::init();
 		pthread_t IS;
 		pthread_attr_t threadAttr;
 		pthread_attr_init(&threadAttr);		// initialize thread attributes structure

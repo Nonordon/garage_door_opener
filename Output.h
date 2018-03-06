@@ -42,9 +42,9 @@ public:
 	static uintptr_t portC;
 	static uintptr_t ctrReg;
 
-	static int readA();
-	static int readB();
-	static int readC();
+	static void readA();
+	static void readB();
+	static void readC();
 	static int AVal;
 	static int BVal;
 	static int CVal;

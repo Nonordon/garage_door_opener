@@ -30,9 +30,9 @@ bool Output::simulation = false;
 
 uintptr_t Output::ctrReg = DIOCTRL;
 
-int Output::AVal = 0x0;
-int Output::BVal = 0x0;
-int Output::CVal = 0x0;
+int Output::AVal = INITA;
+int Output::BVal = INITB;
+int Output::CVal = INITC;
 
 Output::Output() {
     // TODO Auto-generated constructor stub
@@ -94,10 +94,10 @@ void Output::beamStatus()
 	{
 		if (Output::beamOn)
 		{
-			Output::BVal |= (1u << 4); //Setting pin 5 high
+			Output::BVal |= (1u << 2); //Setting pin 11 high
 		} else
 		{
-			Output::BVal &= ~(1u << 4); //Setting pin 5 low
+			Output::BVal &= ~(1u << 2); //Setting pin 11 low
 		}
 		out8(Output::Output::portB, Output::BVal);
 	}
@@ -124,22 +124,23 @@ void Output::motorStatus()
 	{
 		if ((Output::motorUp) && !(Output::motorDown))
 		{
-			Output::BVal |= (1u << 2); //Setting pin 3 high
-			Output::BVal &= ~(1u << 3); //Setting pin 4 low
+			Output::BVal |= (1u << 0); //Setting pin 9 high
+			Output::BVal &= ~(1u << 1); //Setting pin 10 low
 		} else if ((Output::motorDown) && !(motorUp))
 		{
-			Output::BVal &= ~(1u << 2); //Setting pin 3 low
-			Output::BVal |= (1u << 3); //Setting pin 4 high
+			Output::BVal &= ~(1u << 0); //Setting pin 9 low
+			Output::BVal |= (1u << 1); //Setting pin 10 high
 		} else if (!(Output::motorDown) && !(Output::motorUp))
 		{
-			Output::BVal &= ~(1u << 2); //Setting pin 3 low
-			Output::BVal &= ~(1u << 3); //Setting pin 4 low
+			Output::BVal &= ~(1u << 0); //Setting pin 9 low
+			Output::BVal &= ~(1u << 1); //Setting pin 10 low
 		} else
 		{
-			Output::BVal |= (1u << 2); //Setting pin 3 high
-			Output::BVal |= (1u << 3); //Setting pin 4 high
+			Output::BVal |= (1u << 0); //Setting pin 9 high
+			Output::BVal |= (1u << 1); //Setting pin 10 high
 		}
 		out8(Output::portB, Output::BVal);
+		std::cout << "BVal:" << BVal << std::endl;
 	}
 }
 void Output::fullOpen()
@@ -149,8 +150,9 @@ void Output::fullOpen()
 		std::cout << "The door is completely open." << std::endl;
 	} else
 	{
-		Output::BVal |= (1u << 0); //Setting pin 1 high
-		out8(Output::portA, Output::BVal);
+		Output::setMotorOff();
+		//Output::BVal |= (1u << 0); //Setting pin 1 high
+		//out8(Output::portA, Output::BVal);
 	}
 }
 void Output::fullClose()
@@ -160,8 +162,9 @@ void Output::fullClose()
 		std::cout << "The door is completely closed." << std::endl;
 	} else
 	{
-		Output::BVal |= (1u << 1); //Setting pin 2 high
-		out8(Output::portB, Output::BVal);
+		Output::setMotorOff();
+		//Output::BVal |= (1u << 1); //Setting pin 2 high
+		//out8(Output::portB, Output::BVal);
 	}
 }
 void Output::reset()
@@ -174,10 +177,13 @@ void Output::reset()
 		Output::AVal = INITA;
 		Output::BVal = INITB;
 		Output::CVal = INITC;
-		out8(Output::portC, Output::CVal);
+		//out8(Output::portC, Output::CVal);
+		out8(Output::portB, Output::BVal);
 		sleep(RESETTIME);
-		Output::CVal |= (1u << 4); //Setting pin 5 high
-		out8(Output::portC, Output::CVal);
+		//Output::CVal |= (1u << 4); //Setting pin 5 high
+		Output::BVal |= (1u << 7); //Setting pin 5 high
+		//out8(Output::portC, Output::CVal);
+		out8(Output::portB, Output::BVal);
 	}
 }
 void Output::turnOnBeam()
@@ -208,15 +214,15 @@ void Output::setMotorOff()
 	Output::motorDown = false;
 	Output::motorStatus();
 }
-int Output::readA()
+void Output::readA()
 {
-	return in8(Output::portA);
+	Output::AVal = in8(Output::portA);
 }
-int Output::readB()
+void Output::readB()
 {
-	return in8(Output::portB);
+	Output::BVal = in8(Output::portB);
 }
-int Output::readC()
+void Output::readC()
 {
-	return in8(Output::portC);
+	Output::CVal = in8(Output::portC);
 }

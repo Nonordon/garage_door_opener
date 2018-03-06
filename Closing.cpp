@@ -58,5 +58,8 @@ void Closing::reaction(void* GDC)
 {
     // Decrement position once per second (until position == 0)
 	//GarageDoorController::position = (GarageDoorController::position - 1);
-	pthread_create(&timer, NULL, closingReactionThread, GDC);
+	if (Output::simulation)
+	{
+		pthread_create(&timer, NULL, closingReactionThread, GDC);
+	}
 }

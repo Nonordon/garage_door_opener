@@ -14,6 +14,7 @@ class OpeningFullopenOpen: public Transition {
 public:
 	OpeningFullopenOpen(std::queue<char>* inQueue);
 	virtual ~OpeningFullopenOpen();
+	bool accept(char* ev);
 	bool guard(void* GDC);
 };
 

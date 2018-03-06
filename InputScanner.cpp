@@ -18,7 +18,7 @@
 #include <string>
 #include <unistd.h>
 
-#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
+#define CHECK_BIT(var,pos) !!((var) & (1<<(pos)))
 
 InputScanner::InputScanner(std::queue<char> *inQueue) {
     // TODO Auto-generated constructor stub
@@ -89,12 +89,20 @@ void* InputScanner::InputScannerThread(void* arg) {
 		{
 			throw ("Failed to get I/O access permission");
 		}
-    	int AVal;
     	std::string userInputString;
     	char userInput;
+    	int prevAVal = 0x0;
     	do {
-    		AVal = Output::readA();
-    		userInputString = IS.byteToString(AVal);
+    		Output::readA();
+    		if (prevAVal != Output::AVal)
+    		{
+    			userInputString = IS.byteToString(Output::AVal);
+    			prevAVal = Output::AVal;
+    		}
+    		else
+    		{
+    			userInputString = "";
+    		}
     		for (unsigned int i = 0; i < userInputString.length(); i++)
     		{
     			userInput = userInputString[i];
@@ -149,13 +157,13 @@ std::string InputScanner::byteToString(int byte)
 	{
 		returnString += 'r';
 	}
-	if (CHECK_BIT(byte,7) == 1)
+	/*if (CHECK_BIT(byte,7) == 1)
 	{
 		returnString += 's';
-	} else
+	} *//*else
 	{
 		returnString += 'r';
-	}
+	}*/
 	//std::cout << "<" << returnString << ">" << std::endl;
 	return returnString;
 }

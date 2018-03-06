@@ -49,5 +49,8 @@ void Opening::reaction(void* GDC)
 {
     // Increment position once per second (until position == 10)
 	//GDC->position = (GarageDoorController::position + 1);
-	pthread_create(&timer, NULL, openingReactionThread, GDC);
+	if (Output::simulation)
+	{
+		pthread_create(&timer, NULL, openingReactionThread, GDC);
+	}
 }
