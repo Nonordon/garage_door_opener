@@ -7,7 +7,7 @@
 
 #include "Open.h"
 
-Open::Open(Output* inOutput) : State(inOutput) {
+Open::Open() {
 	// TODO Auto-generated constructor stub
 }
 

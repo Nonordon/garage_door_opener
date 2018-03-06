@@ -8,12 +8,8 @@
 #include "State.h"
 #include <iostream>
 
-State::State(Output* inOutput) {
+State::State() {
     // TODO Auto-generated constructor stub
-	if (!inOutput)
-	{
-		output = inOutput;
-	}
 }
 
 State::~State() {

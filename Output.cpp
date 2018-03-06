@@ -22,14 +22,31 @@
 uintptr_t Output::portA = DIOA;
 uintptr_t Output::portB = DIOB;
 uintptr_t Output::portC = DIOC;
+bool Output::motorUp = false;
+bool Output::motorDown = false;
+bool Output::beamOn = false;
 
 bool Output::simulation = false;
 
+uintptr_t Output::ctrReg = DIOCTRL;
+
+int Output::AVal = 0x0;
+int Output::BVal = 0x0;
+int Output::CVal = 0x0;
+
 Output::Output() {
     // TODO Auto-generated constructor stub
-	motorUp = false;
-	motorDown = false;
-	beamOn = false;
+}
+
+Output::~Output() {
+    // TODO Auto-generated destructor stub
+}
+
+void Output::init()
+{
+	Output::motorUp = false;
+	Output::motorDown = false;
+	Output::beamOn = false;
 	if (!Output::simulation)
 	{
 		//QNX I/O
@@ -37,40 +54,36 @@ Output::Output() {
 		{
 			throw ("Failed to get I/O access permission");
 		}
-		ctrReg = mmap_device_io(1,DIOCTRL);
-		if (ctrReg == MAP_DEVICE_FAILED)
+		Output::ctrReg = mmap_device_io(1,DIOCTRL);
+		if (Output::ctrReg == MAP_DEVICE_FAILED)
 		{
 			throw ("Failed to map control register");
 		}
 		Output::portA = mmap_device_io(1,DIOA);
-		if (ctrReg == MAP_DEVICE_FAILED)
+		if (Output::portA == MAP_DEVICE_FAILED)
 		{
 			throw ("Failed to map I/O A register");
 		}
 		Output::portB = mmap_device_io(1,DIOB);
-		if (ctrReg == MAP_DEVICE_FAILED)
+		if (Output::portB == MAP_DEVICE_FAILED)
 		{
 			throw ("Failed to map I/O B register");
 		}
 		Output::portC = mmap_device_io(1,DIOC);
-		if (ctrReg == MAP_DEVICE_FAILED)
+		if (Output::portC == MAP_DEVICE_FAILED)
 		{
 			throw ("Failed to map I/O C register");
 		}
-		out8(ctrReg,INITCTRL); //10010001
-		reset();
+		out8(Output::ctrReg,INITCTRL); //10010001
+		Output::reset();
 	}
-}
-
-Output::~Output() {
-    // TODO Auto-generated destructor stub
 }
 
 void Output::beamStatus()
 {
 	if (Output::simulation)
 	{
-		if (beamOn)
+		if (Output::beamOn)
 		{
 			std::cout << "The beam is currently on." << std::endl;
 		} else
@@ -79,14 +92,14 @@ void Output::beamStatus()
 		}
 	} else
 	{
-		if (beamOn)
+		if (Output::beamOn)
 		{
-			BVal |= (1u << 4); //Setting pin 5 high
+			Output::BVal |= (1u << 4); //Setting pin 5 high
 		} else
 		{
-			BVal &= ~(1u << 4); //Setting pin 5 low
+			Output::BVal &= ~(1u << 4); //Setting pin 5 low
 		}
-		out8(Output::portB, BVal);
+		out8(Output::Output::portB, Output::BVal);
 	}
 }
 
@@ -94,13 +107,13 @@ void Output::motorStatus()
 {
 	if (Output::simulation)
 	{
-		if ((motorUp) && !(motorDown))
+		if ((Output::motorUp) && !(Output::motorDown))
 		{
 			std::cout << "The motor is moving up." << std::endl;
-		} else if ((motorDown) && !(motorUp))
+		} else if ((Output::motorDown) && !(Output::motorUp))
 		{
 			std::cout << "The motor is moving down." << std::endl;
-		} else if (!(motorDown) && !(motorUp))
+		} else if (!(Output::motorDown) && !(Output::motorUp))
 		{
 			std::cout << "The motor is not moving." << std::endl;
 		} else
@@ -109,24 +122,24 @@ void Output::motorStatus()
 		}
 	} else
 	{
-		if ((motorUp) && !(motorDown))
+		if ((Output::motorUp) && !(Output::motorDown))
 		{
-			BVal |= (1u << 2); //Setting pin 3 high
-			BVal &= ~(1u << 3); //Setting pin 4 low
-		} else if ((motorDown) && !(motorUp))
+			Output::BVal |= (1u << 2); //Setting pin 3 high
+			Output::BVal &= ~(1u << 3); //Setting pin 4 low
+		} else if ((Output::motorDown) && !(motorUp))
 		{
-			BVal &= ~(1u << 2); //Setting pin 3 low
-			BVal |= (1u << 3); //Setting pin 4 high
-		} else if (!(motorDown) && !(motorUp))
+			Output::BVal &= ~(1u << 2); //Setting pin 3 low
+			Output::BVal |= (1u << 3); //Setting pin 4 high
+		} else if (!(Output::motorDown) && !(Output::motorUp))
 		{
-			BVal &= ~(1u << 2); //Setting pin 3 low
-			BVal &= ~(1u << 3); //Setting pin 4 low
+			Output::BVal &= ~(1u << 2); //Setting pin 3 low
+			Output::BVal &= ~(1u << 3); //Setting pin 4 low
 		} else
 		{
-			BVal |= (1u << 2); //Setting pin 3 high
-			BVal |= (1u << 3); //Setting pin 4 high
+			Output::BVal |= (1u << 2); //Setting pin 3 high
+			Output::BVal |= (1u << 3); //Setting pin 4 high
 		}
-		out8(Output::portB, BVal);
+		out8(Output::portB, Output::BVal);
 	}
 }
 void Output::fullOpen()
@@ -136,8 +149,8 @@ void Output::fullOpen()
 		std::cout << "The door is completely open." << std::endl;
 	} else
 	{
-		BVal |= (1u << 0); //Setting pin 1 high
-		out8(Output::portA, BVal);
+		Output::BVal |= (1u << 0); //Setting pin 1 high
+		out8(Output::portA, Output::BVal);
 	}
 }
 void Output::fullClose()
@@ -147,8 +160,8 @@ void Output::fullClose()
 		std::cout << "The door is completely closed." << std::endl;
 	} else
 	{
-		BVal |= (1u << 1); //Setting pin 2 high
-		out8(Output::portB, BVal);
+		Output::BVal |= (1u << 1); //Setting pin 2 high
+		out8(Output::portB, Output::BVal);
 	}
 }
 void Output::reset()
@@ -158,42 +171,42 @@ void Output::reset()
 		std::cout << "Resetting System" << std::endl; // This won't do anything in a simulation without passing GDC to entry on closed, and changing pos/dir from there
 	} else
 	{
-		AVal = INITA;
-		BVal = INITB;
-		CVal = INITC;
-		out8(Output::portC, CVal);
+		Output::AVal = INITA;
+		Output::BVal = INITB;
+		Output::CVal = INITC;
+		out8(Output::portC, Output::CVal);
 		sleep(RESETTIME);
-		CVal |= (1u << 4); //Setting pin 5 high
-		out8(Output::portC, CVal);
+		Output::CVal |= (1u << 4); //Setting pin 5 high
+		out8(Output::portC, Output::CVal);
 	}
 }
 void Output::turnOnBeam()
 {
-	beamOn = true;
+	Output::beamOn = true;
 	beamStatus();
 }
 void Output::turnOffBeam()
 {
-	beamOn = false;
-	beamStatus();
+	Output::beamOn = false;
+	Output::beamStatus();
 }
 void Output::setMotorUp()
 {
-	motorUp = true;
-	motorDown = false;
-	motorStatus();
+	Output::motorUp = true;
+	Output::motorDown = false;
+	Output::motorStatus();
 }
 void Output::setMotorDown()
 {
-	motorUp = false;
-	motorDown = true;
-	motorStatus();
+	Output::motorUp = false;
+	Output::motorDown = true;
+	Output::motorStatus();
 }
 void Output::setMotorOff()
 {
-	motorUp = false;
-	motorDown = false;
-	motorStatus();
+	Output::motorUp = false;
+	Output::motorDown = false;
+	Output::motorStatus();
 }
 int Output::readA()
 {

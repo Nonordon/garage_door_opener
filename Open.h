@@ -11,7 +11,7 @@
 
 class Open: public State {
 public:
-	Open(Output* inOutput);
+	Open();
 	virtual ~Open();
 	void entry();
 };

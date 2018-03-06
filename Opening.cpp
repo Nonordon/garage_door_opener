@@ -11,7 +11,7 @@
 
 bool Opening::exited = false;
 
-Opening::Opening(Output* inOutput) : State(inOutput){
+Opening::Opening(){
 	// TODO Auto-generated constructor stub
 }
 
@@ -22,7 +22,6 @@ Opening::~Opening() {
 void Opening::entry()
 {
 	output->setMotorUp();
-	std::cout << "MotorSet" << std::endl;
 	Opening::exited = false;
 	//Opening::reaction();
 }

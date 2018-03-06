@@ -12,7 +12,7 @@
 
 bool Closing::exited = false;
 
-Closing::Closing(Output* inOutput) : State(inOutput){
+Closing::Closing(){
 	// TODO Auto-generated constructor stub
 }
 

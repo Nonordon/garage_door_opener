@@ -13,7 +13,7 @@
 
 class Opening: public State {
 public:
-	Opening(Output* inOutput);
+	Opening();
 	virtual ~Opening();
 	void entry();
 	void reaction(void* GDC);
