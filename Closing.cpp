@@ -12,7 +12,7 @@
 
 bool Closing::exited = false;
 
-Closing::Closing(Output* inOutput) : State(inOutput){
+Closing::Closing(){
 	// TODO Auto-generated constructor stub
 }
 
@@ -23,8 +23,8 @@ Closing::~Closing() {
 void Closing::entry()
 {
     // Turn ON Beam
-	output->turnOnBeam();
-	output->setMotorDown();
+	Output::turnOnBeam();
+	Output::setMotorDown();
 	//Closing::reaction();
 	Closing::exited = false;
 }
@@ -33,7 +33,8 @@ void Closing::exit()
 {
     // Turn OFF Beam
 	Closing::exited = true;
-	output->turnOffBeam();
+	Output::setMotorOff();
+	Output::turnOffBeam();
 }
 
 void *closingReactionThread(void* GDC)
@@ -58,5 +59,8 @@ void Closing::reaction(void* GDC)
 {
     // Decrement position once per second (until position == 0)
 	//GarageDoorController::position = (GarageDoorController::position - 1);
-	pthread_create(&timer, NULL, closingReactionThread, GDC);
+	if (Output::simulation)
+	{
+		pthread_create(&timer, NULL, closingReactionThread, GDC);
+	}
 }

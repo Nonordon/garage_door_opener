@@ -13,14 +13,13 @@
 
 class Opening: public State {
 public:
-	Opening(Output* inOutput);
+	Opening();
 	virtual ~Opening();
 	void entry();
 	void reaction(void* GDC);
 	void exit();
 	pthread_t timer;
 	static bool exited;
-	void exit();
 };
 
 #endif /* OPENING_H_ */

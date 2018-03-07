@@ -14,6 +14,7 @@ class ClosingFullclosedClosed: public Transition {
 public:
 	ClosingFullclosedClosed(std::queue<char>* inQueue);
 	virtual ~ClosingFullclosedClosed();
+	bool accept(char* ev);
 	bool guard(void* GDC);
 };
 

@@ -11,6 +11,7 @@
 #include <pthread.h>
 #include <vector>
 #include "StateTable.h"
+#include "Output.h"
 
 class InputScanner: public StateTable {
 public:
@@ -22,7 +23,10 @@ public:
 	//void signalPushButton();
 	//void signalFullOpen();
 	//void signalFullClosed();
+	std::string byteToString(int byte);
+	Output* output;
 
+	struct timespec openTimer, closeTimer, infraTimer, motorTimer, pushTimer, tempTimer;
 };
 
 #endif /* INPUTSCANNER_H_ */

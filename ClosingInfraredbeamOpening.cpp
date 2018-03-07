@@ -30,3 +30,8 @@ bool ClosingInfraredbeamOpening::accept(char* ev)
 		return false;
 	}
 }
+
+void ClosingInfraredbeamOpening::event()
+{
+	//Output::turnOffBeam();
+}

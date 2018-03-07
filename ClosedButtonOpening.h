@@ -14,7 +14,7 @@ public:
 	ClosedButtonOpening(std::queue<char>* inQueue);
 	virtual ~ClosedButtonOpening();
 	bool accept(char* ev);
-	std::queue<char>* ioqueue;
+	//std::queue<char>* ioqueue;
 
 };
 

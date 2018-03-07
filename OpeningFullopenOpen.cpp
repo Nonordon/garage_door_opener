@@ -19,11 +19,34 @@ OpeningFullopenOpen::~OpeningFullopenOpen() {
 
 // guard, accept, event
 
+bool OpeningFullopenOpen::accept(char* ev)
+{
+	if (!Output::simulation)
+	{
+		if (*ev == 'o')
+		{
+			return true;
+		} else
+		{
+			return false;
+		}
+	} else
+	{
+		return true;
+	}
+}
+
 bool OpeningFullopenOpen::guard(void* GDC)
 {
     // If position set to 10 (open) return true
-    if (((GarageDoorController*)GDC)->position == 10)
-        return true;
-    else
-        return false;
+	if (Output::simulation)
+	{
+		if (((GarageDoorController*)GDC)->position == 10)
+			return true;
+		else
+			return false;
+	} else
+	{
+		return true;
+	}
 }

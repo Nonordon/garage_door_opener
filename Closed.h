@@ -11,7 +11,7 @@
 
 class Closed: public State {
 public:
-	Closed(Output* inOutput);
+	Closed();
 	virtual ~Closed();
 	void entry();
 };

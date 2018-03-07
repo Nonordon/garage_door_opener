@@ -11,7 +11,7 @@
 
 class Idle: public State {
 public:
-	Idle(Output* inOutput);
+	Idle();
 	virtual ~Idle();
 };
 

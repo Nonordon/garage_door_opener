@@ -11,7 +11,7 @@
 
 bool Opening::exited = false;
 
-Opening::Opening(Output* inOutput) : State(inOutput){
+Opening::Opening(){
 	// TODO Auto-generated constructor stub
 }
 
@@ -21,13 +21,14 @@ Opening::~Opening() {
 
 void Opening::entry()
 {
-	output->setMotorUp();
+	Output::setMotorUp();
 	Opening::exited = false;
 	//Opening::reaction();
 }
 void Opening::exit()
 {
 	Opening::exited = true;
+	Output::setMotorOff();
 }
 
 void* openingReactionThread(void* GDC)
@@ -49,5 +50,8 @@ void Opening::reaction(void* GDC)
 {
     // Increment position once per second (until position == 10)
 	//GDC->position = (GarageDoorController::position + 1);
-	pthread_create(&timer, NULL, openingReactionThread, GDC);
+	if (Output::simulation)
+	{
+		pthread_create(&timer, NULL, openingReactionThread, GDC);
+	}
 }

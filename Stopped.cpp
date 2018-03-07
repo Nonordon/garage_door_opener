@@ -7,7 +7,7 @@
 
 #include "Stopped.h"
 
-Stopped::Stopped(Output* inOutput) : State(inOutput){
+Stopped::Stopped(){
 	// TODO Auto-generated constructor stub
 
 }
@@ -20,5 +20,6 @@ Stopped::~Stopped() {
 
 void Stopped::entry()
 {
-	output->setMotorOff();
+	//Output::turnOffBeam();
+	//Output::setMotorOff();
 }
