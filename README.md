@@ -8,7 +8,7 @@ Running program with argument "-s" starts it in simulation mode.
 
 # IO Wiring
 
-    | Signal | [Athena Port](http://www.se.rit.edu/~rtembed/LabInfo/DiamondSystems/Athena%20-%20Manual%201.40.pdf#page=15) | [Spartan Port](http://www.se.rit.edu/~rtembed/LabInfo/FPGA-Interface/FPGA%20A2%20Pinouts.pdf) | I/O (in respoect to Athena) |
+    | Signal | Athena Port | Spartan Port | I/O (in respoect to Athena) |
     | --- | --- | --- | --- |
     | Digital Ground | Dground | A2-1 | N/A |
     | Full Open | DIO A0 | A2-5 | Input |
