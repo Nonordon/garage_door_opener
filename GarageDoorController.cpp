@@ -33,7 +33,7 @@ GarageDoorController::GarageDoorController(std::queue<char>* inQueue) {
     position = 0;
     ioqueue = inQueue;
 	//Output* output = new Output();
-    //output->reset();
+    //Output::reset();
 
     Closed* closed = new Closed();
     Closing* closing = new Closing();

@@ -17,8 +17,10 @@
 #include "Reset.h"
 #include <string>
 #include <unistd.h>
+#include <time.h>
 
 #define CHECK_BIT(var,pos) !!((var) & (1<<(pos)))
+#define BOUNCELIMIT 0.75
 
 InputScanner::InputScanner(std::queue<char> *inQueue) {
     // TODO Auto-generated constructor stub
@@ -42,6 +44,11 @@ InputScanner::InputScanner(std::queue<char> *inQueue) {
     transitions.push_back(pb);
     transitions.push_back(rs);
     transitionList.push_back(transitions);
+	clock_gettime(CLOCK_MONOTONIC, &openTimer);
+	clock_gettime(CLOCK_MONOTONIC, &closeTimer);
+	clock_gettime(CLOCK_MONOTONIC, &infraTimer);
+	clock_gettime(CLOCK_MONOTONIC, &motorTimer);
+	clock_gettime(CLOCK_MONOTONIC, &pushTimer);
 }
 
 void* InputScanner::InputScannerThread(void* arg) {
@@ -136,26 +143,58 @@ void* InputScanner::InputScannerThread(void* arg) {
 
 std::string InputScanner::byteToString(int byte)
 {
+	double elapsed;
 	std::string returnString = "";
+	clock_gettime(CLOCK_MONOTONIC, &tempTimer);
 	if (CHECK_BIT(byte,0) == 1)
 	{
-		returnString += 'o';
+		elapsed = (tempTimer.tv_sec - openTimer.tv_sec);
+		elapsed += (tempTimer.tv_nsec - openTimer.tv_nsec) / 1000000000.0;
+		if (elapsed >= BOUNCELIMIT)
+		{
+			returnString += 'o';
+			clock_gettime(CLOCK_MONOTONIC, &openTimer);
+		}
 	}
 	if (CHECK_BIT(byte,1) == 1)
 	{
-		returnString += 'c';
+		elapsed = (tempTimer.tv_sec - closeTimer.tv_sec);
+		elapsed += (tempTimer.tv_nsec - closeTimer.tv_nsec) / 1000000000.0;
+		if (elapsed >= BOUNCELIMIT)
+		{
+			returnString += 'c';
+			clock_gettime(CLOCK_MONOTONIC, &closeTimer);
+		}
 	}
 	if (CHECK_BIT(byte,2) == 1)
 	{
-		returnString += 'i';
+		elapsed = (tempTimer.tv_sec - infraTimer.tv_sec);
+		elapsed += (tempTimer.tv_nsec - infraTimer.tv_nsec) / 1000000000.0;
+		if (elapsed >= BOUNCELIMIT)
+		{
+			returnString += 'i';
+			clock_gettime(CLOCK_MONOTONIC, &infraTimer);
+		}
 	}
 	if (CHECK_BIT(byte,3) == 1)
 	{
-		returnString += 'm';
+		elapsed = (tempTimer.tv_sec - motorTimer.tv_sec);
+		elapsed += (tempTimer.tv_nsec - motorTimer.tv_nsec) / 1000000000.0;
+		if (elapsed >= BOUNCELIMIT)
+		{
+			returnString += 'm';
+			clock_gettime(CLOCK_MONOTONIC, &motorTimer);
+		}
 	}
 	if (CHECK_BIT(byte,4) == 1)
 	{
-		returnString += 'r';
+		elapsed = (tempTimer.tv_sec - pushTimer.tv_sec);
+		elapsed += (tempTimer.tv_nsec - pushTimer.tv_nsec) / 1000000000.0;
+		if (elapsed >= BOUNCELIMIT)
+		{
+			returnString += 'r';
+			clock_gettime(CLOCK_MONOTONIC, &pushTimer);
+		}
 	}
 	/*if (CHECK_BIT(byte,7) == 1)
 	{

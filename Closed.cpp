@@ -20,7 +20,5 @@ Closed::~Closed() {
 
 void Closed::entry()
 {
-	output->setMotorOff();
-	output->turnOffBeam();
-	output->fullClose();
+	Output::fullClose();
 }

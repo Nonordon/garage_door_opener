@@ -18,5 +18,5 @@ Open::~Open() {
 // entry, exit, reaction
 void Open::entry()
 {
-	output->fullOpen();
+	Output::fullOpen();
 }

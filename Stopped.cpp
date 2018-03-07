@@ -20,5 +20,6 @@ Stopped::~Stopped() {
 
 void Stopped::entry()
 {
-	output->setMotorOff();
+	//Output::turnOffBeam();
+	//Output::setMotorOff();
 }

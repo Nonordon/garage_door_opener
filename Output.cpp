@@ -140,7 +140,7 @@ void Output::motorStatus()
 			Output::BVal |= (1u << 1); //Setting pin 10 high
 		}
 		out8(Output::portB, Output::BVal);
-		std::cout << "BVal:" << BVal << std::endl;
+		//std::cout << "BVal:" << BVal << std::endl;
 	}
 }
 void Output::fullOpen()
@@ -163,6 +163,7 @@ void Output::fullClose()
 	} else
 	{
 		Output::setMotorOff();
+		Output::turnOffBeam();
 		//Output::BVal |= (1u << 1); //Setting pin 2 high
 		//out8(Output::portB, Output::BVal);
 	}

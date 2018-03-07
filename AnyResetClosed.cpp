@@ -30,5 +30,5 @@ bool AnyResetClosed::accept(char* ev)
 
 void AnyResetClosed::event(void* GDC)
 {
-	//((GarageDoorController*)GDC)->output->reset();
+	//((GarageDoorController*)GDC)->Output::reset();
 }

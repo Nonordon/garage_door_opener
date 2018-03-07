@@ -21,13 +21,14 @@ Opening::~Opening() {
 
 void Opening::entry()
 {
-	output->setMotorUp();
+	Output::setMotorUp();
 	Opening::exited = false;
 	//Opening::reaction();
 }
 void Opening::exit()
 {
 	Opening::exited = true;
+	Output::setMotorOff();
 }
 
 void* openingReactionThread(void* GDC)

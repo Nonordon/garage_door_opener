@@ -26,6 +26,7 @@ public:
 	std::string byteToString(int byte);
 	Output* output;
 
+	struct timespec openTimer, closeTimer, infraTimer, motorTimer, pushTimer, tempTimer;
 };
 
 #endif /* INPUTSCANNER_H_ */

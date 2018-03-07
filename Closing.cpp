@@ -23,8 +23,8 @@ Closing::~Closing() {
 void Closing::entry()
 {
     // Turn ON Beam
-	output->turnOnBeam();
-	output->setMotorDown();
+	Output::turnOnBeam();
+	Output::setMotorDown();
 	//Closing::reaction();
 	Closing::exited = false;
 }
@@ -33,7 +33,8 @@ void Closing::exit()
 {
     // Turn OFF Beam
 	Closing::exited = true;
-	output->turnOffBeam();
+	Output::setMotorOff();
+	Output::turnOffBeam();
 }
 
 void *closingReactionThread(void* GDC)

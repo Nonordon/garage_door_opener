@@ -50,3 +50,4 @@ bool ClosingFullclosedClosed::guard(void* GDC)
 		return true;
 	}
 }
+
