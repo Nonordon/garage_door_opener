@@ -8,7 +8,7 @@ Running program with argument "-s" starts it in simulation mode.
 
 # IO Wiring
 
-    | Signal | Athena Port | Spartan Port | I/O (in respoect to Athena) |
+    | Signal | [Athena Port](http://www.se.rit.edu/~rtembed/LabInfo/DiamondSystems/Athena%20-%20Manual%201.40.pdf#page=15) | [Spartan Port](http://www.se.rit.edu/~rtembed/LabInfo/FPGA-Interface/FPGA%20A2%20Pinouts.pdf) | I/O (in respect to Athena) |
     | --- | --- | --- | --- |
     | Digital Ground | Dground | A2-1 | N/A |
     | Full Open | DIO A0 | A2-5 | Input |
@@ -20,3 +20,16 @@ Running program with argument "-s" starts it in simulation mode.
     | Motor Down | DIO B1 | A2-8 | Output |
     | IR Beam | DIO B2 | A2-10 | Output |
     | FPGA Reset | DIO B7 | A2-12 | Output |
+
+| Signal | [Athena Port](http://www.se.rit.edu/~rtembed/LabInfo/DiamondSystems/Athena%20-%20Manual%201.40.pdf#page=15) | [Spartan Port](http://www.se.rit.edu/~rtembed/LabInfo/FPGA-Interface/FPGA%20A2%20Pinouts.pdf) | I/O (in respect to Athena) |
+| --- | --- | --- | --- |
+| Digital Ground | Dground | A2-1 | N/A |
+| Full Open | DIO A0 | A2-5 | Input |
+| Full Close | DIO A1 | A2-7 | Input |
+| IR Beam Broken |  DIO A2 | A2-9 | Input |
+| Motor Overcurrent | DIO A3 | A2-11 | Input |
+| Remote Pushbutton | DIO A4 | A2-13 | Input |
+| Motor Up | DIO B0 | A2-6 | Output |
+| Motor Down | DIO B1 | A2-8 | Output |
+| IR Beam | DIO B2 | A2-10 | Output |
+| FPGA Reset | DIO B7 | A2-12 | Output |
