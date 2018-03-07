@@ -8,7 +8,6 @@
 #ifndef FULLOPEN_H_
 #define FULLOPEN_H_
 #include "Transition.h"
-#include "StateTable.h"
 
 class FullOpen: public Transition {
 public:

@@ -8,7 +8,6 @@
 #ifndef STOPPEDBUTTONCLOSING_H_
 #define STOPPEDBUTTONCLOSING_H_
 #include "Transition.h"
-#include "GarageDoorController.h"
 
 class StoppedButtonClosing: public Transition {
 public:

@@ -6,7 +6,7 @@
  */
 
 #include "OpeningOvercurrentStopped.h"
-#include "InputScanner.h"
+#include "GarageDoorController.h"
 
 OpeningOvercurrentStopped::OpeningOvercurrentStopped(std::queue<char>* inQueue) : Transition(inQueue) {
 	// TODO Auto-generated constructor stub
@@ -31,8 +31,8 @@ bool OpeningOvercurrentStopped::accept(char* ev)
 	}
 }
 
-void OpeningOvercurrentStopped::event(GarageDoorController* GDC)
+void OpeningOvercurrentStopped::event(void* GDC)
 {
     // set direction to 'previously opening' (0)
-    GDC->direction = 0;
+    ((GarageDoorController*)GDC)->direction = 0;
 }

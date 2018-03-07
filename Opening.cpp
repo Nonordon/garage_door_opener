@@ -5,9 +5,10 @@
  *      Author: filme
  */
 
-#include <unistd.h>
 #include "Opening.h"
 #include "Output.h"
+#include "GarageDoorController.h"
+#include <unistd.h>
 
 bool Opening::exited = false;
 
@@ -33,7 +34,6 @@ void Opening::exit()
 
 void* openingReactionThread(void* GDC)
 {
-	//GarageDoorController* localGDC = (GarageDoorController*)GDC;
 	while (((GarageDoorController*) GDC)->position < 10){
 		sleep(1);
 		if (Opening::exited)
@@ -41,7 +41,6 @@ void* openingReactionThread(void* GDC)
 			pthread_exit(NULL);
 		}
 		((GarageDoorController*) GDC)->position = (((GarageDoorController*) GDC)->position + 1);
-		//std::cout << "Opening: " << ((GarageDoorController*) GDC)->position << std::endl;
 	}
 	pthread_exit(NULL);
 }
@@ -49,7 +48,6 @@ void* openingReactionThread(void* GDC)
 void Opening::reaction(void* GDC)
 {
     // Increment position once per second (until position == 10)
-	//GDC->position = (GarageDoorController::position + 1);
 	if (Output::simulation)
 	{
 		pthread_create(&timer, NULL, openingReactionThread, GDC);

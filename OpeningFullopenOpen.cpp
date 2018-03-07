@@ -6,6 +6,8 @@
  */
 
 #include "OpeningFullopenOpen.h"
+#include "GarageDoorController.h"
+#include "Output.h"
 
 OpeningFullopenOpen::OpeningFullopenOpen(std::queue<char>* inQueue) : Transition(inQueue) {
 	// TODO Auto-generated constructor stub

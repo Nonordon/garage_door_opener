@@ -6,6 +6,7 @@
  */
 
 #include "ClosingButtonStopped.h"
+#include "GarageDoorController.h"
 
 ClosingButtonStopped::ClosingButtonStopped(std::queue<char>* inQueue): Transition(inQueue) {
 	// TODO Auto-generated constructor stub

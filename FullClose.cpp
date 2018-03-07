@@ -6,7 +6,6 @@
  */
 
 #include "FullClose.h"
-#include <iostream>
 
 FullClose::FullClose(std::queue<char>* inQueue) : Transition(inQueue) {
 	// TODO Auto-generated constructor stub

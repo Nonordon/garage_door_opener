@@ -8,7 +8,6 @@
 #ifndef FULLCLOSE_H_
 #define FULLCLOSE_H_
 #include "Transition.h"
-#include "StateTable.h"
 
 class FullClose: public Transition {
 public:

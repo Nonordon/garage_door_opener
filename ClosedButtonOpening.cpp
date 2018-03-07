@@ -6,12 +6,10 @@
  */
 
 #include "ClosedButtonOpening.h"
-#include "InputScanner.h"
 
 ClosedButtonOpening::ClosedButtonOpening(std::queue<char>* inQueue): Transition(inQueue) {
 	// TODO Auto-generated constructor stub
 	nextState = 3; //Opening
-	//ioqueue = inQueue;
 
 }
 

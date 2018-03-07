@@ -6,7 +6,6 @@
  */
 
 #include "ClosingInfraredbeamOpening.h"
-#include "InputScanner.h"
 
 ClosingInfraredbeamOpening::ClosingInfraredbeamOpening(std::queue<char>* inQueue) : Transition(inQueue){
 	// TODO Auto-generated constructor stub
@@ -29,9 +28,4 @@ bool ClosingInfraredbeamOpening::accept(char* ev)
 	{
 		return false;
 	}
-}
-
-void ClosingInfraredbeamOpening::event()
-{
-	//Output::turnOffBeam();
 }

@@ -8,25 +8,19 @@
 #ifndef INPUTSCANNER_H_
 #define INPUTSCANNER_H_
 
-#include <pthread.h>
-#include <vector>
 #include "StateTable.h"
 #include "Output.h"
+#include <pthread.h>
 
 class InputScanner: public StateTable {
 public:
 	InputScanner(std::queue<char> *inQueue);
 	pthread_t inputScannerThreadID;
 	static void* InputScannerThread(void* arg);
-	//void signalMotorOvercurrent();
-	//void signalInfraredBeamTrip();
-	//void signalPushButton();
-	//void signalFullOpen();
-	//void signalFullClosed();
 	std::string byteToString(int byte);
 	Output* output;
 
-	struct timespec openTimer, closeTimer, infraTimer, motorTimer, pushTimer, tempTimer;
+	struct timespec openTimer, closeTimer, infraTimer, motorTimer, pushTimer;
 };
 
 #endif /* INPUTSCANNER_H_ */

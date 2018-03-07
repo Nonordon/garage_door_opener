@@ -13,7 +13,6 @@ class Stopped: public State {
 public:
 	Stopped();
 	virtual ~Stopped();
-	void entry();
 };
 
 #endif /* STOPPED_H_ */

@@ -7,21 +7,19 @@
 
 #include "Output.h"
 #include <unistd.h>
+#include <iostream>
 
 //http://www.se.rit.edu/~rtembed/LabInfo/DiamondSystems/Athena%20-%20Manual%201.40.pdf 		pg 47
 #define DIOA 0x288		//IN
 #define DIOB 0x289		//OUT
-#define DIOC 0x28A		//7-4 OUT	3-0 IN
 #define DIOCTRL 0x28B
 #define INITA 0x0
 #define INITB 0x0
-#define INITC 0x0
 #define INITCTRL 0x91
 #define RESETTIME 1
 
-uintptr_t Output::portA = DIOA;
-uintptr_t Output::portB = DIOB;
-uintptr_t Output::portC = DIOC;
+uintptr_t Output::portA;
+uintptr_t Output::portB;
 bool Output::motorUp = false;
 bool Output::motorDown = false;
 bool Output::beamOn = false;
@@ -32,7 +30,6 @@ uintptr_t Output::ctrReg = DIOCTRL;
 
 int Output::AVal = INITA;
 int Output::BVal = INITB;
-int Output::CVal = INITC;
 
 Output::Output() {
     // TODO Auto-generated constructor stub
@@ -69,13 +66,13 @@ void Output::init()
 		{
 			throw ("Failed to map I/O B register");
 		}
-		Output::portC = mmap_device_io(1,DIOC);
-		if (Output::portC == MAP_DEVICE_FAILED)
-		{
-			throw ("Failed to map I/O C register");
-		}
 		out8(Output::ctrReg,INITCTRL); //10010001
-		Output::reset();
+		Output::AVal = INITA;
+		Output::BVal = INITB;
+		out8(Output::portB, Output::BVal);
+		sleep(RESETTIME);
+		Output::BVal |= (1u << 7); //Setting pin 5 high
+		out8(Output::portB, Output::BVal);
 	}
 }
 
@@ -140,7 +137,6 @@ void Output::motorStatus()
 			Output::BVal |= (1u << 1); //Setting pin 10 high
 		}
 		out8(Output::portB, Output::BVal);
-		//std::cout << "BVal:" << BVal << std::endl;
 	}
 }
 void Output::fullOpen()
@@ -151,8 +147,6 @@ void Output::fullOpen()
 	} else
 	{
 		Output::setMotorOff();
-		//Output::BVal |= (1u << 0); //Setting pin 1 high
-		//out8(Output::portA, Output::BVal);
 	}
 }
 void Output::fullClose()
@@ -164,29 +158,9 @@ void Output::fullClose()
 	{
 		Output::setMotorOff();
 		Output::turnOffBeam();
-		//Output::BVal |= (1u << 1); //Setting pin 2 high
-		//out8(Output::portB, Output::BVal);
 	}
 }
-void Output::reset()
-{
-	if (Output::simulation)
-	{
-		std::cout << "Resetting System" << std::endl; // This won't do anything in a simulation without passing GDC to entry on closed, and changing pos/dir from there
-	} else
-	{
-		Output::AVal = INITA;
-		Output::BVal = INITB;
-		Output::CVal = INITC;
-		//out8(Output::portC, Output::CVal);
-		out8(Output::portB, Output::BVal);
-		sleep(RESETTIME);
-		//Output::CVal |= (1u << 4); //Setting pin 5 high
-		Output::BVal |= (1u << 7); //Setting pin 5 high
-		//out8(Output::portC, Output::CVal);
-		out8(Output::portB, Output::BVal);
-	}
-}
+
 void Output::turnOnBeam()
 {
 	Output::beamOn = true;
@@ -217,13 +191,8 @@ void Output::setMotorOff()
 }
 void Output::readA()
 {
-	Output::AVal = in8(Output::portA);
-}
-void Output::readB()
-{
-	Output::BVal = in8(Output::portB);
-}
-void Output::readC()
-{
-	Output::CVal = in8(Output::portC);
+	if (!Output::simulation)
+	{
+		Output::AVal = in8(Output::portA);
+	}
 }

@@ -6,7 +6,6 @@
  */
 
 #include "ClosingOvercurrentOpening.h"
-#include "InputScanner.h"
 
 ClosingOvercurrentOpening::ClosingOvercurrentOpening(std::queue<char>* inQueue) : Transition(inQueue) {
 	// TODO Auto-generated constructor stub

@@ -5,10 +5,10 @@
  *      Author: filme
  */
 
-#include <unistd.h>
 #include "Closing.h"
 #include "Output.h"
-#include <iostream>
+#include "GarageDoorController.h"
+#include <unistd.h>
 
 bool Closing::exited = false;
 
@@ -25,7 +25,6 @@ void Closing::entry()
     // Turn ON Beam
 	Output::turnOnBeam();
 	Output::setMotorDown();
-	//Closing::reaction();
 	Closing::exited = false;
 }
 
@@ -40,8 +39,6 @@ void Closing::exit()
 void *closingReactionThread(void* GDC)
 {
     // Decrement position once per second (until position == 0)
-	//GarageDoorController::position = (GarageDoorController::position - 1);
-	//GarageDoorController* localGDC = (GarageDoorController*) GDC;
 	while (((GarageDoorController*) GDC)->position > 0){
 		sleep(1);
 		if (Closing::exited)
@@ -49,7 +46,6 @@ void *closingReactionThread(void* GDC)
 			pthread_exit(NULL);
 		}
 		((GarageDoorController*) GDC)->position = (((GarageDoorController*) GDC)->position - 1);
-		//std::cout << "Closing: " << ((GarageDoorController*) GDC)->position << std::endl;
 	}
 	pthread_exit(NULL);
 }
@@ -58,7 +54,6 @@ void *closingReactionThread(void* GDC)
 void Closing::reaction(void* GDC)
 {
     // Decrement position once per second (until position == 0)
-	//GarageDoorController::position = (GarageDoorController::position - 1);
 	if (Output::simulation)
 	{
 		pthread_create(&timer, NULL, closingReactionThread, GDC);

@@ -6,6 +6,8 @@
  */
 
 #include "ClosingFullclosedClosed.h"
+#include "GarageDoorController.h"
+#include "Output.h"
 
 ClosingFullclosedClosed::ClosingFullclosedClosed(std::queue<char>* inQueue) : Transition(inQueue) {
 	// TODO Auto-generated constructor stub

@@ -10,7 +10,6 @@
 
 #include <pthread.h>
 #include "StateTable.h"
-#include "Output.h"
 
 class GarageDoorController: public StateTable {
 public:
@@ -20,7 +19,6 @@ public:
 	virtual ~GarageDoorController();
 	int direction;
 	int position;
-	//Output* output;
 };
 
 #endif /* GARAGEDOORCONTROLLER_H_ */

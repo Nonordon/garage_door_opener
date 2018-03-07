@@ -8,7 +8,6 @@
 #ifndef CLOSINGFULLCLOSEDCLOSED_H_
 #define CLOSINGFULLCLOSEDCLOSED_H_
 #include "Transition.h"
-#include "GarageDoorController.h"
 
 class ClosingFullclosedClosed: public Transition {
 public:

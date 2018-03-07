@@ -6,6 +6,7 @@
  */
 
 #include "Open.h"
+#include "Output.h"
 
 Open::Open() {
 	// TODO Auto-generated constructor stub

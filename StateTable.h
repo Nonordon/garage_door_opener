@@ -16,8 +16,6 @@ class StateTable {
 public:
     StateTable();
     virtual ~StateTable();
-    //int getCurrentState() {return currentState;}
-    //int getMaxStates() {return maxStates;}
 
     //State stateList[];
     std::vector<State*> stateList;
@@ -26,7 +24,6 @@ public:
     std::vector< std::vector<Transition*> > transitionList;
 
     int currentState;
-    //int maxStates;
 
     std::queue<char>* ioqueue;
 

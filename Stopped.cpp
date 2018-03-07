@@ -17,9 +17,3 @@ Stopped::~Stopped() {
 }
 
 // entry, exit, reaction
-
-void Stopped::entry()
-{
-	//Output::turnOffBeam();
-	//Output::setMotorOff();
-}

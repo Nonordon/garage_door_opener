@@ -6,7 +6,6 @@
  */
 
 #include "State.h"
-#include <iostream>
 
 State::State() {
     // TODO Auto-generated constructor stub

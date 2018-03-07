@@ -6,7 +6,7 @@
  */
 
 #include "OpenButtonClosing.h"
-#include "InputScanner.h"
+
 OpenButtonClosing::OpenButtonClosing(std::queue<char>* inQueue) : Transition(inQueue) {
 	// TODO Auto-generated constructor stub
 	nextState = 1; //Closing

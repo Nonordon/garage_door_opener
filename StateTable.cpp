@@ -6,8 +6,6 @@
  */
 
 #include "StateTable.h"
-#include "State.h"
-#include "Transition.h"
 
 bool StateTable::QUEUEMUTEX = false;
 

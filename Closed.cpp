@@ -6,7 +6,7 @@
  */
 
 #include "Closed.h"
-#include <iostream>
+#include "Output.h"
 
 Closed::Closed(){
 	// TODO Auto-generated constructor stub

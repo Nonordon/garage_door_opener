@@ -8,7 +8,6 @@
 #ifndef CLOSING_H_
 #define CLOSING_H_
 #include "State.h"
-#include "GarageDoorController.h"
 #include <pthread.h>
 
 class Closing: public State {
@@ -19,7 +18,7 @@ public:
 	void exit();
 	void reaction(void* GDC);
 	pthread_t timer;
-	static bool exited;
+	static bool exited; //This needs to be static so the thread can interact with it
 };
 
 #endif /* CLOSING_H_ */

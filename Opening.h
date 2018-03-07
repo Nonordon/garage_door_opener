@@ -8,7 +8,6 @@
 #ifndef OPENING_H_
 #define OPENING_H_
 #include "State.h"
-#include "GarageDoorController.h"
 #include <pthread.h>
 
 class Opening: public State {

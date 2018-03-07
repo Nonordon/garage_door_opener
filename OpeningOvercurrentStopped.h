@@ -8,14 +8,13 @@
 #ifndef OPENINGOVERCURRENTSTOPPED_H_
 #define OPENINGOVERCURRENTSTOPPED_H_
 #include "Transition.h"
-#include "GarageDoorController.h"
 
 class OpeningOvercurrentStopped: public Transition {
 public:
 	OpeningOvercurrentStopped(std::queue<char>* inQueue);
 	virtual ~OpeningOvercurrentStopped();
 	bool accept(char* ev);
-	void event(GarageDoorController* GDC);
+	void event(void* GDC);
 };
 
 #endif /* OPENINGOVERCURRENTSTOPPED_H_ */

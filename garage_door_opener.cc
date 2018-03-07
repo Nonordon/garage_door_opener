@@ -1,4 +1,3 @@
-#include <cstdlib>
 #include <iostream>
 #include <pthread.h>
 #include "GarageDoorController.h"
@@ -9,7 +8,6 @@
 
 int main(int argc, char *argv[]) {
 	std::queue<char>* programQueue = new std::queue<char>;
-	//Need to check the input argument and see if it should run as a sim
 
 	Output::simulation = false;
 	int opList;
@@ -25,8 +23,8 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	//try
-	//{
+	try
+	{
     	Output::init();
 		pthread_t IS;
 		pthread_attr_t threadAttr;
@@ -34,7 +32,6 @@ int main(int argc, char *argv[]) {
 		pthread_attr_setdetachstate(&threadAttr, PTHREAD_CREATE_JOINABLE);
 		pthread_create(&IS, &threadAttr, &InputScanner::InputScannerThread, programQueue);
 		pthread_t GDC;
-		//pthread_attr_t threadAttr;
 		pthread_attr_init(&threadAttr);		// initialize thread attributes structure
 		pthread_attr_setdetachstate(&threadAttr, PTHREAD_CREATE_JOINABLE);
 		pthread_create(&GDC, &threadAttr, &GarageDoorController::GarageDoorControllerThread, programQueue);
@@ -42,11 +39,12 @@ int main(int argc, char *argv[]) {
 		while(true)
 		{
 		}
-	//}
-	//catch (char* c)
-	//{
-		//std::cout << c;
-	//}
+	}
+	catch (char* c)
+	{
+		std::cout << c;
+		return EXIT_FAILURE;
+	}
 
     return EXIT_SUCCESS;
 }
