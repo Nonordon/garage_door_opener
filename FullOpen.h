@@ -2,7 +2,7 @@
  * FullOpen.h
  *
  *  Created on: Feb 25, 2018
- *      Author: Nonordon
+ *      Author: Emily Filmer, Zachary Campanella
  */
 
 #ifndef FULLOPEN_H_

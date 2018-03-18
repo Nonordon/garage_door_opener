@@ -2,7 +2,7 @@
  * InfraredBeamTrip.h
  *
  *  Created on: Feb 25, 2018
- *      Author: Nonordon
+ *      Author: Emily Filmer, Zachary Campanella
  */
 
 #ifndef INFRAREDBEAMTRIP_H_

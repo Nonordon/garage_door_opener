@@ -2,7 +2,7 @@
  * Opening.h
  *
  *  Created on: Feb 25, 2018
- *      Author: filme
+ *      Author: Emily Filmer, Zachary Campanella
  */
 
 #ifndef OPENING_H_
@@ -20,7 +20,6 @@ public:
 	void exit();
 	pthread_t timer;
 	static bool exited;
-	void exit();
 };
 
 #endif /* OPENING_H_ */

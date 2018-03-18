@@ -2,7 +2,7 @@
  * Idle.cpp
  *
  *  Created on: Feb 27, 2018
- *      Author: Nonordon
+ *      Author: Emily Filmer, Zachary Campanella
  */
 
 #include "Idle.h"

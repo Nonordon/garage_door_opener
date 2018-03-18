@@ -2,7 +2,7 @@
  * InfraredBeamTrip.cpp
  *
  *  Created on: Feb 25, 2018
- *      Author: Nonordon
+ *      Author: Emily Filmer, Zachary Campanella
  */
 
 #include "InfraredBeamTrip.h"

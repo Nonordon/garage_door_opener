@@ -2,7 +2,7 @@
  * State.h
  *
  *  Created on: Feb 20, 2018
- *      Author: Nonordon
+ *      Author: Emily Filmer, Zachary Campanella
  */
 
 #ifndef STATE_H_

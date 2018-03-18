@@ -2,7 +2,7 @@
  * MotorOvercurrent.h
  *
  *  Created on: Feb 25, 2018
- *      Author: Nonordon
+ *      Author: Emily Filmer, Zachary Campanella
  */
 
 #ifndef MOTOROVERCURRENT_H_
