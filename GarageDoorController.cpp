@@ -2,7 +2,7 @@
  * GarageDoorController.cpp
  *
  *  Created on: Feb 22, 2018
- *      Author: Nonordon
+*      Author: Emily Filmer, Zachary Campanella
  */
 
 #include "GarageDoorController.h"

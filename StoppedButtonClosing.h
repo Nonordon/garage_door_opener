@@ -2,7 +2,7 @@
  * StoppedButtonClosing.h
  *
  *  Created on: Feb 25, 2018
- *      Author: filme
+*      Author: Emily Filmer, Zachary Campanella
  */
 
 #ifndef STOPPEDBUTTONCLOSING_H_

@@ -2,7 +2,7 @@
  * OpeningOvercurrentStopped.cpp
  *
  *  Created on: Feb 25, 2018
- *      Author: filme
+*      Author: Emily Filmer, Zachary Campanella
  */
 
 #include "OpeningOvercurrentStopped.h"

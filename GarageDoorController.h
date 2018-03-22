@@ -2,7 +2,7 @@
  * GarageDoorController.h
  *
  *  Created on: Feb 22, 2018
- *      Author: Nonordon
+*      Author: Emily Filmer, Zachary Campanella
  */
 
 #ifndef GARAGEDOORCONTROLLER_H_

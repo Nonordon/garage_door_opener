@@ -2,7 +2,7 @@
  * Idle.h
  *
  *  Created on: Feb 27, 2018
- *      Author: Nonordon
+*      Author: Emily Filmer, Zachary Campanella
  */
 
 #ifndef IDLE_H_

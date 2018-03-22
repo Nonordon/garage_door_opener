@@ -2,7 +2,7 @@
  * State.cpp
  *
  *  Created on: Feb 20, 2018
- *      Author: Nonordon
+*      Author: Emily Filmer, Zachary Campanella
  */
 
 #include "State.h"
