@@ -2,7 +2,7 @@
  * InputScanner.h
  *
  *  Created on: Feb 24, 2018
- *      Author: edf7470
+*      Author: Emily Filmer, Zachary Campanella
  */
 
 #ifndef INPUTSCANNER_H_

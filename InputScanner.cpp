@@ -2,7 +2,7 @@
  * InputScanner.cpp
  *
  *  Created on: Feb 22, 2018
- *      Author: edf7470
+*      Author: Emily Filmer, Zachary Campanella
  */
 
 #include "InputScanner.h"
